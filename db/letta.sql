@@ -15,8 +15,8 @@ CREATE TABLE `event` (
 	`description` VARCHAR(1000) NOT NULL,
 	`place` VARCHAR(500) NOT NULL,
 	`num_assistants` INT NOT NULL,
-	`start` DATETIME NOT NULL,
-	`end` DATETIME NOT NULL,
+	`start` TIMESTAMP NOT NULL,
+	`end` TIMESTAMP NOT NULL,
 	`user_id` VARCHAR(20) NOT NULL,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`user_id`) REFERENCES `user`(`login`) ON DELETE CASCADE ON UPDATE CASCADE
