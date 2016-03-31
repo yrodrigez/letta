@@ -16,10 +16,15 @@
 	width: 100%;
 }
 
-.letta-footer{
+.letta-footer, .letta-footer a{
 	background: #3c763d;
-	padding-bottom: 100px;
-	padding-top: 100px;
+	color: #ffffff;
+
+}
+
+.letta-footer ul{
+	list-style: none;
+
 }
 
 .letta-descubre-blinker{

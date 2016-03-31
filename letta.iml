@@ -123,5 +123,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: com.github.springtestdbunit:spring-test-dbunit:1.2.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hsqldb:hsqldb:2.3.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: mysql:mysql-connector-java:5.1.38" level="project" />
+    <orderEntry type="library" name="jquery" level="application" />
   </component>
 </module>
