@@ -1,7 +1,7 @@
 package es.uvigo.esei.daa.letta.entities;
 import java.util.Date;
 
-public class Event {
+public class Event implements Entity{
 	private int id;
 	private String title;
 	private String description;

@@ -98,10 +98,10 @@ public abstract class DAO {
 	
 	protected abstract String getTableName();
 	
-	protected abstract Entity rowToEntity(ResultSet result);
+	protected abstract Entity rowToEntity(ResultSet result) throws SQLException;
 	
 	protected abstract String getPrimaryKeyFieldName();
 	
-	protected abstract void setPrimaryKeyValue(PreparedStatement statement, Object id, int index);
+	protected abstract void setPrimaryKeyValue(PreparedStatement statement, Object id, int index) throws SQLException;
 	
 }
