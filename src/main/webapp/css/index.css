@@ -1,10 +1,10 @@
 .letta-dropdown-login {
-	width:300px ;
+	width: 300px ;
 	padding: 10px !important;
 }
 .letta-navbar {
 	background-color: #585858 !important;
-
+	margin-bottom: 0 !important;
 }
 
 .letta-navbar a, .letta-navbar a:visited{
@@ -14,6 +14,25 @@
 
 .letta-navbar a:hover {
 	color: #FFF !important;
+}
+
+.letta-main-container{
+	padding: 200px;
+	background: #0015ff;
+}
+
+.letta-footer{
+	background: #3c763d;
+	padding-bottom: 100px;
+	padding-top: 100px;
+}
+
+.letta-descubre-blinker{
+	animation: blinker 0.95s linear infinite;
+}
+
+@keyframes blinker {
+	50% { opacity: 0.15; }
 }
 
 
