@@ -2,19 +2,6 @@
 	width: 300px ;
 	padding: 10px !important;
 }
-.letta-navbar {
-	background-color: #585858 !important;
-	margin-bottom: 0 !important;
-}
-
-.letta-navbar a, .letta-navbar a:visited{
-	color: #bfbfbf !important;
-	background-color: #585858 !important;
-}
-
-.letta-navbar a:hover {
-	color: #FFF !important;
-}
 
 .letta-main-container{
 
