@@ -47,11 +47,11 @@
 	 }
 
 	.modal-content{
-		z-index: 1500 !important;
+		z-index: 500 !important;
 	}
 
 	.modal-backdrop{
-		z-index: 500 !important;
+		z-index: 300 !important;
 	}
 }
 
