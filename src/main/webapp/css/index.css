@@ -1,18 +1,18 @@
 .letta-dropdown-login {
-	width: 300px ;
-	padding: 10px !important;
+	width: 350px ;
+	padding: 15px;
 }
 
-.letta-main-container{
-
-}
 
 .letta-container-fluid {
-	padding: 0 !important;
+	padding: 0;
 }
 
 .letta-navbar{
-	margin-bottom: 0  !important;
+	margin-bottom: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
 }
 
 .hr.letta-hr{
@@ -24,10 +24,16 @@
 	width: 100%;
 }
 
-.letta-footer, .letta-footer a{
-	background: #3c763d;
-	color: #ffffff;
+.letta-footer,
+.letta-footer a,
+.letta-footer h3 {
+	background: #0F2105;
+	color: #bababa;
+}
 
+.letta-footer a:hover{
+	text-decoration: none;
+	color: #ffffff;
 }
 
 .letta-footer ul{
@@ -35,7 +41,7 @@
 }
 
 .letta-footer li, .letta-footer span{
-	text-align: left !important;
+	text-align: left;
 }
 
 .letta-descubre-blinker{
