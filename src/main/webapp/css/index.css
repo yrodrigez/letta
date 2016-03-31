@@ -15,9 +15,7 @@
 .letta-navbar a:hover {
 	color: #FFF !important;
 }
-.letta-hide-on-mobile{
-	display: none;
-}
+
 
 /*Mobile*/
 @media (min-width: 1px) {
@@ -31,7 +29,12 @@
 }
 
 @media (min-width: 768px) {
-
+	.letta-show-on-mobile{
+		display: none !important;
+	}
+	.letta-hide-on-mobile{
+		display: inline !important;
+	}
 }
 
 /* Medium devices (desktops, 992px and up) */
