@@ -40,6 +40,14 @@
 	.letta-show-on-mobile{
 		 display: inline !important;
 	 }
+
+	.modal-content{
+		z-index: 1500 !important;
+	}
+
+	.modal-backdrop{
+		z-index: 500 !important;
+	}
 }
 
 @media (min-width: 768px) {
