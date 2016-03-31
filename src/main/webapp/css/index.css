@@ -6,8 +6,13 @@
 .letta-main-container{
 
 }
+
+.letta-container-fluid {
+	padding: 0 !important;
+}
+
 .letta-navbar{
-	margin: 0  !important;
+	margin-bottom: 0  !important;
 }
 
 .hr.letta-hr{
@@ -27,7 +32,10 @@
 
 .letta-footer ul{
 	list-style: none;
+}
 
+.letta-footer li, .letta-footer span{
+	text-align: left !important;
 }
 
 .letta-descubre-blinker{
