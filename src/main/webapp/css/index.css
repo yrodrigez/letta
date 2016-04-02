@@ -52,6 +52,16 @@
 	padding-bottom: 10%;
 }
 
+.btn-primary,
+.btn-primary:focus{
+	background-color: #203f0e;
+	border-color: #203f0e;
+	color: white;
+}
+.btn-primary:hover{
+	background-color: #305e15;
+}
+
 .letta-copyleft {
 	display: inline-block;
 	margin: 0;
