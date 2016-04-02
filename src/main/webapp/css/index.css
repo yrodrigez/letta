@@ -1,8 +1,10 @@
+.progress{
+	height: 5px;
+}
 .letta-dropdown-login {
 	width: 350px ;
 	padding: 15px;
 }
-
 
 .letta-container-fluid {
 	padding: 0;
