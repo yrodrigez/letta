@@ -3,6 +3,7 @@ package es.uvigo.esei.daa.letta.entities;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -119,6 +120,25 @@ public class UserUnitTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testUserInvalidLongPassword(){
 		new User("u", "1234444444444444444444444444444444444444444444444444444444");
+	}
+
+	@Test
+	public void testUserNullLoginReturnFalse() {
+		String username = "username";
+		String password = "12345678912345678912345678912345";
+		User u = new User(username, password);
+
+		assertFalse(u.equals(null));
+	}
+
+	@Test
+	public void testUserDifferentLoginReturnFalse() {
+		String username = "username";
+		String password = "12345678912345678912345678912345";
+		User u = new User(username, password);
+		User anotherUser = new User("anotherUser", password);
+
+		assertFalse(u.equals(anotherUser));
 	}
 
 }
