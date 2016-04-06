@@ -1,6 +1,13 @@
 .progress{
 	height: 5px;
 }
+
+.letta-image-sizer{
+	object-fit: cover;
+	height: 180px !important;
+	width: 100%;
+}
+
 .letta-dropdown-login {
 	width: 350px ;
 	padding: 15px;
