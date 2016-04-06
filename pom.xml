@@ -402,11 +402,11 @@
 									<cargo.jvmargs>${jacoco.agent.itArgLine},output=tcpserver,port=6300 -Drunmode=TEST</cargo.jvmargs>
 									<cargo.servlet.port>9080</cargo.servlet.port>
 									<cargo.datasource.datasource.h2>
-						                cargo.datasource.jndi=jdbc/daaexample|
+						                cargo.datasource.jndi=jdbc/letta|
 										cargo.datasource.driver=org.hsqldb.jdbc.JDBCDriver|
-						                cargo.datasource.url=jdbc:hsqldb:hsql://localhost/daatestdb|
-						                cargo.datasource.username=sa|
-						                cargo.datasource.password=|
+						                cargo.datasource.url=jdbc:hsqldb:hsql://localhost/letta|
+						                cargo.datasource.username=lettauser|
+						                cargo.datasource.password=lettapass|
 						                cargo.datasource.maxActive=8|
 						                cargo.datasource.maxIdle=4|
 						                cargo.datasource.maxWait=10000

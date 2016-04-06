@@ -3,6 +3,9 @@ package es.uvigo.esei.daa.letta.rest;
 import es.uvigo.esei.daa.letta.DAO.DAOException;
 import es.uvigo.esei.daa.letta.controllers.UserController;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -18,6 +21,7 @@ import javax.ws.rs.core.Response;
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 public class UsersResource {
+	private final static Logger LOG = Logger.getLogger(UsersResource.class.getName());
 
     private final UserController userController;
 
@@ -41,11 +45,12 @@ public class UsersResource {
 
             return Response.ok(user).build();
         } catch (IllegalArgumentException | NullPointerException ex){
-
+        	LOG.log(Level.FINE, "Invalid user login in get method", ex);
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(ex.getMessage())
                     .build();
         } catch (DAOException e) {
+			LOG.log(Level.SEVERE, "Error getting a person", e);
             return Response.serverError()
                     .entity(e.getMessage())
                     .build();
@@ -58,7 +63,7 @@ public class UsersResource {
         try {
             return Response.ok(this.userController.list()).build();
         } catch (DAOException e) {
-
+			LOG.log(Level.SEVERE, "Error listing users", e);
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
@@ -73,14 +78,13 @@ public class UsersResource {
             String user = this.userController.add(login, password);
 
             return Response.ok(user).build();
-        } catch (IllegalArgumentException | NullPointerException iae) {
-
-
+        } catch (IllegalArgumentException | NullPointerException ex) {
+			LOG.log(Level.SEVERE, "Error adding a person", ex);
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(iae.getMessage())
+                    .entity(ex.getMessage())
                     .build();
         } catch (DAOException e) {
-
+			LOG.log(Level.SEVERE, "Error adding a person", e);
             return Response.serverError()
                     .entity(e.getMessage())
                     .build();
@@ -98,13 +102,13 @@ public class UsersResource {
 
             return Response.ok(user).build();
         } catch (NullPointerException | IllegalArgumentException ex) {
-
+			LOG.log(Level.SEVERE, "Error modifying a person", ex);
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(ex.getMessage())
                     .build();
 
         } catch (DAOException e) {
-
+			LOG.log(Level.SEVERE, "Error modifying a person", e);
             return Response.serverError()
                     .entity(e.getMessage())
                     .build();
@@ -121,12 +125,12 @@ public class UsersResource {
 
             return Response.ok().build();
         } catch (IllegalArgumentException | NullPointerException ex) {
-
+			LOG.log(Level.SEVERE, "Error getting a pet", ex);
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(ex.getMessage())
                     .build();
         } catch (DAOException e) {
-
+			LOG.log(Level.SEVERE, "Error getting a pet", e);
             return Response.serverError()
                     .entity(e.getMessage())
                     .build();

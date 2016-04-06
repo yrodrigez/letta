@@ -5,11 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.uvigo.esei.daa.letta.entities.Entity;
 import es.uvigo.esei.daa.letta.entities.User;
 
 public class UserDAO extends DAO{
+	private final static Logger LOG = Logger.getLogger(UserDAO.class.getName());
 	
 	public Entity add(String login, String password) throws DAOException, IllegalArgumentException {
 		if(login == null)
@@ -41,7 +44,7 @@ public class UserDAO extends DAO{
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			LOG.log(Level.SEVERE, "Error adding an entity", e);
 			throw new DAOException(e);
 		}
 		
@@ -65,7 +68,7 @@ public class UserDAO extends DAO{
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			LOG.log(Level.SEVERE, "Error modifying an entity", e);
 			throw new DAOException();
 		}
 		

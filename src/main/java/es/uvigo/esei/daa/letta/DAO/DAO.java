@@ -12,11 +12,15 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import es.uvigo.esei.daa.letta.entities.Entity;
 
 
 public abstract class DAO {
 	private final static String JNDI_NAME = "java:/comp/env/jdbc/letta";
+	private final static Logger LOG = Logger.getLogger(DAO.class.getName());
 	
 	private DataSource dataSource;
 	
@@ -27,6 +31,7 @@ public abstract class DAO {
 			
 			this.dataSource = (DataSource) initContext.lookup(JNDI_NAME);
 		} catch (NamingException e) {
+			LOG.log(Level.SEVERE, "Error initializing DAO", e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -47,7 +52,7 @@ public abstract class DAO {
 				}
 			}
 		} catch(SQLException e){
-			System.out.println(e.getMessage());
+			LOG.log(Level.SEVERE, "Error listing entities", e);
 			throw new DAOException(e.getMessage());
 		}
 	}
@@ -69,7 +74,7 @@ public abstract class DAO {
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			LOG.log(Level.SEVERE, "Error getting an entity", e);
 			throw new DAOException(e);
 		}
 	}
@@ -87,7 +92,7 @@ public abstract class DAO {
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			LOG.log(Level.SEVERE, "Error deleting an entity", e);
 			throw new DAOException(e);
 		}
 		

@@ -6,12 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import es.uvigo.esei.daa.letta.entities.Entity;
 import es.uvigo.esei.daa.letta.entities.Event;
 import es.uvigo.esei.daa.letta.entities.User;
 
 public class EventDAO extends DAO {
+	private final static Logger LOG = Logger.getLogger(EventDAO.class.getName());
 	
 	public Entity add(String title, String description, String place, int num_assistants, Date start, Date end, String user_id)
 	throws DAOException, IllegalArgumentException {
@@ -49,7 +52,7 @@ public class EventDAO extends DAO {
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			LOG.log(Level.SEVERE, "Error adding an entity", e);
 			throw new DAOException(e);
 		}
 		
@@ -86,7 +89,7 @@ public class EventDAO extends DAO {
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			LOG.log(Level.SEVERE, "Error modifying an entity", e);
 			throw new DAOException();
 		}
 
