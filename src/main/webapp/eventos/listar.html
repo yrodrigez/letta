@@ -12,119 +12,17 @@
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-<body>
-<!-- navbar -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
 
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Le<span style="color: green;">t</span>ta</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="letta-descubre-blinker active"><a href="#">Descubre</a></li>
-                <li><a href="#">Crea un evento</a></li>
-            </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Búsqueda...">
-                </div>
-                <button type="submit" class="btn btn-default">Buscar</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Regístrate</a></li>
-                <li class="letta-hide-on-mobile dropdown">
-
-                    <!--		login 	-->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
-                    <ul class="letta-dropdown-login dropdown-menu">
-                        <li>
-                            <form class="form-signin">
-                                <h2 class="form-signin-heading"> Loguéate </h2>
-                                <label for="email" class="sr-only">Correo electrónico</label>
-                                <input id="email" name="inputEmail" class="form-control" placeholder="Correo electrónico" required="" autofocus="" type="email">
-                                <label for="password" class="sr-only">Contraseña</label>
-                                <input id="password" name="inputPassword" class="form-control" placeholder="Contraseña" required="" type="password">
-                                <div class="checkbox">
-                                    <label>
-                                        <input value="remember-me" type="checkbox"> Recuérdame
-                                    </label>
-                                </div>
-                                <button class="btn btn-default" type="submit">Entrar</button>
-                            </form>
-                        </li>
-                        <!-- /.login -->
-                    </ul>
-                </li>
-                <!-- login modal -->
-                <li class="letta-show-on-mobile">
-                    <a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
-                    <!-- Modal -->
-                    <div id="login-modal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content -->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Loguéate</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="form-signin">
-                                        <h2 class="form-signin-heading">  </h2>
-                                        <label for="emailMobile" class="sr-only">Correo electrónico</label>
-                                        <input id="emailMobile" name="inputEmail" class="form-control" placeholder="Correo electrónico" required="" autofocus="" type="email">
-                                        <label for="passwordMobile" class="sr-only">Contraseña</label>
-                                        <input id="passwordMobile" name="inputPassword" class="form-control" placeholder="Contraseña" required="" type="password">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input value="remember-me" type="checkbox"> Recuérdame
-                                            </label>
-                                        </div>
-                                        <button class="btn btn-default" type="submit">Entrar</button>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li><!-- /.login modal -->
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div>
-
-</nav>
-<!-- /.navbar -->
-<div class="letta-main-container container-fluid">
-   
 <!-- Inicio lista-->
 <!-- Project One -->
         <div class="row">
             <div class="col-md-12 letta-list-block">
-                <div class="letta-list-img">
+                <div class=" letta-list-img">
                     <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
+                    <img class="col-md-4 img-responsive" src="http://placehold.it/700x300" alt="">
                     </a>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-8">
                     <h3>Project One</h3>
                     <h4>Subheading</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
@@ -145,11 +43,11 @@
             <div class="col-md-12 letta-list-block">
                 <div class=" letta-list-img">
                     <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
+                    <img class="col-md-4 img-responsive" src="http://placehold.it/700x300" alt="">
                     </a>
                 </div>
-                <div class=" col-md-5">
-                    <h3>Project Two</h3>
+                <div class="col-md-8">
+                    <h3>Project One</h3>
                     <h4>Subheading</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
                     <a class="btn btn-primary" href="#">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -167,22 +65,3 @@
 
 
 
-
-</div>
-<div class="letta-footer modal-footer">
-
-     <div class="col-sm-12 col-md-12">
-    about us
-    </div>
-    
-    <div class="col-sm-12 col-md-12">
-    Letta
-    </div>
-</div>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../js/bootstrap.min.js"></script>
-</body>
-</html>
