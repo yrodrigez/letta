@@ -19,7 +19,7 @@ public class EventDAO extends DAO {
 				place == null || num_assistants < 1 ||
 				start == null || end == null || user_id == null ||
 				title.length() > 100 || description.length() > 1000 ||
-				place.length() > 500 || start.getTime() > System.currentTimeMillis() ||
+				place.length() > 500 || start.getTime() < System.currentTimeMillis() ||
 				end.getTime() < start.getTime() || user_id.length() > 20) {
 			throw new IllegalArgumentException("the arguments are wrong");
 		}

@@ -14,7 +14,7 @@ public class User implements Entity {
 		if(login == null)
 			throw new NullPointerException("Name can't be null");
 		else if(login.length() > 20 || login.length() < 1)
-			throw new IllegalArgumentException("Name lenght must be less than 20 characters");
+			throw new IllegalArgumentException("Name length must be less than 20 characters");
 		this.login = login;
 	}
 	public String getPassword() {
@@ -24,7 +24,7 @@ public class User implements Entity {
 		if(password == null)
 			throw new NullPointerException("Password can't be null");
 		else if(password.length() != 32)
-			throw new IllegalArgumentException("Password lenght must be 32 characters");
+			throw new IllegalArgumentException("Password length must be 32 characters");
 		this.password = password;
 	}
 	
