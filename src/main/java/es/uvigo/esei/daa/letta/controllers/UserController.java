@@ -16,65 +16,42 @@ public class UserController implements Controller{
 	}
 	
 	
-	public String list() {
-		try{
-			String list = "{'users':{";
-			List<Entity> users = this.dao.list();
-			if(!users.isEmpty()){
-				for(Entity user: users){
-					list += "{'login':'" + ((User)user).getLogin() + "'},";
-				}
-				list = list.substring(0, list.length()-1);
+	public String list() throws DAOException{
+		String list = "{'users':{";
+		List<Entity> users = this.dao.list();
+		if(!users.isEmpty()){
+			for(Entity user: users){
+				list += "{'login':'" + ((User)user).getLogin() + "'},";
 			}
-			list += "}}";
-			return list;
-		} catch(DAOException e){
-			return "{'error'}";
+			list = list.substring(0, list.length()-1);
 		}
-		
+		list += "}}";
+		return list;
 	}
 
 	@Override
-	public String get(Object id) {
-		try{
-			User user = (User)this.dao.get((String)id);
-			return "{'login':'" + user.getLogin() + "'}";  
-		} catch(DAOException e){
-			return "{'error'}";
-		}
+	public String get(Object id) throws DAOException{
+		User user = (User)this.dao.get((String)id);
+		return "{'login':'" + user.getLogin() + "'}";
 	}
 
 	
-	public String modify(String login, String password) {
-		try{
-			User user = (User)this.dao.get(login);
-			user.setPassword(password);
-			this.dao.modify(user);
-			return "{'login':'" + user.getLogin() + "'}";  
-		} catch(DAOException e){
-			return "{'error'}";
-		}
+	public String modify(String login, String password) throws DAOException{
+		User user = (User)this.dao.get(login);
+		user.setPassword(password);
+		this.dao.modify(user);
+		return "{'login':'" + user.getLogin() + "'}";
 	}
 
 	
-	public String add(String login, String password) {
-		try{
-			User user = (User)((UserDAO)this.dao).add(login, password);
-			return "{'login':'" + user.getLogin() + "'}";  
-		} catch(DAOException e){
-			return "{'error'}";
-		}
+	public String add(String login, String password) throws DAOException{
+		User user = (User)((UserDAO)this.dao).add(login, password);
+		return "{'login':'" + user.getLogin() + "'}";
 	}
 
 	@Override
-	public String delete(Object id) {
-		try{
-			this.dao.delete((String)id);
-			return "{'success'}";  
-		} catch(DAOException e){
-			return "{'error'}";
-		}
-		
+	public void delete(Object id) throws DAOException{
+		this.dao.delete((String)id);
 	}
 	
 }

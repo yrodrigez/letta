@@ -12,11 +12,14 @@ import es.uvigo.esei.daa.letta.entities.User;
 public class UserDAO extends DAO{
 	
 	public Entity add(String login, String password) throws DAOException, IllegalArgumentException {
-		if (login == null || password == null ||
-			login.length() > 20 || password.length() != 32 ||
-			login == "") {
-			throw new IllegalArgumentException("login and password can't be null");
-		}
+		if(login == null)
+			throw new NullPointerException("Login can't be null");
+		if(password == null)
+			throw new NullPointerException("Password can't be null");
+		if(	login.length() > 20 || login == "")
+			throw new IllegalArgumentException("Login length must be between 1 and 20 characters");
+		if(password.length() != 32)
+			throw new IllegalArgumentException("Password must be 32 characters long");
 		
 		try (Connection conn = this.getConnection()) {
 			final String query = "INSERT INTO user VALUES(?, ?)";
@@ -46,9 +49,8 @@ public class UserDAO extends DAO{
 
 	@Override
 	public void modify(Entity entity) throws DAOException, IllegalArgumentException {
-		if (entity == null || ((User)entity).getPassword() == null ||
-			((User)entity).getLogin() == null || ((User)entity).getPassword().length() != 32) {
-			throw new IllegalArgumentException("user can't be null");
+		if (entity == null) {
+			throw new NullPointerException("user can't be null");
 		}
 		
 		try (Connection conn = this.getConnection()) {
