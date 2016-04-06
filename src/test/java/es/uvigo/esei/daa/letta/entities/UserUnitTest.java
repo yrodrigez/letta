@@ -1,12 +1,12 @@
 package es.uvigo.esei.daa.letta.entities;
 
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-
-import org.junit.Test;
-
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 public class UserUnitTest {
 	
@@ -51,7 +51,46 @@ public class UserUnitTest {
 		
 		assertTrue(userA.equals(userB));
 	}
-	
+
+	@Test(expected = NullPointerException.class)
+	public void testSetInvalidNullLogin(){
+		User u = new User("un_user", "12345678912345678912345678912345");
+
+		u.setLogin(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetInvalidLongLogin() {
+		User u = new User("un_user", "12345678912345678912345678912345");
+		String invalidLogin = "un_login_muy_largo_para_que_pete";
+
+		u.setLogin(invalidLogin);
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetInvalidShortPassword() {
+		User u = new User("un_user", "12345678912345678912345678912345");
+		String invalidPassword = "1234567891234567891234567891234";
+
+		u.setLogin(invalidPassword);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetInvalidLongPassword() {
+		User u = new User("un_user", "12345678912345678912345678912345");
+		String invalidPassword = "123456789123456789123456789123447";
+
+		u.setLogin(invalidPassword);
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testSetNullPassword() {
+		User u = new User("un_user", "12345678912345678912345678912345");
+
+		u.setLogin(null);
+	}
+
 	@Test(expected = NullPointerException.class )
 	public void testUserStringNull(){
 		new User("user", null);
