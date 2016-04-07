@@ -2,10 +2,11 @@ package es.uvigo.esei.daa.letta.entities;
 
 public class User implements Entity {
 	private String login;
-	private String password;
-	public User(String login, String password) {
+	
+	User(){}
+	
+	public User(String login) {
 		this.setLogin(login);
-		this.setPassword(password);
 	}
 	public String getLogin() {
 		return login;
@@ -16,16 +17,6 @@ public class User implements Entity {
 		else if(login.length() > 20 || login.length() < 1)
 			throw new IllegalArgumentException("Name length must be less than 20 characters");
 		this.login = login;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		if(password == null)
-			throw new NullPointerException("Password can't be null");
-		else if(password.length() != 32)
-			throw new IllegalArgumentException("Password length must be 32 characters");
-		this.password = password;
 	}
 	
 	public boolean equals(User u){

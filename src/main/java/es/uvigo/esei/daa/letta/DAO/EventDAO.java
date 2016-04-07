@@ -9,14 +9,12 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import es.uvigo.esei.daa.letta.entities.Entity;
 import es.uvigo.esei.daa.letta.entities.Event;
-import es.uvigo.esei.daa.letta.entities.User;
 
-public class EventDAO extends DAO {
+public class EventDAO extends DAO<Event> {
 	private final static Logger LOG = Logger.getLogger(EventDAO.class.getName());
 	
-	public Entity add(String title, String description, String place, int num_assistants, Date start, Date end, String user_id)
+	public Event add(String title, String description, String place, int num_assistants, Date start, Date end, String user_id)
 	throws DAOException, IllegalArgumentException {
 		if (title == null || description == null ||
 				place == null || num_assistants < 1 ||
@@ -58,38 +56,37 @@ public class EventDAO extends DAO {
 		
 	}
 
-	@Override
-	public void modify(Entity entity) throws DAOException, IllegalArgumentException {
-		if (entity == null || ((Event)entity).getId() < 1 ||
-				((Event)entity).getTitle() == null || ((Event)entity).getDescription() == null ||
-				((Event)entity).getPlace() == null || ((Event)entity).getNum_assistants() < 1 ||
-				((Event)entity).getStart() == null || ((Event)entity).getEnd() == null ||
-				((Event)entity).getUser_id() == null || ((Event)entity).getTitle().length() > 100 ||
-				((Event)entity).getDescription().length() > 1000 || ((Event)entity).getPlace().length() > 500 ||
-				((Event)entity).getStart().getTime() < System.currentTimeMillis() || ((Event)entity).getEnd().getTime() < ((Event)entity).getStart().getTime() ||
-				((Event)entity).getUser_id().length() > 20) {
-			throw new IllegalArgumentException("event is wrong formed");
+	public void modify(Event event) throws DAOException, IllegalArgumentException {
+		if (event == null || event.getId() < 1 ||
+				event.getTitle() == null || event.getDescription() == null ||
+				event.getPlace() == null || event.getNum_assistants() < 1 ||
+				event.getStart() == null || event.getEnd() == null ||
+				event.getUser_id() == null || event.getTitle().length() > 100 ||
+				event.getDescription().length() > 1000 || event.getPlace().length() > 500 ||
+				event.getStart().getTime() < System.currentTimeMillis() || event.getEnd().getTime() < event.getStart().getTime() ||
+				event.getUser_id().length() > 20) {
+			throw new IllegalArgumentException("Event is wrong formed");
 		}
 		
 		try (Connection conn = this.getConnection()) {
 			final String query = "UPDATE event SET title = ?, description = ?, place = ?, num_assistants = ?, start = ?, end = ?, user_id = ? WHERE id=?";
 			
 			try (PreparedStatement statement = conn.prepareStatement(query)) {
-				statement.setString(1, ((Event)entity).getTitle());
-				statement.setString(2, ((Event)entity).getDescription());
-				statement.setString(3, ((Event)entity).getPlace());
-				statement.setInt(4, ((Event)entity).getNum_assistants());
-				statement.setDate(5, new java.sql.Date(((Event)entity).getStart().getTime()));
-				statement.setDate(6, new java.sql.Date(((Event)entity).getEnd().getTime()));
-				statement.setString(7, ((Event)entity).getUser_id());
-				statement.setInt(8, ((Event)entity).getId());
+				statement.setString(1, event.getTitle());
+				statement.setString(2, event.getDescription());
+				statement.setString(3, event.getPlace());
+				statement.setInt(4, event.getNum_assistants());
+				statement.setDate(5, new java.sql.Date(event.getStart().getTime()));
+				statement.setDate(6, new java.sql.Date(event.getEnd().getTime()));
+				statement.setString(7, event.getUser_id());
+				statement.setInt(8, event.getId());
 				
 				if (statement.executeUpdate() != 1) {
 					throw new IllegalArgumentException("fields can't be null");
 				}
 			}
 		} catch (SQLException e) {
-			LOG.log(Level.SEVERE, "Error modifying an entity", e);
+			LOG.log(Level.SEVERE, "Error modifying an event", e);
 			throw new DAOException();
 		}
 
@@ -101,7 +98,7 @@ public class EventDAO extends DAO {
 	}
 
 	@Override
-	protected Entity rowToEntity(ResultSet result) throws SQLException {
+	protected Event rowToEntity(ResultSet result) throws SQLException {
 		int id = result.getInt("id");
 		String title = result.getString("title");
 		String description = result.getString("description");

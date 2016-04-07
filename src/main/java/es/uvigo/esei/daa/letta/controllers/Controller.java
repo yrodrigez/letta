@@ -1,9 +1,12 @@
 package es.uvigo.esei.daa.letta.controllers;
 
-import es.uvigo.esei.daa.letta.DAO.DAOException;
+import java.util.List;
 
-public interface Controller {
-	public String list() throws DAOException;
-	public String get(Object id) throws DAOException;
+import es.uvigo.esei.daa.letta.DAO.DAOException;
+import es.uvigo.esei.daa.letta.entities.Entity;
+
+public interface Controller<E extends Entity> {
+	public List<E> list() throws DAOException;
+	public E get(Object id) throws DAOException;
 	public void delete(Object id) throws DAOException;
 }

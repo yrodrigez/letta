@@ -1,8 +1,5 @@
 package es.uvigo.esei.daa.letta.rest;
 
-import es.uvigo.esei.daa.letta.DAO.DAOException;
-import es.uvigo.esei.daa.letta.controllers.UserController;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,6 +13,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import es.uvigo.esei.daa.letta.DAO.DAOException;
+import es.uvigo.esei.daa.letta.controllers.UserController;
+import es.uvigo.esei.daa.letta.entities.User;
 
 
 @Path("/users")
@@ -41,7 +42,7 @@ public class UsersResource {
             @PathParam("login") String login
     ) {
         try {
-            final String user = this.userController.get(login);
+            final User user = this.userController.get(login);
 
             return Response.ok(user).build();
         } catch (IllegalArgumentException | NullPointerException ex){
@@ -75,7 +76,7 @@ public class UsersResource {
             @FormParam("password") String password
     ) {
         try {
-            String user = this.userController.add(login, password);
+            User user = this.userController.add(login, password);
 
             return Response.ok(user).build();
         } catch (IllegalArgumentException | NullPointerException ex) {
@@ -98,7 +99,7 @@ public class UsersResource {
             @FormParam("password") String password
     ) {
         try {
-            String user = this.userController.modify(login, password );
+            User user = this.userController.modify(login, password );
 
             return Response.ok(user).build();
         } catch (NullPointerException | IllegalArgumentException ex) {
