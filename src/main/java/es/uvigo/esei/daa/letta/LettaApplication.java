@@ -3,6 +3,7 @@ package es.uvigo.esei.daa.letta;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import es.uvigo.esei.daa.letta.rest.EventResource;
 import es.uvigo.esei.daa.letta.rest.UsersResource;
 
 import java.util.Collections;
@@ -15,7 +16,10 @@ import java.util.stream.Stream;
 public class LettaApplication extends Application {
 	@Override
 	public Set<Class<?>> getClasses() {
-		return Stream.of(UsersResource.class)
+		return Stream.of(
+				UsersResource.class,
+				EventResource.class
+		)
 			.collect(Collectors.toSet());
 	}
 	
