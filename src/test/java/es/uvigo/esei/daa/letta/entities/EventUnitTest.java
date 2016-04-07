@@ -206,7 +206,31 @@ public class EventUnitTest {
 
 	}
 	@Test(expected = IllegalArgumentException.class)
-	public void testSetIllegalDescription() {
+	public void testSetIllegalShortDescription() {
+
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			int id = 1;
+			String title = "Title1";
+			String description = "Description1";
+			String place = "Place1";
+			Date start = formatter.parse("2016-05-01 16:00:00");
+			Date end = formatter.parse("2016-05-01 16:00:01");
+			int num_assistants = 10;
+			String user_id = "user1";
+
+			Event e = new Event(id, title, description, place, start, end, num_assistants, user_id);
+
+			e.setDescription("");
+
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetIllegalLongDescription() {
 
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
