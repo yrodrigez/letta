@@ -8,7 +8,9 @@ function listEvents(done, fail, always) {
             type: 'GET'
     })
         .done(done)
-        .fail(fail)
+        .fail(function(){
+            alert("FALLE");
+        })
         .always(always);
 }
 

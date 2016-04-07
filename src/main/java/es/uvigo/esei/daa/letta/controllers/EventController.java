@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import es.uvigo.esei.daa.letta.DAO.DAO;
 import es.uvigo.esei.daa.letta.DAO.DAOException;
 import es.uvigo.esei.daa.letta.DAO.EventDAO;
@@ -20,23 +21,24 @@ public class EventController implements Controller{
 	}
 	@Override
 	public String list() throws DAOException {
+
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String list = "{'events':{";
+		String list = "[";
 		List<Entity> events = this.dao.list();
 		if(!events.isEmpty()){
 			for(Entity event: events){
-				list += "{'id':'" + ((Event)event).getId() + "',"
-						+ "'title':'"+ ((Event)event).getTitle() +"',"
-						+ "'description':'"+((Event)event).getDescription() + "',"
-						+ "'place':'"+((Event)event).getPlace() + "',"
-						+ "'num_assistants':'"+((Event)event).getNum_assistants() + "',"
-						+ "'start':'"+df.format(((Event)event).getStart()) + "',"
-						+ "'end':'"+df.format(((Event)event).getEnd()) + "',"
-						+ "'user_id':'"+((Event)event).getUser_id() +"'},";
+				list += "{\"id\":\"" + ((Event)event).getId() + "\","
+						+ "\"title\":\""+ ((Event)event).getTitle() +"\","
+						+ "\"description\":\""+((Event)event).getDescription() + "\","
+						+ "\"place\":\""+((Event)event).getPlace() + "\","
+						+ "\"num_assistants\":\""+((Event)event).getNum_assistants() + "\","
+						+ "\"start\":\""+df.format(((Event)event).getStart()) + "\","
+						+ "\"end\":\""+df.format(((Event)event).getEnd()) + "\","
+						+ "\"user_id\":\""+((Event)event).getUser_id() +"\"},";
 			}
 			list = list.substring(0, list.length()-1);
 		}
-		list += "}}";
+		list += "]";
 		return list;
 	}
 
@@ -44,14 +46,14 @@ public class EventController implements Controller{
 	public String get(Object id) throws DAOException{
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Event event = (Event)this.dao.get((Integer)id);
-		return "{'id':'" + event.getId() + "',"
-		+ "'title':'"+ event.getTitle() +"',"
-		+ "'description':'"+event.getDescription() + "',"
-		+ "'place':'"+event.getPlace() + "',"
-		+ "'num_assistants':'"+event.getNum_assistants() + "',"
-		+ "'start':'"+df.format(event.getStart()) + "',"
-		+ "'end':'"+df.format(event.getEnd()) + "',"
-		+ "'user_id':'"+event.getUser_id() +"'}";
+		return "{\"id\":\"" + event.getId() + "\","
+		+ "\"title\":\""+ event.getTitle() +"\","
+		+ "\"description\":\""+event.getDescription() + "\","
+		+ "\"place\":\""+event.getPlace() + "\","
+		+ "\"num_assistants\":\""+event.getNum_assistants() + "\","
+		+ "\"start\":\""+df.format(event.getStart()) + "\","
+		+ "\"end\":\""+df.format(event.getEnd()) + "\","
+		+ "\"user_id\":\""+event.getUser_id() +"\"}";
 	}
 
 	@Override
@@ -68,7 +70,7 @@ public class EventController implements Controller{
 		Date start,
 		Date end,
 		String user_id
-	) throws DAOException{
+	) throws DAOException {
 		Event event = (Event)this.dao.get(id);
 		event.setTitle(title);
 		event.setDescription(description);
@@ -79,14 +81,14 @@ public class EventController implements Controller{
 		event.setUser_id(user_id);
 		this.dao.modify(event);
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return "{'id':'" + event.getId() + "',"
-		+ "'title':'"+ event.getTitle() +"',"
-		+ "'description':'"+event.getDescription() + "',"
-		+ "'place':'"+event.getPlace() + "',"
-		+ "'num_assistants':'"+event.getNum_assistants() + "',"
-		+ "'start':'"+df.format(event.getStart()) + "',"
-		+ "'end':'"+df.format(event.getEnd()) + "',"
-		+ "'user_id':'"+event.getUser_id() +"'}";
+		return "{\"id\":\"" + event.getId() + "\","
+		+ "\"title\":\""+ event.getTitle() +"\","
+		+ "\"description\":\""+event.getDescription() + "\","
+		+ "\"place\":\""+event.getPlace() + "\","
+		+ "\"num_assistants\":\""+event.getNum_assistants() + "\","
+		+ "\"start\":\""+df.format(event.getStart()) + "\","
+		+ "\"end\":\""+df.format(event.getEnd()) + "\","
+		+ "\"user_id\":\""+event.getUser_id() +"\"}";
 	}
 
 	
@@ -101,14 +103,14 @@ public class EventController implements Controller{
 	) throws DAOException{
 		Event event = (Event)((EventDAO)this.dao).add(title, description, place, num_assistants, start, end, user_id);
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return "{'id':'" + event.getId() + "',"
-		+ "'title':'"+ event.getTitle() +"',"
-		+ "'description':'"+event.getDescription() + "',"
-		+ "'place':'"+event.getPlace() + "',"
-		+ "'num_assistants':'"+event.getNum_assistants() + "',"
-		+ "'start':'"+df.format(event.getStart()) + "',"
-		+ "'end':'"+df.format(event.getEnd()) + "',"
-		+ "'user_id':'"+event.getUser_id() +"'}";
+		return "{\"id\":\"" + event.getId() + "\","
+		+ "\"title\":\""+ event.getTitle() +"\","
+		+ "\"description\":\""+event.getDescription() + "\","
+		+ "\"place\":\""+event.getPlace() + "\","
+		+ "\"num_assistants\":\""+event.getNum_assistants() + "\","
+		+ "\"start\":\""+df.format(event.getStart()) + "\","
+		+ "\"end\":\""+df.format(event.getEnd()) + "\","
+		+ "\"user_id\":\""+event.getUser_id() +"\"}";
 	}
 
 }

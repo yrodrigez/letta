@@ -22,13 +22,13 @@ public class LettaApplication extends Application {
 		)
 			.collect(Collectors.toSet());
 	}
-	
+	/*
 	@Override
 	public Map<String, Object> getProperties() {
 		// Activates JSON automatic conversion in JAX-RS
 		return Collections.singletonMap(
 			"com.sun.jersey.api.json.POJOMappingFeature", true
 		);
-	}
+	}*/
 
 }

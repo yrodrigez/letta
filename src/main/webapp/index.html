@@ -187,73 +187,8 @@
   </div>
 
   <!-- thumbnails -->
-  <div class="row">
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
-        <img class = "letta-image-sizer" src="http://www.grey-hare.co.uk/wp-content/uploads/2012/09/Event-management.png" alt="un evento">
-        <div class="caption">
-          <h3>Título del evento 1</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Mauris ultrices neque massa, id laoreet risus volutpat ut.
-            Nullam non dolor in dui vulputate commodo interdum ut quam.
-          </p>
-          <p>
-            Aforo:
-          <div class="progress">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                 aria-valuemin="0" aria-valuemax="100" style="width:89%">
-            </div>
-          </div>
-          89%
-          </p>
-          <p><a href="#" class="btn btn-primary" role="button">Asistir</a> <a href="#" class="btn btn-default" role="button">Ver mas</a></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
-        <img class = "letta-image-sizer" src="http://bloggingtips.moneyreigninc.netdna-cdn.com/wp-content/uploads/2014/12/Event-Blogging-Strategies.jpg" alt="un evento">
-        <div class="caption">
-          <h3>Título del evento 2</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Mauris ultrices neque massa, id laoreet risus volutpat ut.
-            Nullam non dolor in dui vulputate commodo interdum ut quam.
-          </p>
-          <p>
-            Aforo:
-          <div class="progress">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                 aria-valuemin="0" aria-valuemax="100" style="width:5%">
-            </div>
-          </div>
-          5%
-          </p>
-          <p><a href="#" class="btn btn-primary" role="button">Asistir</a> <a href="#" class="btn btn-default" role="button">Ver mas</a></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
-        <img class = "letta-image-sizer" src="http://www.cadewinery.com/images/Event.jpg" alt="un evento">
-        <div class="caption">
-          <h3>Título del evento 3</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Mauris ultrices neque massa, id laoreet risus volutpat ut.
-            Nullam non dolor in dui vulputate commodo interdum ut quam.
-          </p>
-          <p>
-          Aforo:
-          <div class="progress">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                 aria-valuemin="0" aria-valuemax="100" style="width:40%">
-            </div>
-          </div>
-          40%
-          </p>
-          <p><a href="#" class="btn btn-primary" role="button">Asistir</a> <a href="#" class="btn btn-default" role="button">Ver mas</a></p>
-        </div>
-      </div>
-    </div>
+  <div id="proximos-eventos" class="row">
+
   </div>
   <!-- /.thumbnails -->
 
@@ -356,5 +291,15 @@
     </div>
   </div>
 </div>
-  <!--/.footer--></footer>
+  <!--/.footer-->
+</footer>
+<!-- JavaScript -->
+<script type="text/javascript" src="js/view/events.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+      initEvents();
+  });
+</script>
+<!-- /.JavaScript -->
 </html>
