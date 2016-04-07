@@ -371,29 +371,6 @@ public class EventUnitTest {
 
 	}
 
-	@Test (expected = IllegalArgumentException.class)
-	public void testSetIllegal() {
-
-		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			int id = 1;
-			String title = "Title1";
-			String description = "Description1";
-			String place = "Place1";
-			Date start = formatter.parse("2016-05-01 16:00:00");
-			Date end = formatter.parse("2016-05-01 16:00:01");
-			int num_assistants = 10;
-			String user_id = "user1";
-
-			Event e = new Event(id, title, description, place, start, end, num_assistants, user_id);
-
-			e.setUser_id("a1s1s1s1s1s1s1s1s1s12");
-
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	@Test
 	public void testSetTitle() {
@@ -530,6 +507,7 @@ public class EventUnitTest {
 		}
 
 	}
+
 	@Test
 	public void testSetStart() {
 
@@ -628,6 +606,52 @@ public class EventUnitTest {
 			assertThat(e.getUser_id(), is(equalTo("molo")));
 
 
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+	}
+	@Test(expected = NullPointerException.class)
+	public void testSetNullStart() {
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			int id = 1;
+			String title = "Title1";
+			String description = "Description1";
+			String place = "Place1";
+			Date start = formatter.parse("2016-05-01 16:00:00");
+			Date end = formatter.parse("2016-05-01 16:00:01");
+			int num_assistants = 10;
+			String user_id = "user1";
+
+			Event e = new Event(id, title, description, place, start, end, num_assistants, user_id);
+
+			e.setStart(null);
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testSetNullEnd() {
+
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			int id = 1;
+			String title = "Title1";
+			String description = "Description1";
+			String place = "Place1";
+			Date start = formatter.parse("2016-05-01 16:00:00");
+			Date end = formatter.parse("2016-05-01 16:00:01");
+			int num_assistants = 10;
+			String user_id = "user1";
+
+			Event e = new Event(id, title, description, place, start, end, num_assistants, user_id);
+
+			e.setEnd(null);
 
 		} catch (ParseException e) {
 			e.printStackTrace();
