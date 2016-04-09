@@ -36,6 +36,8 @@ function initEvents(){
             $.each(events, function (key, event) {
                 addNearestEvent(event);
             });
+        }, function(){
+            alertify.error('Error listando eventos');
         });
     });
 }
