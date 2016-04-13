@@ -38,7 +38,7 @@ public class EventResource {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("/event/{id}")
     public Response get(
             @PathParam("id") int id
     ) {
@@ -61,9 +61,32 @@ public class EventResource {
 
 
     @GET
+    @Path("/all")
     public Response list() {
         try {
             return Response.ok(this.eventsController.list()).build();
+        } catch (DAOException e) {
+            LOG.log(Level.SEVERE, "Error listing events", e);
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+    
+    @GET
+    @Path("/featured")
+    public Response getFeatured(){
+        try {
+            return Response.ok(this.eventsController.getFeatured()).build();
+        } catch (DAOException e) {
+            LOG.log(Level.SEVERE, "Error listing events", e);
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+    
+    @GET
+    @Path("/popular")
+    public Response getPopular(){
+        try {
+            return Response.ok(this.eventsController.getPopular()).build();
         } catch (DAOException e) {
             LOG.log(Level.SEVERE, "Error listing events", e);
             return Response.serverError().entity(e.getMessage()).build();
