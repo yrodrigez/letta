@@ -11,6 +11,8 @@ public class Event implements Entity{
 	private int num_assistants;
 	private String user_id;
 	
+	Event(){}
+	
 	public Event(int id, String title, String description, String place, Date start, Date end, int num_assistants,
 			String user_id) {
 		this.setId(id);

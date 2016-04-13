@@ -12,121 +12,66 @@ import org.junit.Test;
 public class UserUnitTest {
 	
 	@Test
-	public void testUserStringString(){
+	public void testUserString(){
 		String username = "username";
-		String password = "12345678912345678912345678912345";
-		User u= new User(username, password);
+		User u= new User(username);
 		
 		assertThat(u.getLogin(), is(equalTo(username)));
-		assertThat(u.getPassword(), is(equalTo(password)));
 	}
 	
 	@Test
 	public void testSetLogin(){
 		String username = "username";
-		String password = "12345678912345678912345678912345";
 		
-		User u= new User(username, password);
+		User u= new User(username);
 		u.setLogin("nameuser");
 		
 		assertThat(u.getLogin(), is(equalTo("nameuser")));
-		assertThat(u.getPassword(), is(equalTo(password)));
-	}
-	
-	@Test
-	public void testSetPassword(){
-		String username = "username";
-		String password = "12345678912345678912345678912345";
-		
-		User u= new User(username, password);
-		u.setPassword("12345678912345678912345678912349");
-		
-		assertThat(u.getLogin(), is(equalTo(username)));
-		assertThat(u.getPassword(), is(equalTo("12345678912345678912345678912349")));
 	}
 
 	@Test
 	public void testEqualsObject() {
-		final User userA = new User("user1", "12345678912345678912345678912345");
-		final User userB = new User("user1", "12345678912345678912345678912349");
+		final User userA = new User("user1");
+		final User userB = new User("user1");
 		
 		assertTrue(userA.equals(userB));
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testSetInvalidNullLogin(){
-		User u = new User("un_user", "12345678912345678912345678912345");
+		User u = new User("un_user");
 
 		u.setLogin(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetInvalidLongLogin() {
-		User u = new User("un_user", "12345678912345678912345678912345");
+		User u = new User("un_user");
 		String invalidLogin = "un_login_muy_largo_para_que_pete";
 
 		u.setLogin(invalidLogin);
 
 	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testSetInvalidShortPassword() {
-		User u = new User("un_user", "12345678912345678912345678912345");
-		String invalidPassword = "1234567891234567891234567891234";
-
-		u.setLogin(invalidPassword);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testSetInvalidLongPassword() {
-		User u = new User("un_user", "12345678912345678912345678912345");
-		String invalidPassword = "123456789123456789123456789123447";
-
-		u.setLogin(invalidPassword);
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void testSetNullPassword() {
-		User u = new User("un_user", "12345678912345678912345678912345");
-
-		u.setLogin(null);
-	}
-
-	@Test(expected = NullPointerException.class )
-	public void testUserStringNull(){
-		new User("user", null);
-	}
 	
 	@Test(expected = NullPointerException.class )
-	public void testUserNullString(){
-		new User(null,"12345678912345678912345678912345");
+	public void testUserInvalidNullLogin(){
+		new User(null);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testUserInvalidLongLogin(){
-		new User("asdasdasdasdasdasdasdasdasdasdasdasd","12345678912345678912345678912345");
+		new User("asdasdasdasdasdasdasdasdasdasdasdasd");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testUserInvalidEmptyLogin(){
-		new User("","12345678912345678912345678912345");
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testUserInvalidShortPassword(){
-		new User("u", "1234");
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testUserInvalidLongPassword(){
-		new User("u", "1234444444444444444444444444444444444444444444444444444444");
+		new User("");
 	}
 
 	@Test
 	public void testUserNullLoginReturnFalse() {
 		String username = "username";
-		String password = "12345678912345678912345678912345";
-		User u = new User(username, password);
+		User u = new User(username);
 
 		assertFalse(u.equals(null));
 	}
@@ -134,9 +79,8 @@ public class UserUnitTest {
 	@Test
 	public void testUserDifferentLoginReturnFalse() {
 		String username = "username";
-		String password = "12345678912345678912345678912345";
-		User u = new User(username, password);
-		User anotherUser = new User("anotherUser", password);
+		User u = new User(username);
+		User anotherUser = new User("anotherUser");
 
 		assertFalse(u.equals(anotherUser));
 	}

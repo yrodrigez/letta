@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT dataset (user*, event*, assists*)>
+<!ELEMENT user EMPTY>
+<!ELEMENT event EMPTY>
+<!ELEMENT assists EMPTY>
+<!ATTLIST user
+    login CDATA #REQUIRED
+    password CDATA #REQUIRED
+>
+<!ATTLIST event
+    id CDATA #REQUIRED
+    title CDATA #REQUIRED
+    description CDATA #REQUIRED
+    place CDATA #REQUIRED
+    num_assistants CDATA #REQUIRED
+    start CDATA #REQUIRED
+    end CDATA #REQUIRED
+    user_id CDATA #REQUIRED
+    img CDATA #IMPLIED
+    img_ext CDATA #IMPLIED
+>
+<!ATTLIST assists
+	user_id CDATA #REQUIRED
+	event_id CDATA #REQUIRED
+>

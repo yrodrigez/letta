@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 import es.uvigo.esei.daa.letta.entities.Entity;
 
 
-public abstract class DAO {
+public abstract class DAO<E extends Entity> {
 	private final static String JNDI_NAME = "java:/comp/env/jdbc/letta";
 	private final static Logger LOG = Logger.getLogger(DAO.class.getName());
 	
@@ -39,12 +39,12 @@ public abstract class DAO {
 		return this.dataSource.getConnection();
 	}
 	
-	public List<Entity> list() throws DAOException{
+	public List<E> list() throws DAOException{
 		try (final Connection conn = this.getConnection()) {
 			final String query = "SELECT * FROM " + getTableName() + ";";
 			try(final PreparedStatement statement = conn.prepareStatement(query)){
 				try (final ResultSet result = statement.executeQuery()) {
-					List<Entity> entities = new LinkedList<Entity>();
+					List<E> entities = new LinkedList<>();
 					while (result.next()) {
 						entities.add(rowToEntity(result));
 					}
@@ -57,7 +57,7 @@ public abstract class DAO {
 		}
 	}
 	
-	public Entity get(Object id)
+	public E get(Object id)
 	throws DAOException, IllegalArgumentException {
 		try (final Connection conn = this.getConnection()) {
 			final String query = "SELECT * FROM " + getTableName() + " WHERE " + getPrimaryKeyFieldName() +" = ?";
@@ -74,7 +74,7 @@ public abstract class DAO {
 				}
 			}
 		} catch (SQLException e) {
-			LOG.log(Level.SEVERE, "Error getting an entity", e);
+			LOG.log(Level.SEVERE, "Error getting an " + this.getTableName(), e);
 			throw new DAOException(e);
 		}
 	}
@@ -92,18 +92,15 @@ public abstract class DAO {
 				}
 			}
 		} catch (SQLException e) {
-			LOG.log(Level.SEVERE, "Error deleting an entity", e);
+			LOG.log(Level.SEVERE, "Error deleting an " + this.getTableName(), e);
 			throw new DAOException(e);
 		}
 		
 	}
 	
-	public abstract void modify(Entity entity)
-	throws DAOException, IllegalArgumentException;
-	
 	protected abstract String getTableName();
 	
-	protected abstract Entity rowToEntity(ResultSet result) throws SQLException;
+	protected abstract E rowToEntity(ResultSet result) throws SQLException;
 	
 	protected abstract String getPrimaryKeyFieldName();
 	

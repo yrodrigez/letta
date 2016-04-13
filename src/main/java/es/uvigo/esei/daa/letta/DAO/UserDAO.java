@@ -8,13 +8,12 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import es.uvigo.esei.daa.letta.entities.Entity;
 import es.uvigo.esei.daa.letta.entities.User;
 
-public class UserDAO extends DAO{
+public class UserDAO extends DAO<User> {
 	private final static Logger LOG = Logger.getLogger(UserDAO.class.getName());
 	
-	public Entity add(String login, String password) throws DAOException, IllegalArgumentException {
+	public User add(String login, String password) throws DAOException, IllegalArgumentException {
 		if(login == null)
 			throw new NullPointerException("Login can't be null");
 		if(password == null)
@@ -34,7 +33,7 @@ public class UserDAO extends DAO{
 				if (statement.executeUpdate() == 1) {
 					try (ResultSet resultKeys = statement.getGeneratedKeys()) {
 						if (resultKeys.next()) {
-							return new User(login, password);
+							return new User(login);
 						} else {
 							throw new SQLException("Error adding a user");
 						}
@@ -44,15 +43,14 @@ public class UserDAO extends DAO{
 				}
 			}
 		} catch (SQLException e) {
-			LOG.log(Level.SEVERE, "Error adding an entity", e);
+			LOG.log(Level.SEVERE, "Error adding an user", e);
 			throw new DAOException(e);
 		}
 		
 	}
 
-	@Override
-	public void modify(Entity entity) throws DAOException, IllegalArgumentException {
-		if (entity == null) {
+	public void modify(User user, String password) throws DAOException, IllegalArgumentException {
+		if (user == null) {
 			throw new NullPointerException("user can't be null");
 		}
 		
@@ -60,15 +58,15 @@ public class UserDAO extends DAO{
 			final String query = "UPDATE user SET password=? WHERE login=?";
 			
 			try (PreparedStatement statement = conn.prepareStatement(query)) {
-				statement.setString(2, ((User)entity).getLogin());
-				statement.setString(1, ((User)entity).getPassword());
+				statement.setString(2, user.getLogin());
+				statement.setString(1, password);
 				
 				if (statement.executeUpdate() != 1) {
 					throw new IllegalArgumentException("password can't be null");
 				}
 			}
 		} catch (SQLException e) {
-			LOG.log(Level.SEVERE, "Error modifying an entity", e);
+			LOG.log(Level.SEVERE, "Error modifying an user", e);
 			throw new DAOException();
 		}
 		
@@ -80,10 +78,9 @@ public class UserDAO extends DAO{
 	}
 
 	@Override
-	protected Entity rowToEntity(ResultSet result) throws SQLException{
+	protected User rowToEntity(ResultSet result) throws SQLException{
 		String login = result.getString("login");
-		String password = result.getString("password");
-		return new User(login, password);
+		return new User(login);
 	}
 
 	@Override

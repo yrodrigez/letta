@@ -1,8 +1,5 @@
 package es.uvigo.esei.daa.letta.rest;
 
-import es.uvigo.esei.daa.letta.DAO.DAOException;
-import es.uvigo.esei.daa.letta.controllers.EventController;
-
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,8 +15,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import es.uvigo.esei.daa.letta.DAO.DAOException;
+import es.uvigo.esei.daa.letta.controllers.EventController;
+import es.uvigo.esei.daa.letta.entities.Event;
 
-@Path("/users")
+
+@Path("/events")
 @Produces(MediaType.APPLICATION_JSON)
 public class EventResource {
     private final static Logger LOG = Logger.getLogger(UsersResource.class.getName());
@@ -42,7 +43,7 @@ public class EventResource {
             @PathParam("id") int id
     ) {
         try {
-            final String event = this.eventsController.get(id);
+            final Event event = this.eventsController.get(id);
 
             return Response.ok(event).build();
         } catch (IllegalArgumentException | NullPointerException ex){
@@ -82,7 +83,7 @@ public class EventResource {
 
             ) {
         try {
-            String event = this.eventsController.add(
+            Event event = this.eventsController.add(
                     title,
                     description,
                     place,
@@ -119,7 +120,7 @@ public class EventResource {
             @FormParam("user_id") String user_id
     ) {
         try {
-            String event = this.eventsController.modify(
+            Event event = this.eventsController.modify(
                     id,
                     title,
                     description,
