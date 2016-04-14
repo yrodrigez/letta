@@ -6,7 +6,7 @@ import es.uvigo.esei.daa.letta.DAO.DAOException;
 import es.uvigo.esei.daa.letta.DAO.UserDAO;
 import es.uvigo.esei.daa.letta.entities.User;
 
-public class UserController implements Controller<User>{
+public class UserController implements Controller<String, User>{
 	private UserDAO dao;
 	
 	public UserController(){
@@ -18,8 +18,8 @@ public class UserController implements Controller<User>{
 	}
 
 	@Override
-	public User get(Object id) throws DAOException{
-		return this.dao.get((String)id);
+	public User get(String id) throws DAOException{
+		return this.dao.get(id);
 	}
 
 	
@@ -35,8 +35,8 @@ public class UserController implements Controller<User>{
 	}
 
 	@Override
-	public void delete(Object id) throws DAOException{
-		this.dao.delete((String)id);
+	public void delete(String id) throws DAOException{
+		this.dao.delete(id);
 	}
 	
 }

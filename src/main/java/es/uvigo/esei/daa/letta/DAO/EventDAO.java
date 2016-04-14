@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -119,6 +121,42 @@ public class EventDAO extends DAO<Event> {
 	protected void setPrimaryKeyValue(PreparedStatement statement, Object id, int index) throws SQLException {
 		statement.setInt(index, (Integer)id);
 
+	}
+
+	public List<Event> getFeatured() throws DAOException{
+		try (final Connection conn = this.getConnection()) {
+			final String query = "SELECT * FROM " + getTableName() + " WHERE start > NOW() LIMIT 5;";
+			try(final PreparedStatement statement = conn.prepareStatement(query)){
+				try (final ResultSet result = statement.executeQuery()) {
+					List<Event> events = new LinkedList<>();
+					while (result.next()) {
+						events.add(rowToEntity(result));
+					}
+					return events;
+				}
+			}
+		} catch(SQLException e){
+			LOG.log(Level.SEVERE, "Error listing entities", e);
+			throw new DAOException(e.getMessage());
+		}
+	}
+
+	public List<Event> getPopular() throws DAOException{
+		try (final Connection conn = this.getConnection()) {
+			final String query = "SELECT * FROM " + getTableName() + " WHERE start > NOW() ORDER BY start LIMIT 10;";
+			try(final PreparedStatement statement = conn.prepareStatement(query)){
+				try (final ResultSet result = statement.executeQuery()) {
+					List<Event> events = new LinkedList<>();
+					while (result.next()) {
+						events.add(rowToEntity(result));
+					}
+					return events;
+				}
+			}
+		} catch(SQLException e){
+			LOG.log(Level.SEVERE, "Error listing entities", e);
+			throw new DAOException(e.getMessage());
+		}
 	}
 
 }

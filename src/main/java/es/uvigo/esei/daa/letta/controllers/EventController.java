@@ -7,7 +7,7 @@ import es.uvigo.esei.daa.letta.DAO.DAOException;
 import es.uvigo.esei.daa.letta.DAO.EventDAO;
 import es.uvigo.esei.daa.letta.entities.Event;
 
-public class EventController implements Controller<Event>{
+public class EventController implements Controller<Integer, Event>{
 
 	private EventDAO dao;
 	
@@ -18,15 +18,23 @@ public class EventController implements Controller<Event>{
 	public List<Event> list() throws DAOException {
 		return this.dao.list();
 	}
-
-	@Override
-	public Event get(Object id) throws DAOException{
-		return this.dao.get((Integer)id);
+	
+	public List<Event> getFeatured() throws DAOException {
+		return this.dao.getFeatured();
+	}
+	
+	public List<Event> getPopular() throws DAOException {
+		return this.dao.getPopular();
 	}
 
 	@Override
-	public void delete(Object id) throws DAOException{
-		this.dao.delete((Integer)id);
+	public Event get(Integer id) throws DAOException{
+		return this.dao.get(id);
+	}
+
+	@Override
+	public void delete(Integer id) throws DAOException{
+		this.dao.delete(id);
 	}
 	
 	public Event modify(int id, String title, String description, String place,
