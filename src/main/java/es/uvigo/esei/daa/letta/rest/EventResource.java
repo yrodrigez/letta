@@ -12,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -38,7 +39,7 @@ public class EventResource {
     }
 
     @GET
-    @Path("/event/{id}")
+    @Path("/{id}")
     public Response get(
             @PathParam("id") int id
     ) {
@@ -61,32 +62,21 @@ public class EventResource {
 
 
     @GET
-    @Path("/all")
-    public Response list() {
+    public Response list(
+    		@QueryParam("type") String type
+    ) {
         try {
-            return Response.ok(this.eventsController.list()).build();
-        } catch (DAOException e) {
-            LOG.log(Level.SEVERE, "Error listing events", e);
-            return Response.serverError().entity(e.getMessage()).build();
-        }
-    }
-    
-    @GET
-    @Path("/featured")
-    public Response getFeatured(){
-        try {
-            return Response.ok(this.eventsController.getFeatured()).build();
-        } catch (DAOException e) {
-            LOG.log(Level.SEVERE, "Error listing events", e);
-            return Response.serverError().entity(e.getMessage()).build();
-        }
-    }
-    
-    @GET
-    @Path("/popular")
-    public Response getPopular(){
-        try {
-            return Response.ok(this.eventsController.getPopular()).build();
+
+        	if(type != null){
+	        	if(type.equals("featured"))
+	        		return Response.ok(this.eventsController.getFeatured()).build();
+	        	else if(type.equals("popular"))
+	        		return Response.ok(this.eventsController.getPopular()).build();
+	        	else
+	        		return Response.status(400).build();
+        	} else {
+        		return Response.ok(this.eventsController.list()).build();
+        	}
         } catch (DAOException e) {
             LOG.log(Level.SEVERE, "Error listing events", e);
             return Response.serverError().entity(e.getMessage()).build();
