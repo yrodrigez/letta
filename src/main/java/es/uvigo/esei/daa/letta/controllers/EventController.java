@@ -28,6 +28,10 @@ public class EventController implements Controller<Event>{
 		return this.dao.getPopular();
 	}
 
+	public List<Event> getSearch(String text) throws DAOException {
+		return this.dao.getSearch(text);
+	}
+
 	@Override
 	public Event get(String id) throws DAOException{
 		return this.dao.get(id);

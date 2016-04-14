@@ -90,6 +90,7 @@ public class EventResource {
     @GET
     public Response list(
     		@QueryParam("type") String type
+
     ) {
         try {
 

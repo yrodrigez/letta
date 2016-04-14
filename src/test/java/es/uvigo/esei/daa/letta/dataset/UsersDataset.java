@@ -4,6 +4,7 @@ import es.uvigo.esei.daa.letta.entities.User;
 
 public class UsersDataset {
 	
+	
 	public static User[] users(){
 		return new User[]{
 				new User("user1"),
