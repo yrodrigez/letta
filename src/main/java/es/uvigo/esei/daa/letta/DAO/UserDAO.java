@@ -89,9 +89,9 @@ public class UserDAO extends DAO<User> {
 	}
 
 	@Override
-	protected void setPrimaryKeyValue(PreparedStatement statement, Object id, int index)
+	protected void setPrimaryKeyValue(PreparedStatement statement, String id, int index)
 	throws SQLException{
-		statement.setString(index, (String)id);
+		statement.setString(index, id);
 		
 	}
 

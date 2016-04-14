@@ -1,5 +1,6 @@
 package es.uvigo.esei.daa.letta.rest;
 
+import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.Response;
 import es.uvigo.esei.daa.letta.DAO.DAOException;
 import es.uvigo.esei.daa.letta.controllers.EventController;
 import es.uvigo.esei.daa.letta.entities.Event;
+import es.uvigo.esei.daa.letta.entities.Image;
 
 
 @Path("/events")
@@ -41,7 +43,7 @@ public class EventResource {
     @GET
     @Path("/{id}")
     public Response get(
-            @PathParam("id") int id
+    	@PathParam("id") String id
     ) {
         try {
             final Event event = this.eventsController.get(id);
@@ -59,6 +61,30 @@ public class EventResource {
                     .build();
         }
     }
+    
+    @GET
+	@Path("/{id}/image")
+	@Produces(MediaType.WILDCARD)
+	public Response getEventImage(
+		@PathParam("tablename") String tablename,
+		@PathParam("id") String id
+	){
+		try{
+			tablename = "event";
+			Image i = this.eventsController.getImage(id);
+			return Response.status(200)
+				.type("image/" + i.getImg_ext())
+				.entity(new ByteArrayInputStream(i.getImg()))
+			.build();
+			//return Response.status(200).type("image/" + i.getImg_ext()).entity(i.getImg()).build();
+			
+		} catch (DAOException e) {
+			LOG.log(Level.SEVERE, "Error getting an image", e);
+            return Response.serverError()
+                    .entity(e.getMessage())
+                    .build();
+        }
+	}
 
 
     @GET
@@ -123,7 +149,7 @@ public class EventResource {
     @PUT
     @Path("/{id}")
     public Response modify(
-            @PathParam("id") int id,
+            @PathParam("id") String id,
             @FormParam("title") String title,
             @FormParam("description") String description,
             @FormParam("place") String place,
@@ -162,7 +188,7 @@ public class EventResource {
     @DELETE
     @Path("/{id}")
     public Response delete(
-            @PathParam("id") int id
+            @PathParam("id") String id
     ) {
         try {
             this.eventsController.delete(id);

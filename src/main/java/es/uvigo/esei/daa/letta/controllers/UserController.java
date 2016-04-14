@@ -6,7 +6,7 @@ import es.uvigo.esei.daa.letta.DAO.DAOException;
 import es.uvigo.esei.daa.letta.DAO.UserDAO;
 import es.uvigo.esei.daa.letta.entities.User;
 
-public class UserController implements Controller<String, User>{
+public class UserController implements Controller<User>{
 	private UserDAO dao;
 	
 	public UserController(){
