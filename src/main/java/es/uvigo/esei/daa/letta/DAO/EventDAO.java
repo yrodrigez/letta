@@ -118,8 +118,8 @@ public class EventDAO extends DAO<Event> {
 	}
 
 	@Override
-	protected void setPrimaryKeyValue(PreparedStatement statement, Object id, int index) throws SQLException {
-		statement.setInt(index, (Integer)id);
+	protected void setPrimaryKeyValue(PreparedStatement statement, String id, int index) throws SQLException {
+		statement.setInt(index, Integer.parseInt(id));
 
 	}
 

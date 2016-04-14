@@ -1,5 +1,6 @@
 package es.uvigo.esei.daa.letta.DAO;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import es.uvigo.esei.daa.letta.entities.Entity;
+import es.uvigo.esei.daa.letta.entities.Image;
 
 
 public abstract class DAO<E extends Entity> {
@@ -57,7 +59,7 @@ public abstract class DAO<E extends Entity> {
 		}
 	}
 	
-	public E get(Object id)
+	public E get(String id)
 	throws DAOException, IllegalArgumentException {
 		try (final Connection conn = this.getConnection()) {
 			final String query = "SELECT * FROM " + getTableName() + " WHERE " + getPrimaryKeyFieldName() +" = ?";
@@ -79,7 +81,7 @@ public abstract class DAO<E extends Entity> {
 		}
 	}
 	
-	public void delete(Object id)
+	public void delete(String id)
 	throws DAOException, IllegalArgumentException {
 		try (final Connection conn = this.getConnection()) {
 			final String query = "DELETE FROM " + getTableName() + " WHERE " + getPrimaryKeyFieldName() +" = ?";
@@ -98,12 +100,40 @@ public abstract class DAO<E extends Entity> {
 		
 	}
 	
+	public Image getImage(String id) throws DAOException, IllegalArgumentException{
+		try (final Connection conn = this.getConnection()) {
+			final String query = "SELECT img, img_ext FROM " + this.getTableName() + " WHERE " + this.getPrimaryKeyFieldName() +" = ?";
+			
+			try (final PreparedStatement statement = conn.prepareStatement(query)) {
+				setPrimaryKeyValue(statement,id,1);
+				
+				try (final ResultSet result = statement.executeQuery()) {
+					if (result.next()) {
+						return imageToEntity(result);
+					} else {
+						throw new IllegalArgumentException("Invalid primary key");
+					}
+				}
+			}
+		} catch (SQLException e) {
+			LOG.log(Level.SEVERE, "Error getting an image", e);
+			throw new DAOException(e);
+		}
+	}
+	
+	private Image imageToEntity(ResultSet result) throws SQLException{
+		String img_ext = result.getString("img_ext");
+		Blob b = result.getBlob("img");
+		byte[] img = b.getBytes(1, (int)b.length());
+		return new Image(img_ext, img);
+	}
+	
 	protected abstract String getTableName();
 	
 	protected abstract E rowToEntity(ResultSet result) throws SQLException;
 	
 	protected abstract String getPrimaryKeyFieldName();
 	
-	protected abstract void setPrimaryKeyValue(PreparedStatement statement, Object id, int index) throws SQLException;
+	protected abstract void setPrimaryKeyValue(PreparedStatement statement, String id, int index) throws SQLException;
 	
 }
