@@ -12,6 +12,23 @@ function listEvents(done, fail, always) {
         .always(always);
 }
 
+function listEvents(text, done, fail, always) {
+    done = typeof done !== 'undefined' ? done : function() {};
+    fail = typeof fail !== 'undefined' ? fail : function() {};
+    always = typeof always !== 'undefined' ? always : function() {};
+
+    $.ajax({
+            url: 'rest/events',
+            type: 'GET',
+            data: text
+
+        })
+        .done(done)
+        .fail(fail)
+        .always(always);
+}
+
+
 function addEvent(event, done, fail, always) {
     done = typeof done !== 'undefined' ? done : function() {};
     fail = typeof fail !== 'undefined' ? fail : function() {};
