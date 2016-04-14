@@ -159,4 +159,22 @@ public class EventDAO extends DAO<Event> {
 		}
 	}
 
+	public List<Event> getSearch(String findby) throws DAOException{
+		try (final Connection conn = this.getConnection()) {
+			final String query = "SELECT * FROM " + getTableName() + " WHERE title CONTAINS '"+findby+"' OR description CONTAINS '";
+			try(final PreparedStatement statement = conn.prepareStatement(query)){
+				try (final ResultSet result = statement.executeQuery()) {
+					List<Event> events = new LinkedList<>();
+					while (result.next()) {
+						events.add(rowToEntity(result));
+					}
+					return events;
+				}
+			}
+		} catch(SQLException e){
+			LOG.log(Level.SEVERE, "Error listing entities", e);
+			throw new DAOException(e.getMessage());
+		}
+
+}
 }
