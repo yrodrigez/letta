@@ -30,6 +30,28 @@ function addNearestEvent(event){
 
 }
 
+function addSearch(event){
+	$('#searchResult').append(createEventThumbnail(event));
+}
+
+function formSearchtoText(){
+	var form = $('#busqueda');
+	return form.find('input[name="buscar"]').val();
+}
+
+function showSearch(){
+	var text = formSearchtoText();
+    $.getScript('js/dao/events.js', function(){
+        searchEvents(text,function (events) {
+            $.each(events, function (key, event) {
+            	addSearch(event);
+            });
+        }, function(){
+            alertify.error('Error listando eventos');
+        });
+    });
+}
+
 function initEvents(){
     $.getScript('js/dao/events.js', function(){
         listEvents(function (events) {
