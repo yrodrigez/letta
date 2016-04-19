@@ -4,7 +4,7 @@ function createEventThumbnail(event){
     return '<div class="col-sm-6 col-md-4">\
     <div class="thumbnail">\
     <object class = "letta-image-sizer" data="rest/events/'+event.id+'/image" type="image/png">\
-        <img class = "letta-image-sizer" src="http://www.returnofkings.com/wp-content/uploads/2014/12/clown.jpg" alt="un evento">\
+        <img class = "letta-image-sizer" src="img/logo.png" alt="un evento">\
     </object>\
     <div class="caption">\
     <h3>'+ event.title +'</h3>\
