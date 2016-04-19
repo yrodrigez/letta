@@ -73,12 +73,11 @@
               <li class="letta-descubre-blinker active"><a href="#">Descubre</a></li>
               <li><a href="#">Crea un evento</a></li>
             </ul>
-            <form class="navbar-form navbar-left" role="search">
+            <form id="busqueda" class="navbar-form navbar-left" role="search">
               <div class="form-group">
-                <input hidden="true" name="type" value="search" type="text" />
-                <input type="text" name="text" class="form-control" placeholder="Búsqueda...">
+                <input type="text" name="buscar" class="form-control" placeholder="Búsqueda..." value="" />
               </div>
-              <button type="submit" class="btn btn-default">Buscar</button>
+              <button type="button" onClick="showSearch()" class="btn btn-default">Buscar</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#">Regístrate</a></li>
@@ -146,6 +145,8 @@
       </nav>
     </div>
   </div>
+</div>
+<div id="searchResult">
 </div>
 <!-- /.navbar -->
 <div class="letta-main-container container-fluid letta-container-fluid">

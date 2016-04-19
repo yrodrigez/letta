@@ -123,9 +123,18 @@ public abstract class DAO<E extends Entity> {
 	
 	private Image imageToEntity(ResultSet result) throws SQLException{
 		String img_ext = result.getString("img_ext");
+		Image.ExtensionTypes ext = null;
+		if(img_ext.equals(Image.ExtensionTypes.jpg.toString()))
+			ext = Image.ExtensionTypes.jpg;
+		else if(img_ext.equals(Image.ExtensionTypes.jpeg.toString()))
+			ext = Image.ExtensionTypes.jpeg;
+		else if(img_ext.equals(Image.ExtensionTypes.png.toString()))
+			ext = Image.ExtensionTypes.png;
+		else
+			throw new IllegalArgumentException("Image file type not supported");
 		Blob b = result.getBlob("img");
 		byte[] img = b.getBytes(1, (int)b.length());
-		return new Image(img_ext, img);
+		return new Image(ext, img);
 	}
 	
 	protected abstract String getTableName();

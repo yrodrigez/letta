@@ -89,8 +89,8 @@ public class EventResource {
 
     @GET
     public Response list(
-    		@QueryParam("type") String type
-
+    		@QueryParam("type") String type,
+    		@QueryParam("search") String search
     ) {
         try {
 
@@ -101,7 +101,9 @@ public class EventResource {
 	        		return Response.ok(this.eventsController.getPopular()).build();
 	        	else
 	        		return Response.status(400).build();
-        	} else {
+        	} else if(search != null) 
+        		return Response.ok(this.eventsController.getSearch(search)).build();
+        	else {
         		return Response.ok(this.eventsController.list()).build();
         	}
         } catch (DAOException e) {

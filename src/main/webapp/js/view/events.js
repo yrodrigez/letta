@@ -31,6 +31,29 @@ function addPopularEvent(event){
    $('#proximos-eventos').append(createEventThumbnail(event));
 }
 
+function addSearch(event){
+	$('#searchResult').append(createEventThumbnail(event));
+}
+
+function formSearchtoText(){
+	var form = $('#busqueda');
+	return form.find('input[name="buscar"]').val();
+}
+
+function showSearch(){
+	var text = formSearchtoText();
+    $.getScript('js/dao/events.js', function(){
+        searchEvents(text,function (events) {
+            document.getElementById("#searchResult").innerHTML="";
+            $.each(events, function (key, event) {
+            	addSearch(event);
+            });
+        }, function(){
+            alertify.error('Error listando eventos');
+        });
+    });
+}
+
 function initEvents(){
     $.getScript('js/dao/events.js', function(){
         listPopularEvents ( function (events) {

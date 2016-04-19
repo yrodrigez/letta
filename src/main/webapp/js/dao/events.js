@@ -12,15 +12,14 @@ function listEvents(done, fail, always) {
         .always(always);
 }
 
-function listEvents(text, done, fail, always) {
+function searchEvents(text, done, fail, always) {
     done = typeof done !== 'undefined' ? done : function() {};
     fail = typeof fail !== 'undefined' ? fail : function() {};
     always = typeof always !== 'undefined' ? always : function() {};
 
     $.ajax({
-            url: 'rest/events',
+            url: 'rest/events?search='+text,
             type: 'GET',
-            data: text
 
         })
         .done(done)
