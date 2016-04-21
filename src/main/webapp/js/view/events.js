@@ -44,7 +44,7 @@ function showSearch(){
 	var text = formSearchtoText();
     $.getScript('js/dao/events.js', function(){
         searchEvents(text,function (events) {
-            document.getElementById("#searchResult").innerHTML="";
+            document.getElementById("searchResult").innerHTML="";
             $.each(events, function (key, event) {
             	addSearch(event);
             });
