@@ -31,19 +31,18 @@ function addPopularEvent(event){
 }
 
 function addSearch(event){
-    $('#searchResult').append(createEventThumbnail(event));
+    $('#main').append(createEventThumbnail(event));
 }
 
 function formSearchtoText(){
-    var form = $('#busqueda');
-    return form.find('input[name="buscar"]').val();
+    return $('#buscar').val();
 }
 
 function showSearch(){
     var text = formSearchtoText();
     $.getScript('js/dao/events.js', function(){
         searchEvents(text,function (events) {
-            document.getElementById("searchResult").innerHTML="";
+            document.getElementById("main").innerHTML="";
             $.each(events, function (key, event) {
                 addSearch(event);
             });
@@ -65,3 +64,10 @@ function initEvents(){
         });
     });
 }
+
+$('#buscar').keypress(function(e) {
+    if (e.keyCode == '13') {
+       e.preventDefault();
+       showSearch();
+     }
+  });
