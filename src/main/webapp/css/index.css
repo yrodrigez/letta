@@ -1,3 +1,11 @@
+.letta-thumbnail-buttons-container {
+	display: none;
+}
+
+.letta-event-thumbnail:hover  .letta-thumbnail-buttons-container {
+	display: block;
+}
+
 .navbar-sticky {
 	position: fixed;
 	top: -3em;
