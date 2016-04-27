@@ -30,8 +30,12 @@ function addPopularEvent(event){
     $('#proximos-eventos').append(createEventThumbnail(event));
 }
 
-function addSearch(event){
-    $('#main').append(createEventThumbnail(event));
+function addSearch(event,cont){
+	if(cont%2==0){
+		$('#main').append(createSearchResultRigth(event));
+	}else{
+		$('#main').append(createSearchResultLeft(event));
+	}
 }
 
 function formSearchtoText(){
@@ -43,8 +47,10 @@ function showSearch(){
     $.getScript('js/dao/events.js', function(){
         searchEvents(text,function (events) {
             document.getElementById("main").innerHTML="";
+        	var cont=0;
             $.each(events, function (key, event) {
-                addSearch(event);
+                addSearch(event,cont);
+                cont=cont+1;
             });
 
         }, function(){
@@ -64,6 +70,49 @@ function initEvents(){
         });
     });
 }
+
+function createSearchResultRigth(event){
+    var asistencia = asistenciaPorcentaje(event);
+	return '<div class="showcase">\
+	  <div class="thumbnail">\
+			<object class = "letta-image-sizer" data="rest/events/'+event.id+'/image" type="image/png">\
+    			<img class = "letta-image-sizer" src="img/logo.png" alt="un evento"/>\
+			</object>\
+	    <div class="thumbnail__overlay">\
+	      <a class="btn" href="#0">Asistir</a>\
+    	  <a class="btn" href="#0">Ver mas</a>\
+	    </div>\
+	  </div>\
+	  <div class="desc">\
+		  <h3>'+ event.title +'</h3>\
+	      <p>'+ event.description +'</p>\
+	      <p>Aforo máximo: '+event.num_assistants+'\
+	      <br/>Completado:'+ asistencia +'% </p>\
+	  </div>\
+	</div>';
+}
+
+function createSearchResultLeft(event){
+    var asistencia = asistenciaPorcentaje(event);
+	return '<div class="showcase showcase--inverted">\
+	  <div class="thumbnail">\
+			<object class = "letta-image-sizer" data="rest/events/'+event.id+'/image" type="image/png">\
+  			<img class = "letta-image-sizer" src="img/logo.png" alt="un evento"/>\
+			</object>\
+	    <div class="thumbnail__overlay">\
+	      <a class="btn" href="#0">Asistir</a>\
+  	  <a class="btn" href="#0">Ver mas</a>\
+	    </div>\
+	  </div>\
+	  <div class="desc">\
+		  <h3>'+ event.title +'</h3>\
+	      <p>'+ event.description +'</p>\
+	      <p>Aforo máximo: '+event.num_assistants+'\
+	      <br/>Completado:'+ asistencia +'% </p>\
+	  </div>\
+	</div>';
+}
+
 
 $('#buscar').keypress(function(e) {
     if (e.keyCode == '13') {

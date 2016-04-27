@@ -12,23 +12,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import es.uvigo.esei.daa.letta.entities.Event;
+import es.uvigo.esei.daa.letta.entities.Event.Categories;
 
 public class EventDAO extends DAO<Event> {
 	private final static Logger LOG = Logger.getLogger(EventDAO.class.getName());
 	
-	public Event add(String title, String description, String place, int num_assistants, Date start, Date end, String user_id)
+	public Event add(String title, String description, String place, int num_assistants, Date start, Date end, String user_id, Categories category)
 	throws DAOException, IllegalArgumentException {
 		if (title == null || description == null ||
 				place == null || num_assistants < 1 ||
 				start == null || end == null || user_id == null ||
 				title.length() > 100 || description.length() > 1000 ||
 				place.length() > 500 || start.getTime() < System.currentTimeMillis() ||
-				end.getTime() < start.getTime() || user_id.length() > 20) {
+				end.getTime() < start.getTime() || user_id.length() > 20 || category == null) {
 			throw new IllegalArgumentException("the arguments are wrong");
 		}
 		
 		try (Connection conn = this.getConnection()) {
-			final String query = "INSERT INTO event VALUES(null, ?, ?, ?, ?, ?, ?, ?)";
+			final String query = "INSERT INTO event VALUES(null, ?, ?, ?, ?, ?, ?, ?, null, null, ?)";
 			
 			try (PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 				statement.setString(1, title);
@@ -38,11 +39,12 @@ public class EventDAO extends DAO<Event> {
 				statement.setDate(5, new java.sql.Date(start.getTime()));
 				statement.setDate(6, new java.sql.Date(end.getTime()));
 				statement.setString(7, user_id);
+				statement.setString(8, category.toString());
 				
 				if (statement.executeUpdate() == 1) {
 					try (ResultSet resultKeys = statement.getGeneratedKeys()) {
 						if (resultKeys.next()) {
-							return new Event(resultKeys.getInt(1), title, description, place, start, end, num_assistants, user_id);
+							return new Event(resultKeys.getInt(1), title, description, place, start, end, num_assistants, user_id, category, false);
 						} else {
 							throw new SQLException("Error adding a event");
 						}
@@ -66,12 +68,12 @@ public class EventDAO extends DAO<Event> {
 				event.getUser_id() == null || event.getTitle().length() > 100 ||
 				event.getDescription().length() > 1000 || event.getPlace().length() > 500 ||
 				event.getStart().getTime() < System.currentTimeMillis() || event.getEnd().getTime() < event.getStart().getTime() ||
-				event.getUser_id().length() > 20) {
+				event.getUser_id().length() > 20 || event.getCategory() == null) {
 			throw new IllegalArgumentException("Event is wrong formed");
 		}
 		
 		try (Connection conn = this.getConnection()) {
-			final String query = "UPDATE event SET title = ?, description = ?, place = ?, num_assistants = ?, start = ?, end = ?, user_id = ? WHERE id=?";
+			final String query = "UPDATE event SET title = ?, description = ?, place = ?, num_assistants = ?, start = ?, end = ?, user_id = ? , category = ? WHERE id=?";
 			
 			try (PreparedStatement statement = conn.prepareStatement(query)) {
 				statement.setString(1, event.getTitle());
@@ -81,7 +83,8 @@ public class EventDAO extends DAO<Event> {
 				statement.setDate(5, new java.sql.Date(event.getStart().getTime()));
 				statement.setDate(6, new java.sql.Date(event.getEnd().getTime()));
 				statement.setString(7, event.getUser_id());
-				statement.setInt(8, event.getId());
+				statement.setString(8, event.getCategory().toString());
+				statement.setInt(9, event.getId());
 				
 				if (statement.executeUpdate() != 1) {
 					throw new IllegalArgumentException("fields can't be null");
@@ -109,7 +112,15 @@ public class EventDAO extends DAO<Event> {
 		Date end = result.getDate("end");
 		int num_assistants = result.getInt("num_assistants");
 		String user_id = result.getString("user_id");
-		return new Event(id, title, description, place, start, end, num_assistants, user_id);
+		Categories category = Categories.valueOf(result.getString("category"));
+		boolean image = true;
+		result.getString("img_ext");
+		if(!result.wasNull()){
+			result.getBlob("img");
+			if(!result.wasNull())
+				image = false;
+		}
+		return new Event(id, title, description, place, start, end, num_assistants, user_id, category, image);
 	}
 
 	@Override

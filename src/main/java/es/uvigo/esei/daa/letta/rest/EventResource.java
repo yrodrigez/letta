@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response;
 import es.uvigo.esei.daa.letta.DAO.DAOException;
 import es.uvigo.esei.daa.letta.controllers.EventController;
 import es.uvigo.esei.daa.letta.entities.Event;
+import es.uvigo.esei.daa.letta.entities.Event.Categories;
 import es.uvigo.esei.daa.letta.entities.Image;
 
 
@@ -121,7 +122,8 @@ public class EventResource {
             @FormParam("num_assistants") int     num_assistants,
             @FormParam("start") Date start,
             @FormParam("end") Date end,
-            @FormParam("user_id") String user_id
+            @FormParam("user_id") String user_id,
+            @FormParam("category") String category
 
             ) {
         try {
@@ -132,7 +134,9 @@ public class EventResource {
                     num_assistants,
                     start,
                     end,
-                    user_id
+                    user_id,
+                    Categories.valueOf(category)
+                    
             );
 
             return Response.ok(event).build();
@@ -159,7 +163,8 @@ public class EventResource {
             @FormParam("num_assistants") int num_assistants,
             @FormParam("start") Date start,
             @FormParam("end") Date end,
-            @FormParam("user_id") String user_id
+            @FormParam("user_id") String user_id,
+            @FormParam("category") String category
     ) {
         try {
             Event event = this.eventsController.modify(
@@ -170,7 +175,8 @@ public class EventResource {
                     num_assistants,
                     start,
                     end,
-                    user_id
+                    user_id,
+                    Categories.valueOf(category)
             );
 
             return Response.ok(event).build();
