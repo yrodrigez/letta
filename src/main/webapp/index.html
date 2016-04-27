@@ -73,12 +73,11 @@
               <li class="letta-descubre-blinker active"><a href="#">Descubre</a></li>
               <li><a href="#">Crea un evento</a></li>
             </ul>
-            <form id="busqueda" class="navbar-form navbar-left" role="search">
-              <div class="form-group">
-                <input type="text" name="buscar" class="form-control" placeholder="Búsqueda..." value="" />
+              <div class="navbar-form navbar-left form-group">
+                <input type="text" id="buscar" class="form-control" placeholder="Búsqueda..." value="" />
+                
+              	<button type="button" onClick="showSearch()" class="btn btn-default">Buscar</button>
               </div>
-              <button type="button" onClick="showSearch()" class="btn btn-default">Buscar</button>
-            </form>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#">Regístrate</a></li>
               <li class="letta-hide-on-mobile dropdown">
@@ -146,8 +145,7 @@
     </div>
   </div>
 </div>
-<div id="searchResult">
-</div>
+<div id="main" class="letta-main-container container-fluid letta-container-fluid">
 <!-- /.navbar -->
 <div class="letta-main-container container-fluid letta-container-fluid">
   <div class="row">
@@ -217,6 +215,8 @@
 
   </div>
   <!-- /.thumbnails -->
+
+</div>
 
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
