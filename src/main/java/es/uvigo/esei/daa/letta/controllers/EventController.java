@@ -42,9 +42,16 @@ public class EventController implements Controller<Event>{
 		this.dao.delete(id);
 	}
 	
-	public Event modify(String id, String title, String description, String place,
-		int num_assistants, Date start, Date end, String user_id)
-	throws DAOException {
+	public Event modify(
+			String id,
+			String title,
+			String description,
+			String place,
+			int num_assistants,
+			Date start,
+			Date end,
+			String user_id
+	) throws DAOException {
 		Event event = (Event)this.dao.get(id);
 		event.setTitle(title);
 		event.setDescription(description);

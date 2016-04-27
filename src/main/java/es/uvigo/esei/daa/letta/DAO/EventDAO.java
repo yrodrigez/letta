@@ -161,7 +161,7 @@ public class EventDAO extends DAO<Event> {
 
 	public List<Event> getSearch(String findby) throws DAOException{
 		try (final Connection conn = this.getConnection()) {
-			final String query = "SELECT * FROM " + getTableName() + " WHERE title CONTAINS '"+findby+"' OR description CONTAINS '"+findby+"';";
+			final String query = "SELECT * FROM " + getTableName() + " WHERE title LIKE '%"+findby+"%' OR description LIKE '%"+findby+"%';";
 			try(final PreparedStatement statement = conn.prepareStatement(query)){
 				try (final ResultSet result = statement.executeQuery()) {
 					List<Event> events = new LinkedList<>();
