@@ -2,27 +2,23 @@
 function createEventThumbnail(event){
     var asistencia = asistenciaPorcentaje(event);
     return '<div class="col-sm-6 col-md-4">\
-    <div class="letta-event-thumbnail thumbnail">\
-    <object class = "letta-image-sizer" data="rest/events/'+event.id+'/image" type="image/png">\
-        <img class = "letta-image-sizer" src="img/logo.png" alt="un evento">\
-    </object>\
-    <div class="caption">\
-    <h3>'+ event.title +'</h3>\
-    <p>'+ event.description +'</p>\
-    <p>Aforo máximo: '+event.num_assistants+'<br>Completado:\
-    <div class="progress">\
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"\
-    aria-valuemin="0" aria-valuemax="100" style="width:'+asistencia+'">\
+        <div class="letta-event-thumbnail thumbnail">\
+           <div class="letta-thumbnail-buttons-container">\
+                <object class = "letta-image-sizer" data="rest/events/'+event.id+'/image" type="image/png">\
+                    <img class = "letta-image-sizer" src="img/logo.png" alt="un evento"/>\
+                </object>\
+                <div class="overlay">\
+                    <a href="#" class="btn btn-primary" role="button">Asistir</a>\
+                    <a href="#" class="btn btn-default" role="button">Ver mas</a>\
+                </div>\
+           </div>\
+           <div class="caption">\
+                <h3>'+ event.title +'</h3>\
+                <p>'+ event.description +'</p>\
+                <p>Aforo máximo: '+event.num_assistants+'\
+                <br/>Completado:'+ asistencia +'% </p>\
+           </div>\
         </div>\
-        </div>\
-        '+ asistencia +'%\
-        </p>\
-        <div class="letta-thumbnail-buttons-container">\
-            <a href="#" class="btn btn-primary" role="button">Asistir</a>\
-            <a href="#" class="btn btn-default" role="button">Ver mas</a>\
-        </div>\
-    </div>\
-    </div>\
     </div>';
 }
 
@@ -35,19 +31,18 @@ function addPopularEvent(event){
 }
 
 function addSearch(event){
-    $('#searchResult').append(createEventThumbnail(event));
+    $('#main').append(createEventThumbnail(event));
 }
 
 function formSearchtoText(){
-    var form = $('#busqueda');
-    return form.find('input[name="buscar"]').val();
+    return $('#buscar').val();
 }
 
 function showSearch(){
     var text = formSearchtoText();
     $.getScript('js/dao/events.js', function(){
         searchEvents(text,function (events) {
-            document.getElementById("searchResult").innerHTML="";
+            document.getElementById("main").innerHTML="";
             $.each(events, function (key, event) {
                 addSearch(event);
             });
@@ -69,3 +64,10 @@ function initEvents(){
         });
     });
 }
+
+$('#buscar').keypress(function(e) {
+    if (e.keyCode == '13') {
+       e.preventDefault();
+       showSearch();
+     }
+  });

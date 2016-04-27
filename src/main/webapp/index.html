@@ -73,12 +73,11 @@
               <li class="letta-descubre-blinker active"><a href="#">Descubre</a></li>
               <li><a href="#">Crea un evento</a></li>
             </ul>
-            <form id="busqueda" class="navbar-form navbar-left" role="search">
-              <div class="form-group">
-                <input type="text" name="buscar" class="form-control" placeholder="Búsqueda..." value="" />
+              <div class="navbar-form navbar-left form-group">
+                <input type="text" id="buscar" class="form-control" placeholder="Búsqueda..." value="" />
+                
+              	<button type="button" onClick="showSearch()" class="btn btn-default">Buscar</button>
               </div>
-              <button type="button" onClick="showSearch()" class="btn btn-default">Buscar</button>
-            </form>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#">Regístrate</a></li>
               <li class="letta-hide-on-mobile dropdown">
@@ -104,41 +103,6 @@
                   <!-- /.login -->
                 </ul>
               </li>
-              <!-- login modal -->
-              <li class="letta-show-on-mobile">
-                <a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
-                <!-- Modal -->
-                <div id="login-modal" class="modal fade" role="dialog">
-                  <div class="modal-dialog">
-
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Loguéate</h4>
-                      </div>
-                      <div class="modal-body">
-                        <form class="form-signin">
-                          <h2 class="form-signin-heading">  </h2>
-                          <label for="emailMobile" class="sr-only">Correo electrónico</label>
-                          <input id="emailMobile" name="inputEmail" class="form-control" placeholder="Correo electrónico" required="" autofocus="" type="email">
-                          <label for="passwordMobile" class="sr-only">Contraseña</label>
-                          <input id="passwordMobile" name="inputPassword" class="form-control" placeholder="Contraseña" required="" type="password">
-                          <div class="checkbox">
-                            <label>
-                              <input value="remember-me" type="checkbox"> Recuérdame
-                            </label>
-                          </div>
-                          <button class="btn btn-default" type="submit">Entrar</button>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li><!-- /.login modal -->
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -146,12 +110,11 @@
     </div>
   </div>
 </div>
-<div id="searchResult">
-</div>
+<div id="main" class="letta-main-container container-fluid letta-container-fluid">
 <!-- /.navbar -->
 <div class="letta-main-container container-fluid letta-container-fluid">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" >
       <!-- carousel -->
       <div class="carousel fade-carousel slide letta-carousel" data-ride="carousel" data-interval="4000" id="bs-carousel">
         <!-- Overlay -->
@@ -217,6 +180,8 @@
 
   </div>
   <!-- /.thumbnails -->
+
+</div>
 
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -300,12 +265,12 @@
           <br/>
           <i class="letta-copyleft">&nbsp;©</i>2016
         </span>
-
       </div>
       <div class="col-md-6">
         <form accept-charset="UTF-8" action="" method="post">
           <div class="letta-language-select">
             <div class="title">Español &nbsp;<i class="glyphicon glyphicon-chevron-down"></i></div>
+            <label for="lang"></label>
             <select class="select" id="lang" name="lang"><option value="en">English</option>
               <option value="de">Deutsch</option>
               <option selected="selected" value="es">Español</option>
