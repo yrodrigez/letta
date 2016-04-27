@@ -1,11 +1,3 @@
-.letta-thumbnail-buttons-container {
-	display: none;
-}
-
-.letta-event-thumbnail:hover  .letta-thumbnail-buttons-container {
-	display: block;
-}
-
 .navbar-sticky {
 	position: fixed;
 	top: -3em;
@@ -142,6 +134,41 @@
 	animation: blinker 2.0s linear infinite;
 }
 
+.no-gutter > [class *= 'col-'] {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.overlay{
+	width:100%;
+	height:100%;
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.overlay a {
+	position: relative;
+	display: inline-block;
+	top: 80%;
+	margin: -50% 5px 0 0;
+}
+.letta-thumbnail-buttons-container{
+	position: relative;
+}
+
+.letta-thumbnail-buttons-container:hover .overlay {
+	display: block;
+	background-color: black;
+	opacity: 0.75;
+	text-align: center;
+}
+.letta-thumbnail-buttons-container:hover a, .letta-thumbnail-buttons-container a{
+	opacity: 1 !important;
+}
+
+
 @keyframes blinker {
 	50% { opacity: 0.15; }
 }
@@ -149,30 +176,11 @@
 
 /*Mobile*/
 @media (min-width: 1px) {
-	.letta-hide-on-mobile{
-		display: none !important;
-	}
 
-	.letta-show-on-mobile{
-		 display: inline !important;
-	 }
-
-	.modal-content{
-		z-index: 500 !important;
-	}
-
-	.modal-backdrop{
-		z-index: 300 !important;
-	}
 }
 
 @media (min-width: 768px) {
-	.letta-show-on-mobile{
-		display: none !important;
-	}
-	.letta-hide-on-mobile{
-		display: inline !important;
-	}
+
 }
 
 /* Medium devices (desktops, 992px and up) */
