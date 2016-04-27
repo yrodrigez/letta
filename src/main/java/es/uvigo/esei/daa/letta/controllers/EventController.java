@@ -6,6 +6,7 @@ import java.util.List;
 import es.uvigo.esei.daa.letta.DAO.DAOException;
 import es.uvigo.esei.daa.letta.DAO.EventDAO;
 import es.uvigo.esei.daa.letta.entities.Event;
+import es.uvigo.esei.daa.letta.entities.Event.Categories;
 import es.uvigo.esei.daa.letta.entities.Image;
 
 public class EventController implements Controller<Event>{
@@ -50,7 +51,8 @@ public class EventController implements Controller<Event>{
 			int num_assistants,
 			Date start,
 			Date end,
-			String user_id
+			String user_id,
+			Categories category
 	) throws DAOException {
 		Event event = (Event)this.dao.get(id);
 		event.setTitle(title);
@@ -60,6 +62,7 @@ public class EventController implements Controller<Event>{
 		event.setStart(start);
 		event.setEnd(end);
 		event.setUser_id(user_id);
+		event.setCategory(category);
 		this.dao.modify(event);
 		return event;
 	}
@@ -70,9 +73,9 @@ public class EventController implements Controller<Event>{
 
 	
 	public Event add(String title, String description, String place, int num_assistants,
-		Date start, Date end, String user_id)
+		Date start, Date end, String user_id, Categories category)
 	throws DAOException{
-		return this.dao.add(title, description, place, num_assistants, start, end, user_id);
+		return this.dao.add(title, description, place, num_assistants, start, end, user_id, category);
 	}
 
 }

@@ -11724,16 +11724,16 @@ IiRlsn2NeWrezKvBPX1qxHqFw3zFj6dan2SC0Weqx67C38R61Zj12PGSx5rytNVuxjEnWrCazeIc
 LZ6HHWmnXrwHGeMU/Zi9n3PSG1aH+9+dNOrR9d1ebnXrv2596addvScZxR7MlwR6Q2rxjkNUbaxC
 f4ifxrzk61eMPvVC+s3vI3mmoITgkejtrMQ53c/WoX1uHoG/KvOW1m8APzdKik1a7IPz1XJcSjE9
 Dk12AE5YmqkniCIfMG47gVwD6ldc/P2qvJqFyTtMhNPkQNI9APiOHP3v0orz37TMf4/0op8qFyn/
-2Q=="), 'jpg'),
-(null, 'Event 2', 'Description of this event 2', 'John Smith Av number 7', 10, '2016-09-20 16:00:00', '2016-09-20 18:00:00', 'user2', null, null),
-(null, 'Event 3', 'Description of this event 3', 'John Smith Av number 7', 10, '2016-06-10 16:00:00', '2016-06-10 18:00:00', 'user2', null, null),
-(null, 'Event 4', 'Description of this event 4', 'Bart Simpson Street 87', 17, '2016-01-10 12:00:00', '2016-01-10 13:30:00', 'user3', null, null),
-(null, 'Event 5', 'Description of this event 5', 'ESEI', 500, '2016-08-20 10:00:00', '2016-08-20 20:00:00', 'user3', null, null),
-(null, 'Event 6', 'Description of this event 6', 'White House', 5, '2017-06-10 16:00:00', '2017-06-10 18:00:00', 'user5', null, null),
-(null, 'Event 7', 'Description of this event 7', 'Boulevard du Clichy', 10, '2016-07-10 16:00:00', '2016-07-10 18:00:00', 'user5', null, null),
-(null, 'Event 8', 'Description of this event 8', 'Bar Ace of Spades', 30, '2016-06-10 16:00:00', '2016-06-10 18:00:00', 'user5', null, null),
-(null, 'Event 9', 'Description of this event 9', 'Markus Phoenix Plaza', 70, '2016-12-31 22:00:00', '2017-12-31 01:00:00', 'user5', null, null),
-(null, 'Event 10', 'Description of this event 10', 'Doomsday Park', 10, '2016-06-18 16:00:00', '2016-06-18 18:00:00', 'user5', null, null);
+2Q=="), 'jpg', "literature"),
+(null, 'Event 2', 'Description of this event 2', 'John Smith Av number 7', 10, '2016-09-20 16:00:00', '2016-09-20 18:00:00', 'user2', null, null, "films"),
+(null, 'Event 3', 'Description of this event 3', 'John Smith Av number 7', 10, '2016-06-10 16:00:00', '2016-06-10 18:00:00', 'user2', null, null, "sports"),
+(null, 'Event 4', 'Description of this event 4', 'Bart Simpson Street 87', 17, '2016-01-10 12:00:00', '2016-01-10 13:30:00', 'user3', null, null, "tvshows"),
+(null, 'Event 5', 'Description of this event 5', 'ESEI', 500, '2016-08-20 10:00:00', '2016-08-20 20:00:00', 'user3', null, null, "videogames"),
+(null, 'Event 6', 'Description of this event 6', 'White House', 5, '2017-06-10 16:00:00', '2017-06-10 18:00:00', 'user5', null, null, "programming"),
+(null, 'Event 7', 'Description of this event 7', 'Boulevard du Clichy', 10, '2016-07-10 16:00:00', '2016-07-10 18:00:00', 'user5', null, null, "others"),
+(null, 'Event 8', 'Description of this event 8', 'Bar Ace of Spades', 30, '2016-06-10 16:00:00', '2016-06-10 18:00:00', 'user5', null, null, "others"),
+(null, 'Event 9', 'Description of this event 9', 'Markus Phoenix Plaza', 70, '2016-12-31 22:00:00', '2017-12-31 01:00:00', 'user5', null, null, "others"),
+(null, 'Event 10', 'Description of this event 10', 'Doomsday Park', 10, '2016-06-18 16:00:00', '2016-06-18 18:00:00', 'user5', null, null, "others");
 
 INSERT INTO `assists` VALUES
 ('user1',2),

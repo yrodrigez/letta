@@ -18,6 +18,7 @@
     user_id CDATA #REQUIRED
     img CDATA #IMPLIED
     img_ext CDATA #IMPLIED
+    category (others|literature|films|sports|tvshows|videogames|programming) "others"
 >
 <!ATTLIST assists
 	user_id CDATA #REQUIRED

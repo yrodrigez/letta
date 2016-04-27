@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 
 import es.uvigo.esei.daa.letta.entities.Event;
+import es.uvigo.esei.daa.letta.entities.Event.Categories;
 import es.uvigo.esei.daa.letta.entities.Image;
 
 public class EventsDataset {
@@ -21,7 +22,9 @@ public class EventsDataset {
 				formatter.parse("2012-10-01 20:00:00"),
 				formatter.parse("2012-10-01 23:00:00"),
 				10,
-				"user1"
+				"user1",
+				Categories.films,
+				true
 			),
 			new Event(
 				2,
@@ -31,7 +34,9 @@ public class EventsDataset {
 				formatter.parse("2050-10-02 20:00:00"),
 				formatter.parse("2050-10-02 23:00:00"),
 				9,
-				"user1"
+				"user1",
+				Categories.tvshows,
+				true
 			),
 			new Event(
 				3,
@@ -41,7 +46,9 @@ public class EventsDataset {
 				formatter.parse("2050-10-03 20:00:00"),
 				formatter.parse("2050-10-03 23:00:00"),
 				100,
-				"user2"
+				"user2",
+				Categories.sports,
+				true
 			),
 			new Event(
 				4,
@@ -51,7 +58,9 @@ public class EventsDataset {
 				formatter.parse("2050-10-04 20:00:00"),
 				formatter.parse("2050-10-04 23:00:00"),
 				8,
-				"user2"
+				"user2",
+				Categories.literature,
+				true
 			),
 			new Event(
 				5,
@@ -61,7 +70,9 @@ public class EventsDataset {
 				formatter.parse("2050-10-05 20:00:00"),
 				formatter.parse("2050-10-05 23:00:00"),
 				15,
-				"user2"
+				"user2",
+				Categories.videogames,
+				true
 			),
 			new Event(
 				6,
@@ -71,7 +82,9 @@ public class EventsDataset {
 				formatter.parse("2050-10-06 20:00:00"),
 				formatter.parse("2050-10-06 23:00:00"),
 				20,
-				"user3"
+				"user3",
+				Categories.programming,
+				true
 			),
 			new Event(
 				7,
@@ -81,7 +94,9 @@ public class EventsDataset {
 				formatter.parse("2050-10-07 20:00:00"),
 				formatter.parse("2050-10-07 23:00:00"),
 				30,
-				"user5"
+				"user5",
+				Categories.others,
+				true
 			),
 			new Event(
 				8,
@@ -91,139 +106,165 @@ public class EventsDataset {
 				formatter.parse("2050-10-08 20:00:00"),
 				formatter.parse("2050-10-08 23:00:00"),
 				18,
-				"user5"
-			),
+				"user5",
+				Categories.others,
+				true
+			)
 		};
 	}
 	
 	public static Event[] popular() throws ParseException{
 		return new Event[]{
-				new Event(
-					2,
-					"Event2",
-					"Foo description 2",
-					"Verín",
-					formatter.parse("2050-10-02 20:00:00"),
-					formatter.parse("2050-10-02 23:00:00"),
-					9,
-					"user1"
-				),
-				new Event(
-					3,
-					"Event3",
-					"Foo description 3",
-					"Marín",
-					formatter.parse("2050-10-03 20:00:00"),
-					formatter.parse("2050-10-03 23:00:00"),
-					100,
-					"user2"
-				),
-				new Event(
-					4,
-					"Event4",
-					"Foo description 4",
-					"Bueu",
-					formatter.parse("2050-10-04 20:00:00"),
-					formatter.parse("2050-10-04 23:00:00"),
-					8,
-					"user2"
-				),
-				new Event(
-					5,
-					"Event5",
-					"Foo description 5",
-					"Castro",
-					formatter.parse("2050-10-05 20:00:00"),
-					formatter.parse("2050-10-05 23:00:00"),
-					15,
-					"user2"
-				),
-				new Event(
-					6,
-					"Event6",
-					"Foo description 6",
-					"Moaña",
-					formatter.parse("2050-10-06 20:00:00"),
-					formatter.parse("2050-10-06 23:00:00"),
-					20,
-					"user3"
-				),
-				new Event(
-					7,
-					"Event7",
-					"Foo description 7",
-					"Pontevedra",
-					formatter.parse("2050-10-07 20:00:00"),
-					formatter.parse("2050-10-07 23:00:00"),
-					30,
-					"user5"
-				),
-				new Event(
-					8,
-					"Event8",
-					"Foo description 8",
-					"Cuntis",
-					formatter.parse("2050-10-08 20:00:00"),
-					formatter.parse("2050-10-08 23:00:00"),
-					18,
-					"user5"
-				),
-			};
+			new Event(
+				2,
+				"Event2",
+				"Foo description 2",
+				"Verín",
+				formatter.parse("2050-10-02 20:00:00"),
+				formatter.parse("2050-10-02 23:00:00"),
+				9,
+				"user1",
+				Categories.tvshows,
+				true
+			),
+			new Event(
+				3,
+				"Event3",
+				"Foo description 3",
+				"Marín",
+				formatter.parse("2050-10-03 20:00:00"),
+				formatter.parse("2050-10-03 23:00:00"),
+				100,
+				"user2",
+				Categories.sports,
+				true
+			),
+			new Event(
+				4,
+				"Event4",
+				"Foo description 4",
+				"Bueu",
+				formatter.parse("2050-10-04 20:00:00"),
+				formatter.parse("2050-10-04 23:00:00"),
+				8,
+				"user2",
+				Categories.literature,
+				true
+			),
+			new Event(
+				5,
+				"Event5",
+				"Foo description 5",
+				"Castro",
+				formatter.parse("2050-10-05 20:00:00"),
+				formatter.parse("2050-10-05 23:00:00"),
+				15,
+				"user2",
+				Categories.videogames,
+				true
+			),
+			new Event(
+				6,
+				"Event6",
+				"Foo description 6",
+				"Moaña",
+				formatter.parse("2050-10-06 20:00:00"),
+				formatter.parse("2050-10-06 23:00:00"),
+				20,
+				"user3",
+				Categories.programming,
+				true
+			),
+			new Event(
+				7,
+				"Event7",
+				"Foo description 7",
+				"Pontevedra",
+				formatter.parse("2050-10-07 20:00:00"),
+				formatter.parse("2050-10-07 23:00:00"),
+				30,
+				"user5",
+				Categories.others,
+				true
+			),
+			new Event(
+				8,
+				"Event8",
+				"Foo description 8",
+				"Cuntis",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				true
+			)
+		};
 	}
 	
 	public static Event[] featured() throws ParseException{
 		return new Event[]{
-				new Event(
-					2,
-					"Event2",
-					"Foo description 2",
-					"Verín",
-					formatter.parse("2050-10-02 20:00:00"),
-					formatter.parse("2050-10-02 23:00:00"),
-					9,
-					"user1"
-				),
-				new Event(
-					3,
-					"Event3",
-					"Foo description 3",
-					"Marín",
-					formatter.parse("2050-10-03 20:00:00"),
-					formatter.parse("2050-10-03 23:00:00"),
-					100,
-					"user2"
-				),
-				new Event(
-					4,
-					"Event4",
-					"Foo description 4",
-					"Bueu",
-					formatter.parse("2050-10-04 20:00:00"),
-					formatter.parse("2050-10-04 23:00:00"),
-					8,
-					"user2"
-				),
-				new Event(
-					5,
-					"Event5",
-					"Foo description 5",
-					"Castro",
-					formatter.parse("2050-10-05 20:00:00"),
-					formatter.parse("2050-10-05 23:00:00"),
-					15,
-					"user2"
-				),
-				new Event(
-					6,
-					"Event6",
-					"Foo description 6",
-					"Moaña",
-					formatter.parse("2050-10-06 20:00:00"),
-					formatter.parse("2050-10-06 23:00:00"),
-					20,
-					"user3"
-				)
-			};
+			new Event(
+				2,
+				"Event2",
+				"Foo description 2",
+				"Verín",
+				formatter.parse("2050-10-02 20:00:00"),
+				formatter.parse("2050-10-02 23:00:00"),
+				9,
+				"user1",
+				Categories.tvshows,
+				true
+			),
+			new Event(
+				3,
+				"Event3",
+				"Foo description 3",
+				"Marín",
+				formatter.parse("2050-10-03 20:00:00"),
+				formatter.parse("2050-10-03 23:00:00"),
+				100,
+				"user2",
+				Categories.sports,
+				true
+			),
+			new Event(
+				4,
+				"Event4",
+				"Foo description 4",
+				"Bueu",
+				formatter.parse("2050-10-04 20:00:00"),
+				formatter.parse("2050-10-04 23:00:00"),
+				8,
+				"user2",
+				Categories.literature,
+				true
+			),
+			new Event(
+				5,
+				"Event5",
+				"Foo description 5",
+				"Castro",
+				formatter.parse("2050-10-05 20:00:00"),
+				formatter.parse("2050-10-05 23:00:00"),
+				15,
+				"user2",
+				Categories.videogames,
+				true
+			),
+			new Event(
+				6,
+				"Event6",
+				"Foo description 6",
+				"Moaña",
+				formatter.parse("2050-10-06 20:00:00"),
+				formatter.parse("2050-10-06 23:00:00"),
+				20,
+				"user3",
+				Categories.programming,
+				true
+			)
+		};
 	}
 	
 	public static Image getExistentImage(){

@@ -2,6 +2,9 @@ package es.uvigo.esei.daa.letta.entities;
 import java.util.Date;
 
 public class Event implements Entity{
+	public static enum Categories{
+	literature, films, sports, tvshows, videogames, programming, others
+	}
 	private int id;
 	private String title;
 	private String description;
@@ -10,11 +13,13 @@ public class Event implements Entity{
 	private Date end;
 	private int num_assistants;
 	private String user_id;
+	private Categories category;
+	private boolean image;
 	
 	Event(){}
 	
 	public Event(int id, String title, String description, String place, Date start, Date end, int num_assistants,
-			String user_id) {
+			String user_id, Categories category, boolean image) {
 		this.setId(id);
 		this.setTitle(title);
 		this.setDescription(description);
@@ -23,6 +28,26 @@ public class Event implements Entity{
 		this.setEnd(end);
 		this.setNum_assistants(num_assistants);
 		this.setUser_id(user_id);
+		this.setCategory(category);
+		this.setImage(image);
+	}
+
+	public boolean isImage() {
+		return image;
+	}
+
+	public void setImage(boolean image) {
+		this.image = image;
+	}
+
+	public Categories getCategory() {
+		return category;
+	}
+
+	public void setCategory(Categories category) {
+		if (category == null)
+			throw new NullPointerException("Category can't be null");
+		this.category = category;
 	}
 
 	public int getId() {

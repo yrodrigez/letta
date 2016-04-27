@@ -15,8 +15,10 @@ CREATE TABLE event (
 	user_id VARCHAR(20) NOT NULL,
 	img VARBINARY(1073741824) NULL,
 	img_ext VARCHAR(5) NULL,
+	category VARCHAR(15) NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (user_id) REFERENCES user(login) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (user_id) REFERENCES user(login) ON DELETE CASCADE ON UPDATE CASCADE,
+	CHECK (category IN ('others', 'literature', 'films', 'sports', 'tvshows', 'videogames', 'programming'))
 );
 
 CREATE TABLE assists (
