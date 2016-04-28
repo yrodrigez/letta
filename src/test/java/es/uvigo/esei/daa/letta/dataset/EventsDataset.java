@@ -413,6 +413,24 @@ public class EventsDataset {
 		};
 	}
 	
+	public static Event[] search() throws ParseException{
+		return new Event[]{new Event(
+				2,
+				"Event2",
+				"Foo description 2",
+				"Verín",
+				formatter.parse("2050-10-02 20:00:00"),
+				formatter.parse("2050-10-02 23:00:00"),
+				9,
+				"user1",
+				Categories.tvshows,
+				true
+			
+			)
+		};
+	}
+		
+	
 	public static Image getExistentImage(){
 		return new Image(getExistentImg_ext(),getExistentImg());
 	}
@@ -453,6 +471,7 @@ public class EventsDataset {
 		return 10;
 	}
 	
+
 	public static String getExistentUser_id(){
 		return "user1";
 	}
@@ -480,4 +499,5 @@ public class EventsDataset {
 	public static int getNonExistentId(){
 		return 1000;
 	}
+	
 }
