@@ -113,12 +113,12 @@ public class EventDAO extends DAO<Event> {
 		int num_assistants = result.getInt("num_assistants");
 		String user_id = result.getString("user_id");
 		Categories category = Categories.valueOf(result.getString("category"));
-		boolean image = true;
+		boolean image = false;
 		result.getString("img_ext");
 		if(!result.wasNull()){
 			result.getBlob("img");
 			if(!result.wasNull())
-				image = false;
+				image = true;
 		}
 		return new Event(id, title, description, place, start, end, num_assistants, user_id, category, image);
 	}
