@@ -110,6 +110,82 @@
 		img="iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkRERTU3NjIzMURDQTExRTA5OTc0Qjg1RkFFNDk0QzI0IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkRERTU3NjI0MURDQTExRTA5OTc0Qjg1RkFFNDk0QzI0Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RERFNTc2MjExRENBMTFFMDk5NzRCODVGQUU0OTRDMjQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RERFNTc2MjIxRENBMTFFMDk5NzRCODVGQUU0OTRDMjQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5uBdmsAAAAaUlEQVR42mL8//8/AzGAiYFIwAIiGBkZdYFUDg41B4G2LmOAWs0MxOeB+D8a/gnEKmA1SG60waKwHSSBrhAEliIpegLEPLgUSgPxZ6jCKJggNoUgUAHEh5EFcClkA2JddIWMxAY4QIABALOxQPHZh9w+AAAAAElFTkSuQmCC"
 		img_ext="png"
 	/>
+
+	<event
+		num_assistants="18"
+		id="9"
+		start="2050-10-08 20:00:00"
+		place="Barbadás"
+		end="2050-10-08 23:00:00"
+		title="Event9"
+		description="Foo description 9"
+		user_id="user5"
+	/>
+
+	<event
+		num_assistants="18"
+		id="10"
+		start="2050-10-08 20:00:00"
+		place="Vigo"
+		end="2050-10-08 23:00:00"
+		title="Event10"
+		description="Foo description 10"
+		user_id="user5"
+	/>
+	<event
+		num_assistants="18"
+		id="11"
+		start="2050-10-08 20:00:00"
+		place="Ordes"
+		end="2050-10-08 23:00:00"
+		title="Event11"
+		description="Foo description 11"
+		user_id="user5"
+	/>
+
+	<event
+		num_assistants="18"
+		id="12"
+		start="2050-10-08 20:00:00"
+		place="Noia"
+		end="2050-10-08 23:00:00"
+		title="Event12"
+		description="Foo description 12"
+		user_id="user5"
+	/>
+
+	<event
+		num_assistants="18"
+		id="13"
+		start="2050-10-08 20:00:00"
+		place="San Cristóbal"
+		end="2050-10-08 23:00:00"
+		title="Event13"
+		description="Foo description 13"
+		user_id="user5"
+	/>
+
+	<event
+		num_assistants="18"
+		id="14"
+		start="2050-10-08 20:00:00"
+		place="Rio de Janeiro"
+		end="2050-10-08 23:00:00"
+		title="Event14"
+		description="Foo description 14"
+		user_id="user5"
+	/>
+
+	<event
+		num_assistants="18"
+		id="15"
+		start="2050-10-08 20:00:00"
+		place="Ons"
+		end="2050-10-08 23:00:00"
+		title="Event15"
+		description="Foo description 15"
+		user_id="user5"
+	/>
 	
 	<assists user_id="user1" event_id="3"/>
 	<assists user_id="user2" event_id="1"/>
