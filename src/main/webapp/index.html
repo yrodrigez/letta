@@ -50,68 +50,59 @@
 
 </head>
 <body>
-<div class="container-fluid letta-container-fluid">
-  <div class="row">
-    <div class=" col col-md-12">
-      <!-- navbar -->
-      <nav id="navbar" class="navbar navbar-inverse letta-navbar">
-        <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Le<i style="color: green;">t</i>ta</a>
-          </div>
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li class="letta-descubre-blinker active"><a href="#">Descubre</a></li>
-              <li><a href="#">Crea un evento</a></li>
-            </ul>
-              <div class="navbar-form navbar-left form-group">
-                <input type="text" id="buscar" class="form-control" placeholder="Búsqueda..." value="" />
-                
-              	<button type="button" onClick="showSearch()" class="btn btn-default">Buscar</button>
-              </div>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">Regístrate</a></li>
-              <li class="letta-hide-on-mobile dropdown">
-
-                <!--		login 	-->
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
-                <ul class="letta-dropdown-login dropdown-menu">
-                  <li>
-                    <form class="form-signin">
-                      <h2 class="form-signin-heading"> Loguéate </h2>
-                      <label for="email" class="sr-only">Correo electrónico</label>
-                      <input id="email" name="inputEmail" class="form-control" placeholder="Correo electrónico" required="" autofocus="" type="email">
-                      <label for="password" class="sr-only">Contraseña</label>
-                      <input id="password" name="inputPassword" class="form-control" placeholder="Contraseña" required="" type="password">
-                      <div class="checkbox">
-                        <label>
-                          <input value="remember-me" type="checkbox"> Recuérdame
-                        </label>
-                      </div>
-                      <button class="btn btn-default" type="submit">Entrar</button>
-                    </form>
-                  </li>
-                  <!-- /.login -->
-                </ul>
-              </li>
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav>
+<nav id="navbar" class="navbar navbar-inverse letta-navbar">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Le<i style="color: green;">t</i>ta</a>
     </div>
-  </div>
-</div>
-<div id="main" class="letta-main-container container-fluid letta-container-fluid">
-<!-- /.navbar -->
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="letta-descubre-blinker active"><a href="#">Descubre</a></li>
+        <li><a href="#">Crea un evento</a></li>
+      </ul>
+      <div class="navbar-form navbar-left form-group">
+        <input type="text" id="buscar" class="form-control" placeholder="Búsqueda..." value="" />
+
+        <button type="button" onClick="showSearch()" class="btn btn-default">Buscar</button>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Regístrate</a></li>
+        <li class="letta-hide-on-mobile dropdown">
+
+          <!--		login 	-->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
+          <ul class="letta-dropdown-login dropdown-menu">
+            <li>
+              <form class="form-signin">
+                <h2 class="form-signin-heading"> Loguéate </h2>
+                <label for="email" class="sr-only">Correo electrónico</label>
+                <input id="email" name="inputEmail" class="form-control" placeholder="Correo electrónico" required="" autofocus="" type="email">
+                <label for="password" class="sr-only">Contraseña</label>
+                <input id="password" name="inputPassword" class="form-control" placeholder="Contraseña" required="" type="password">
+                <div class="checkbox">
+                  <label>
+                    <input value="remember-me" type="checkbox"> Recuérdame
+                  </label>
+                </div>
+                <button class="btn btn-default" type="submit">Entrar</button>
+              </form>
+            </li>
+            <!-- /.login -->
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 <div class="letta-main-container container-fluid letta-container-fluid">
   <div class="row">
     <div class="col-md-12" >
@@ -285,10 +276,8 @@
   <!--/.footer-->
 </footer>
 <!-- JavaScript -->
-
 <script type="text/javascript" src="js/view/events.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
-<script src="js/index/sticky-navbar.js"></script>
 <script type="text/javascript">
   $(document).ready(function () {
       initEvents();

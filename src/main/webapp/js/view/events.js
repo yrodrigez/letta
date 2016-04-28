@@ -1,17 +1,17 @@
 
 function createEventThumbnail(event){
     var asistencia = asistenciaPorcentaje(event);
-    img_path = "img/"+event.category+".png";
+    var img_path = "img/"+event.category+".png";
     if(event.image)
     	img_path = 'rest/events/'+event.id+'/image';
     return '<div class="col-sm-6 col-md-4">\
         <div class="letta-event-thumbnail thumbnail">\
            <div class="letta-thumbnail-buttons-container">\
-                <img class = "letta-image-sizer" src="' + img_path + '" alt="un evento"/>\
-                <div class="overlay">\
+           <div class="overlay">\
                     <a href="#" class="btn btn-primary" role="button">Asistir</a>\
                     <a href="#" class="btn btn-default" role="button">Ver mas</a>\
                 </div>\
+                <img class = "letta-image-sizer" src="' + img_path + '" alt="un evento"/>\
            </div>\
            <div class="caption">\
                 <h3>'+ event.title +'</h3>\
