@@ -74,17 +74,17 @@ function initEvents(){
 
 function createSearchResultRigth(event){
     var asistencia = asistenciaPorcentaje(event);
-	return '<div class="showcase">\
-	  <div class="thumbnail">\
-			<object class = "letta-image-sizer" data="rest/events/'+event.id+'/image" type="image/png">\
-    			<img class = "letta-image-sizer" src="img/logo.png" alt="un evento"/>\
-			</object>\
-	    <div class="thumbnail__overlay">\
-	      <a class="btn" href="#0">Asistir</a>\
-    	  <a class="btn" href="#0">Ver mas</a>\
+    var img_path = "img/"+event.category+".png";
+    if(event.image)
+    	img_path = 'rest/events/'+event.id+'/image';
+	return '<div class="showcase2">\
+	  <div class="thumbnail2" style="background-image:url('+ img_path +');">\
+	    <div class="thumbnail__overlay2">\
+	      <a class="btn btn-primary" href="#0">Asistir</a>\
+    	  <a class="btn btn-default" href="#0">Ver mas</a>\
 	    </div>\
 	  </div>\
-	  <div class="desc">\
+	  <div class="desc2">\
 		  <h3>'+ event.title +'</h3>\
 	      <p>'+ event.description +'</p>\
 	      <p>Aforo máximo: '+event.num_assistants+'\
@@ -95,17 +95,17 @@ function createSearchResultRigth(event){
 
 function createSearchResultLeft(event){
     var asistencia = asistenciaPorcentaje(event);
-	return '<div class="showcase showcase--inverted">\
-	  <div class="thumbnail">\
-			<object class = "letta-image-sizer" data="rest/events/'+event.id+'/image" type="image/png">\
-  			<img class = "letta-image-sizer" src="img/logo.png" alt="un evento"/>\
-			</object>\
-	    <div class="thumbnail__overlay">\
-	      <a class="btn" href="#0">Asistir</a>\
-  	  <a class="btn" href="#0">Ver mas</a>\
+    var img_path = "img/"+event.category+".png";
+    if(event.image)
+    	img_path = 'rest/events/'+event.id+'/image';
+	return '<div class="showcase2 showcase--inverted2">\
+	  <div class="thumbnail2" style="background-image:url('+ img_path +');">\
+	    <div class="thumbnail__overlay2">\
+	      <a class="btn btn-primary" href="#0">Asistir</a>\
+  	  <a class="btn btn-default" href="#0">Ver mas</a>\
 	    </div>\
 	  </div>\
-	  <div class="desc">\
+	  <div class="desc2">\
 		  <h3>'+ event.title +'</h3>\
 	      <p>'+ event.description +'</p>\
 	      <p>Aforo máximo: '+event.num_assistants+'\
