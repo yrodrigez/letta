@@ -3,10 +3,12 @@ package es.uvigo.esei.daa.letta.dataset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 
 import es.uvigo.esei.daa.letta.entities.Event;
 import es.uvigo.esei.daa.letta.entities.Event.Categories;
 import es.uvigo.esei.daa.letta.entities.Image;
+import es.uvigo.esei.daa.letta.entities.Image.ExtensionTypes;
 
 public class EventsDataset {
 	
@@ -109,6 +111,90 @@ public class EventsDataset {
 				"user5",
 				Categories.others,
 				true
+			),
+			new Event(
+				9,
+				"Event9",
+				"Foo description 9",
+				"Barbadás",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
+			),
+			new Event(
+				10,
+				"Event10",
+				"Foo description 10",
+				"Vigo",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
+			),
+			new Event(
+				11,
+				"Event11",
+				"Foo description 11",
+				"Ordes",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
+			),
+			new Event(
+				12,
+				"Event12",
+				"Foo description 12",
+				"Noia",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
+			),
+			new Event(
+				13,
+				"Event13",
+				"Foo description 13",
+				"San Cristóbal",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
+			),
+			new Event(
+				14,
+				"Event 14",
+				"Foo description 14",
+				"Rio de Janeiro",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
+			),
+			new Event(
+				15,
+				"Event 15",
+				"Foo description 15",
+				"Ons",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
 			)
 		};
 	}
@@ -198,6 +284,66 @@ public class EventsDataset {
 				"user5",
 				Categories.others,
 				true
+			),
+			new Event(
+				9,
+				"Event9",
+				"Foo description 9",
+				"Barbadás",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
+			),
+			new Event(
+				10,
+				"Event10",
+				"Foo description 10",
+				"Vigo",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
+			),
+			new Event(
+				11,
+				"Event11",
+				"Foo description 11",
+				"Ordes",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
+			),
+			new Event(
+				12,
+				"Event12",
+				"Foo description 12",
+				"Noia",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
+			),
+			new Event(
+				13,
+				"Event13",
+				"Foo description 13",
+				"San Cristóbal",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				Categories.others,
+				false
 			)
 		};
 	}
@@ -267,6 +413,24 @@ public class EventsDataset {
 		};
 	}
 	
+	public static Event[] search() throws ParseException{
+		return new Event[]{new Event(
+				2,
+				"Event2",
+				"Foo description 2",
+				"Verín",
+				formatter.parse("2050-10-02 20:00:00"),
+				formatter.parse("2050-10-02 23:00:00"),
+				9,
+				"user1",
+				Categories.tvshows,
+				true
+			
+			)
+		};
+	}
+		
+	
 	public static Image getExistentImage(){
 		return new Image(getExistentImg_ext(),getExistentImg());
 	}
@@ -282,5 +446,58 @@ public class EventsDataset {
 	public static int getExistentId(){
 		return 1;
 	}
+	
+	public static String getExistentDescription(){
+		return "Foo description 1";
+	}
+	
+	public static String getExistentTitle(){
+		return "Event1";
+	}
+	
+	public static String getExistentPlace(){
+		return "Ourense";
+	}
+	
+	public static Date getExistentStart() throws ParseException{
+		return formatter.parse("2012-10-01 20:00:00");
+	}
+	
+	public static Date getExistentEnd() throws ParseException{
+		return formatter.parse("2012-10-01 23:00:00");
+	}
+	
+	public static int getExistentNum_assistants(){
+		return 10;
+	}
+	
 
+	public static String getExistentUser_id(){
+		return "user1";
+	}
+	
+	public static Categories getExistentCategory(){
+		return Categories.films;
+	}
+	public static boolean getExistentHasImage(){
+		return true;
+	}
+	
+	public static Event getExistentEvent() throws ParseException{
+		return new Event(getExistentId(),
+			getExistentTitle(),
+			getExistentDescription(),
+			getExistentPlace(),
+			getExistentStart(),
+			getExistentEnd(),
+			getExistentNum_assistants(),
+			getExistentUser_id(),
+			getExistentCategory(),
+			getExistentHasImage());
+	}
+	
+	public static int getNonExistentId(){
+		return 1000;
+	}
+	
 }

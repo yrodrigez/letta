@@ -139,6 +139,11 @@ public class Event implements Entity{
 		this.user_id = user_id;
 	}
 	
+	@Override
+	public boolean equals(Object e){
+		return ((Event)e).getId() == this.id;
+	}
+	
 	
 
 }

@@ -1,19 +1,26 @@
 package es.uvigo.esei.daa.letta.rest;
 
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.events;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.search;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.featured;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentDescription;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentEvent;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentId;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentImage;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getNonExistentId;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.popular;
 import static es.uvigo.esei.daa.letta.matchers.HasHttpStatus.hasBadRequestStatus;
 import static es.uvigo.esei.daa.letta.matchers.HasHttpStatus.hasOkStatus;
 import static es.uvigo.esei.daa.letta.matchers.IsEqualToEvent.containsEventsInAnyOrder;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -122,6 +129,35 @@ public class EventResourceTest extends JerseyTest{
 		
 		assertEquals(image.getImg_ext(), i2.getImg_ext());
 		assertArrayEquals(image.getImg(), i2.getImg());
+	}
+	
+	@Test
+	public void testGetEvent() throws ParseException{
+		final Response response = target("events/" + getExistentId()).request().get();
+		assertThat(response, hasOkStatus());
+		Event e = response.readEntity(Event.class);
+		
+		assertThat(e, is(equalTo(getExistentEvent())));
+	}
+	
+	@Test
+	public void testGetSearchEvent() throws ParseException{
+		final Response response = target("events").queryParam("search", "Foo description 2")
+				.request().get();
+		assertThat(response, hasOkStatus());
+
+		
+		final List<Event> events = response.readEntity(new GenericType<List<Event>>(){});
+		
+		assertThat(events, containsEventsInAnyOrder(search()));
+	}
+	
+
+
+	@Test
+	public void testGetNonExistentEvent() throws ParseException{
+		final Response response = target("events/" + getNonExistentId()).request().get();
+		assertThat(response, hasBadRequestStatus());
 	}
 
 }

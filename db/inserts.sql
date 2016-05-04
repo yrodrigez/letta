@@ -11733,7 +11733,12 @@ Dk12AE5YmqkniCIfMG47gVwD6ldc/P2qvJqFyTtMhNPkQNI9APiOHP3v0orz37TMf4/0op8qFyn/
 (null, 'Event 7', 'Description of this event 7', 'Boulevard du Clichy', 10, '2016-07-10 16:00:00', '2016-07-10 18:00:00', 'user5', null, null, "others"),
 (null, 'Event 8', 'Description of this event 8', 'Bar Ace of Spades', 30, '2016-06-10 16:00:00', '2016-06-10 18:00:00', 'user5', null, null, "others"),
 (null, 'Event 9', 'Description of this event 9', 'Markus Phoenix Plaza', 70, '2016-12-31 22:00:00', '2017-12-31 01:00:00', 'user5', null, null, "others"),
-(null, 'Event 10', 'Description of this event 10', 'Doomsday Park', 10, '2016-06-18 16:00:00', '2016-06-18 18:00:00', 'user5', null, null, "others");
+(null, 'Event 10', 'Description of this event 10', 'Doomsday Park', 10, '2016-06-18 16:00:00', '2016-06-18 18:00:00', 'user5', null, null, "others"),
+(null, 'Event 11', 'Description of this event 11', 'Doomsday Park', 10, '2016-06-18 16:00:00', '2016-06-18 18:00:00', 'user5', null, null, "others"),
+(null, 'Event 12', 'Description of this event 12', 'Doomsday Park', 10, '2016-06-18 16:00:00', '2016-06-18 18:00:00', 'user5', null, null, "others"),
+(null, 'Event 13', 'Description of this event 13', 'Doomsday Park', 10, '2016-06-18 16:00:00', '2016-06-18 18:00:00', 'user5', null, null, "others"),
+(null, 'Event 14', 'Description of this event 14', 'Doomsday Park', 10, '2016-06-18 16:00:00', '2016-06-18 18:00:00', 'user5', null, null, "others"),
+(null, 'Event 15', 'Description of this event 15', 'Doomsday Park', 10, '2016-06-18 16:00:00', '2016-06-18 18:00:00', 'user5', null, null, "others");
 
 INSERT INTO `assists` VALUES
 ('user1',2),

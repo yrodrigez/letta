@@ -154,7 +154,7 @@ public class EventDAO extends DAO<Event> {
 
 	public List<Event> getPopular() throws DAOException{
 		try (final Connection conn = this.getConnection()) {
-			final String query = "SELECT * FROM " + getTableName() + " WHERE start > NOW() ORDER BY start LIMIT 10;";
+			final String query = "SELECT * FROM " + getTableName() + " WHERE start > NOW() ORDER BY start LIMIT 12;";
 			try(final PreparedStatement statement = conn.prepareStatement(query)){
 				try (final ResultSet result = statement.executeQuery()) {
 					List<Event> events = new LinkedList<>();
