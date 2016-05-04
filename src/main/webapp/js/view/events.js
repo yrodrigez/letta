@@ -124,6 +124,17 @@ function initEvents(){
             alertify.error('Error listando eventos populares');
         });
     });
+    fillCarrousel();
+    
+}
+
+function fillCarrousel(){
+	$.getScript('js/dao/events.js', function(){
+        listFeaturedEvents ( function (events) {
+            $("#carrouselIndicators").append(getCarrouselIndicators(events.length + 1));
+            $("#carrouselElements").append(getCarrouselElements(events));
+        });
+	});
 }
 
 function createSearchResultRigth(event){
@@ -174,3 +185,50 @@ $('#buscar').keypress(function(e) {
        showSearch();
      }
   });
+
+function getCarrouselIndicators(numIndicators){
+	var ret = "";
+	for(var i = 0; i < numIndicators; i++){
+		var active = "";
+		if(i == 0) active = " class='active'";
+		ret += "<li data-target='#bs-carousel' data-slide-to='" + i + "'" + active + "></li>";
+	}
+	return ret;
+}
+
+function getCarrouselElements(events){
+	var ret = ""
+    $.each(events, function (key, event) {
+    	var active = "";
+    	if(key == 0) active = " active";
+        var img_path = "img/"+event.category+".png";
+        if(event.image)
+        	img_path = 'rest/events/'+event.id+'/image';
+    	ret +="<div class='item slides" + active + "'>\
+    		<div class='slide' style='background-image: url(" + img_path + ");'></div>\
+    		<div class='hero'>\
+    			<hgroup>\
+    				<h1>" + event.title + "</h1>\
+    				<h3>" + event.description + "</h3>\
+    			</hgroup>\
+    			<button class='btn btn-hero btn-lg' role='button'>Descubre</button>\
+    		</div>\
+    	</div>";
+    });
+	active = "";
+	if(ret == "") artive == " active";
+	ret += "<div class='item slides" + active + "'>\
+		<div class='slide'style='background-image: url(img/logo.png);'></div>\
+		<div class='hero'>\
+			<hgroup>\
+				<h1>¿Tienes cinco minutos?</h1>\
+				<h3>\
+					Crea un evento con Le<i style='color: green;'>t</i>ta\
+				</h3>\
+			</hgroup>\
+			<button class='btn btn-hero btn-lg' role='button'>Crear\
+				un evento</button>\
+		</div>\
+	</div>";
+	return ret;
+}
