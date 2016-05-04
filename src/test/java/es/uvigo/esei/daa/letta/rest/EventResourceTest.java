@@ -1,26 +1,25 @@
 package es.uvigo.esei.daa.letta.rest;
 
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.events;
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.search;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.featured;
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentDescription;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentEvent;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentId;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentImage;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getNonExistentId;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.popular;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.search;
 import static es.uvigo.esei.daa.letta.matchers.HasHttpStatus.hasBadRequestStatus;
 import static es.uvigo.esei.daa.letta.matchers.HasHttpStatus.hasOkStatus;
 import static es.uvigo.esei.daa.letta.matchers.IsEqualToEvent.containsEventsInAnyOrder;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -153,6 +152,17 @@ public class EventResourceTest extends JerseyTest{
 	}
 	
 
+	@Test
+	public void testGetSearchNotExistentEvent() throws ParseException{
+		final Response response = target("events").queryParam("search", "Foo description 999999")
+				.request().get();
+		assertThat(response, hasOkStatus());
+
+		
+		final List<Event> events = response.readEntity(new GenericType<List<Event>>(){});
+		
+		assertThat(events, is(empty()));
+	}
 
 	@Test
 	public void testGetNonExistentEvent() throws ParseException{
