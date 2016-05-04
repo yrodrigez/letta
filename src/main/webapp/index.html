@@ -57,70 +57,9 @@
 <link href="css/index.css" rel="stylesheet">
 <link href="css/hero-carousel.css" rel="stylesheet">
 <link href="css/listarbusqueda.css" rel="stylesheet">
-
 </head>
 <body>
-	<nav id="navbar" class="navbar navbar-inverse letta-navbar">
-		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-					aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Le<i style="color: green;">t</i>ta
-				</a>
-			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li class="letta-descubre-blinker active"><a href="#">Descubre</a></li>
-					<li><a href="#">Crea un evento</a></li>
-				</ul>
-				<div class="navbar-form navbar-left form-group">
-					<input type="text" id="buscar" class="form-control"
-						placeholder="Búsqueda..." value="" />
-
-					<button type="button" onClick="showSearch()"
-						class="btn btn-default">Buscar</button>
-				</div>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Regístrate</a></li>
-					<li class="letta-hide-on-mobile dropdown">
-						<!--		login 	--> <a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Login <span class="caret"></span></a>
-						<ul class="letta-dropdown-login dropdown-menu">
-							<li>
-								<form class="form-signin" action = "/login" method = "post">
-									<h2 class="form-signin-heading">Loguéate</h2>
-									<label for="login" class="sr-only">Login</label> <input
-										id="login" name="login" class="form-control"
-										placeholder="Login" required="" autofocus=""
-										type="login"> <label for="password" class="sr-only">Contraseña</label>
-									<input id="password" name="password" class="form-control"
-										placeholder="Contraseña" required="" type="password">
-									<div class="checkbox">
-										<label> <input value="remember-me" type="checkbox">
-											Recuérdame
-										</label>
-									</div>
-									<button class="btn btn-default" type="submit">Entrar</button>
-								</form>
-							</li>
-							<!-- /.login -->
-						</ul>
-					</li>
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container-fluid -->
+	<nav id="header" class="navbar navbar-inverse letta-navbar">
 	</nav>
 	<div id="main">
 		<div
@@ -243,13 +182,13 @@
 						<div class="col col-md-4">
 							<h3>Comparte</h3>
 							<ul>
-								<li><a href="#"> <span class="fa fa-twitter">&nbsp;&nbsp;Twitter</span>
+								<li><a href="#"> <span class="fa fa-twitter"></span>&nbsp;&nbsp;Twitter
 								</a></li>
-								<li><a href="#"> <span class="fa fa-facebook">&nbsp;&nbsp;Facebook</span>
+								<li><a href="#"> <span class="fa fa-facebook"></span>&nbsp;&nbsp;Facebook
 								</a></li>
-								<li><a href="#"> <span class="fa fa-github">&nbsp;&nbsp;GitHub</span>
+								<li><a href="#"> <span class="fa fa-github"></span>&nbsp;&nbsp;GitHub
 								</a></li>
-								<li><a href="#"> <span class="fa fa-google">&nbsp;&nbsp;Google+</span>
+								<li><a href="#"> <span class="fa fa-google"></span>&nbsp;&nbsp;Google+
 								</a></li>
 							</ul>
 						</div>
@@ -291,7 +230,10 @@
 <script type="text/javascript" src="js/view/events.js"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="js/md5.min.js"></script>
+<script type="text/javascript" src="js/view/header.js"></script>
 <script type="text/javascript">
+	drawHeader();
 	$(document).ready(function() {
 		initEvents();
 	});
