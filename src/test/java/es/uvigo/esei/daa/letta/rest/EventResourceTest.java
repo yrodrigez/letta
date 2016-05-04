@@ -170,4 +170,8 @@ public class EventResourceTest extends JerseyTest{
 		assertThat(response, hasBadRequestStatus());
 	}
 
+	@Test
+	public void testAddNonExistentEvent() throws ParseException {
+		final Response response = target("events/").request().get();
+	}
 }
