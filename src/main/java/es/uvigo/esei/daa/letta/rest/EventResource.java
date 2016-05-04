@@ -67,11 +67,9 @@ public class EventResource {
 	@Path("/{id}/image")
 	@Produces(MediaType.WILDCARD)
 	public Response getEventImage(
-		@PathParam("tablename") String tablename,
 		@PathParam("id") String id
 	){
 		try{
-			tablename = "event";
 			Image i = this.eventsController.getImage(id);
 			return Response.status(200)
 				.type("image/" + i.getImg_ext())
@@ -119,9 +117,9 @@ public class EventResource {
             @FormParam("title") String title,
             @FormParam("description") String description,
             @FormParam("place") String place,
-            @FormParam("num_assistants") int     num_assistants,
-            @FormParam("start") Date start,
-            @FormParam("end") Date end,
+            @FormParam("num_assistants") int    num_assistants,
+            @FormParam("start") long start,
+            @FormParam("end") long end,
             @FormParam("user_id") String user_id,
             @FormParam("category") String category
 
@@ -132,8 +130,8 @@ public class EventResource {
                     description,
                     place,
                     num_assistants,
-                    start,
-                    end,
+                    new Date(start),
+                    new Date(end),
                     user_id,
                     Categories.valueOf(category)
                     

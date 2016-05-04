@@ -1,32 +1,26 @@
 package es.uvigo.esei.daa.letta.rest;
 
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.events;
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.featured;
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentEvent;
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentId;
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentImage;
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getNonExistentId;
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.popular;
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.search;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.*;
 import static es.uvigo.esei.daa.letta.matchers.HasHttpStatus.hasBadRequestStatus;
 import static es.uvigo.esei.daa.letta.matchers.HasHttpStatus.hasOkStatus;
 import static es.uvigo.esei.daa.letta.matchers.IsEqualToEvent.containsEventsInAnyOrder;
+import static es.uvigo.esei.daa.letta.matchers.IsEqualToEvent.equalsToEvent;
+import static javax.ws.rs.client.Entity.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.sql.DataSource;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.*;
 
+import es.uvigo.esei.daa.letta.DAO.EventDAO;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
@@ -70,6 +64,7 @@ public class EventResourceTest extends JerseyTest{
 	protected Application configure(){
 		return new LettaApplication();
 	}
+	private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	protected void configureClient(ClientConfig config) {
 		super.configureClient(config);
@@ -171,7 +166,211 @@ public class EventResourceTest extends JerseyTest{
 	}
 
 	@Test
+	@ExpectedDatabase("/datasets/event/add.xml")
 	public void testAddNonExistentEvent() throws ParseException {
-		final Response response = target("events/").request().get();
+		final Form formEvent = new Form();
+		formEvent.param("title", "Event16");
+		formEvent.param("description", "Foo description 16");
+		formEvent.param("place", "Ons");
+		formEvent.param("num_assistants", "18");
+		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("user_id", "user5");
+		formEvent.param("category", String.valueOf(getExistentCategory()));
+
+		final Response response = target("events")
+			.request()
+		.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasOkStatus());
+
+		final Event event = response.readEntity(Event.class);
+
+		assertThat(event, is(equalsToEvent(new Event(
+				16,
+				"Event16",
+				"Foo description 16",
+				"Ons",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				getExistentCategory(),
+				false
+		))));
 	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAddNullEvent() throws ParseException {
+		final Form formEvent = new Form();
+		formEvent.param("title", null);
+		formEvent.param("description", null);
+		formEvent.param("place", null);
+		formEvent.param("num_assistants", null);
+		formEvent.param("start", null);
+		formEvent.param("end", null);
+		formEvent.param("user_id", null);
+		formEvent.param("category", null);
+
+		final Response response = target("events")
+				.request()
+				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+
+		assertThat(response, hasBadRequestStatus());
+	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAddNullTitle() throws ParseException {
+		final Form formEvent = new Form();
+		formEvent.param("title", null);
+		formEvent.param("description", "Foo description 16");
+		formEvent.param("place", "Ons");
+		formEvent.param("num_assistants", "18");
+		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("user_id", "user5");
+		formEvent.param("category", String.valueOf(getExistentCategory()));
+
+		final Response response = target("events")
+				.request()
+				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasBadRequestStatus());
+	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAddNullDescription() throws ParseException {
+		final Form formEvent = new Form();
+		formEvent.param("title", "Event16");
+		formEvent.param("description", null);
+		formEvent.param("place", "Ons");
+		formEvent.param("num_assistants", "18");
+		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("user_id", "user5");
+		formEvent.param("category", String.valueOf(getExistentCategory()));
+
+		final Response response = target("events")
+				.request()
+				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasBadRequestStatus());
+	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAddNullPlace() throws ParseException {
+		final Form formEvent = new Form();
+		formEvent.param("title", "Event16");
+		formEvent.param("description", "Foo description 16");
+		formEvent.param("place", null);
+		formEvent.param("num_assistants", "18");
+		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("user_id", "user5");
+		formEvent.param("category", String.valueOf(getExistentCategory()));
+
+		final Response response = target("events")
+				.request()
+				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasBadRequestStatus());
+	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAddNullNumAssistants() throws ParseException {
+		final Form formEvent = new Form();
+		formEvent.param("title", "Event16");
+		formEvent.param("description", "Foo description 16");
+		formEvent.param("place", "Ons");
+		formEvent.param("num_assistants", null);
+		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("user_id", "user5");
+		formEvent.param("category", String.valueOf(getExistentCategory()));
+
+		final Response response = target("events")
+				.request()
+				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasBadRequestStatus());
+	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAddNullStart() throws ParseException {
+		final Form formEvent = new Form();
+		formEvent.param("title", "Event16");
+		formEvent.param("description", "Foo description 16");
+		formEvent.param("place", "Ons");
+		formEvent.param("num_assistants", "18");
+		formEvent.param("start", null);
+		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("user_id", "user5");
+		formEvent.param("category", String.valueOf(getExistentCategory()));
+
+		final Response response = target("events")
+				.request()
+				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasBadRequestStatus());
+	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAddNullEnd() throws ParseException {
+		final Form formEvent = new Form();
+		formEvent.param("title", "Event16");
+		formEvent.param("description", "Foo description 16");
+		formEvent.param("place", "Ons");
+		formEvent.param("num_assistants", "18");
+		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("end", null);
+		formEvent.param("user_id", "user5");
+		formEvent.param("category", String.valueOf(getExistentCategory()));
+
+		final Response response = target("events")
+				.request()
+				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasBadRequestStatus());
+	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAddNullUserId() throws ParseException {
+		final Form formEvent = new Form();
+		formEvent.param("title", "Event16");
+		formEvent.param("description", "Foo description 16");
+		formEvent.param("place", "Ons");
+		formEvent.param("num_assistants", "18");
+		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("user_id", null);
+		formEvent.param("category", String.valueOf(getExistentCategory()));
+
+		final Response response = target("events")
+				.request()
+				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasBadRequestStatus());
+	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAddNullCategory() throws ParseException {
+		final Form formEvent = new Form();
+		formEvent.param("title", "Event16");
+		formEvent.param("description", "Foo description 16");
+		formEvent.param("place", "Ons");
+		formEvent.param("num_assistants", "18");
+		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("user_id", "user5");
+		formEvent.param("category", null);
+
+		final Response response = target("events")
+				.request()
+				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasBadRequestStatus());
+	}
+
+
+
 }
