@@ -47,13 +47,18 @@ function showSearch(){
     var text = formSearchtoText();
     $.getScript('js/dao/events.js', function(){
         searchEvents(text,function (events) {
-            document.getElementById("main").innerHTML="";
-        	var cont=0;
-            $.each(events, function (key, event) {
-                addSearch(event,cont);
-                cont=cont+1;
-            });
-
+        	if(events.length<1){
+	            document.getElementById("main").innerHTML="";
+	            $("#main").append("<h2 class='busqueda-no-encontrada'>No se han encontrado coincidencias con: " + text +"</h2>");
+        	}else{
+	            document.getElementById("main").innerHTML="";
+	            $("#main").append("<h2>Resultados para: " + text +"</h2><br/>");
+	        	var cont=0;
+	            $.each(events, function (key, event) {
+	                addSearch(event,cont);
+	                cont=cont+1;
+	            });
+        	}
         }, function(){
             alertify.error('Error listando eventos');
         });
