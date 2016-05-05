@@ -121,7 +121,8 @@ public class EventResource {
     @GET
     public Response list(
             @QueryParam("type") String type,
-            @QueryParam("search") String search
+            @QueryParam("search") String search,
+            @Context HttpServletRequest request
     ) {
         try {
 
@@ -130,6 +131,8 @@ public class EventResource {
                     return Response.ok(this.eventsController.getFeatured()).build();
                 else if(type.equals("popular"))
                     return Response.ok(this.eventsController.getPopular()).build();
+                else if(type.equals("assist"))
+                    return Response.ok(this.eventsController.getAssistEvents(request)).build();
                 else
                     return Response.status(400).build();
             } else if(search != null)
@@ -139,6 +142,9 @@ public class EventResource {
             }
         } catch (DAOException e) {
             LOG.log(Level.SEVERE, "Error listing events", e);
+            return Response.serverError().entity(e.getMessage()).build();
+        } catch (NotLoggedInException e) {
+            LOG.log(Level.SEVERE, "You must be logged in to access your assistance to future events", e);
             return Response.serverError().entity(e.getMessage()).build();
         }
     }

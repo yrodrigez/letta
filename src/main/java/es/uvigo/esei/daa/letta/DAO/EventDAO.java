@@ -210,4 +210,23 @@ public class EventDAO extends DAO<Event> {
 		}
 
 	}
+
+	public List<Event> getAssistEvents(String assist) throws DAOException {
+		try (final Connection conn = this.getConnection()) {
+			final String query = "SELECT " + getTableName() + ".* FROM " + getTableName() + ", assists WHERE "+getTableName()+"."+getPrimaryKeyFieldName()+"=assists.event_id AND assists.user_id=?;";
+			try(final PreparedStatement statement = conn.prepareStatement(query)){
+				statement.setString(1, assist);
+				try (final ResultSet result = statement.executeQuery()) {
+					List<Event> events = new LinkedList<>();
+					while (result.next()) {
+						events.add(rowToEntity(result));
+					}
+					return events;
+				}
+			}
+		} catch(SQLException e){
+			LOG.log(Level.SEVERE, "Error listing entities", e);
+			throw new DAOException(e.getMessage());
+		}
+	}
 }
