@@ -16,7 +16,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
-
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -34,8 +33,6 @@ public class EventResource {
     private final static Logger LOG = Logger.getLogger(UsersResource.class.getName());
 
     private final EventController eventsController;
-
-    private @Context HttpServletRequest request;
 
     public EventResource() {
         this(new EventController());
@@ -155,8 +152,8 @@ public class EventResource {
             @FormParam("num_assistants") int    num_assistants,
             @FormParam("start") long start,
             @FormParam("end") long end,
-            @FormParam("user_id") String user_id,
-            @FormParam("category") String category
+            @FormParam("category") String category,
+            @Context HttpServletRequest request
 
     ) {
         try {
@@ -167,9 +164,9 @@ public class EventResource {
                     num_assistants,
                     new Date(start),
                     new Date(end),
-                    user_id,
-                    Categories.valueOf(category)
-
+                    Categories.valueOf(category),
+                    request
+                    
             );
 
             return Response.ok(event).build();
@@ -180,6 +177,11 @@ public class EventResource {
                     .build();
         } catch (DAOException e) {
             LOG.log(Level.SEVERE, "Error adding a event", e);
+            return Response.serverError()
+                    .entity(e.getMessage())
+                    .build();
+        } catch (NotLoggedInException e){
+            LOG.log(Level.SEVERE, "You are not logged in to add an event", e);
             return Response.serverError()
                     .entity(e.getMessage())
                     .build();

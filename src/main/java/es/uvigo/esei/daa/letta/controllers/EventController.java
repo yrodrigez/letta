@@ -84,6 +84,11 @@ public class EventController implements Controller<Event>{
 			String user_id,
 			Categories category
 	) throws DAOException {
+	public Event add(String title, String description, String place, int num_assistants,
+		Date start, Date end, Categories category, HttpServletRequest request)
+	throws DAOException, NotLoggedInException{
+		String user_id = (String)(request.getSession().getAttribute("login"));
+		if(user_id == null) throw new NotLoggedInException();
 		return this.dao.add(title, description, place, num_assistants, start, end, user_id, category);
 	}
 
