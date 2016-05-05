@@ -3,6 +3,8 @@ package es.uvigo.esei.daa.letta.controllers;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import es.uvigo.esei.daa.letta.DAO.DAOException;
 import es.uvigo.esei.daa.letta.DAO.EventDAO;
 import es.uvigo.esei.daa.letta.entities.Event;
@@ -73,8 +75,10 @@ public class EventController implements Controller<Event>{
 
 	
 	public Event add(String title, String description, String place, int num_assistants,
-		Date start, Date end, String user_id, Categories category)
-	throws DAOException{
+		Date start, Date end, Categories category, HttpServletRequest request)
+	throws DAOException, NotLoggedInException{
+		String user_id = (String)(request.getSession().getAttribute("login"));
+		if(user_id == null) throw new NotLoggedInException();
 		return this.dao.add(title, description, place, num_assistants, start, end, user_id, category);
 	}
 

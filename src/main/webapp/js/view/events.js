@@ -98,6 +98,7 @@ function showSearch(){
     $.getScript('js/dao/events.js', function(){
         searchEvents(text,function (events) {
             vaciarMain();
+            $("#main").append("<div class='row'><div class='col-md-12'>")
         	if(events.length<1){
 	            $("#main").append("<h2 class='busqueda-no-encontrada'>No se han encontrado coincidencias con: " + text +"</h2>");
         	}else{
@@ -108,6 +109,7 @@ function showSearch(){
 	                cont=cont+1;
 	            });
         	}
+            $("#main").append("</div></div>")
         }, function(){
             alertify.error('Error listando eventos');
         });

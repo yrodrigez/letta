@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -14,11 +15,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import es.uvigo.esei.daa.letta.DAO.DAOException;
 import es.uvigo.esei.daa.letta.controllers.EventController;
+import es.uvigo.esei.daa.letta.controllers.NotLoggedInException;
 import es.uvigo.esei.daa.letta.entities.Event;
 import es.uvigo.esei.daa.letta.entities.Event.Categories;
 import es.uvigo.esei.daa.letta.entities.Image;
@@ -30,8 +33,7 @@ public class EventResource {
     private final static Logger LOG = Logger.getLogger(UsersResource.class.getName());
 
     private final EventController eventsController;
-
-
+    
     public EventResource() {
         this(new EventController());
     }
@@ -120,8 +122,8 @@ public class EventResource {
             @FormParam("num_assistants") int    num_assistants,
             @FormParam("start") long start,
             @FormParam("end") long end,
-            @FormParam("user_id") String user_id,
-            @FormParam("category") String category
+            @FormParam("category") String category,
+            @Context HttpServletRequest request
 
             ) {
         try {
@@ -132,8 +134,8 @@ public class EventResource {
                     num_assistants,
                     new Date(start),
                     new Date(end),
-                    user_id,
-                    Categories.valueOf(category)
+                    Categories.valueOf(category),
+                    request
                     
             );
 
@@ -145,6 +147,11 @@ public class EventResource {
                     .build();
         } catch (DAOException e) {
             LOG.log(Level.SEVERE, "Error adding a event", e);
+            return Response.serverError()
+                    .entity(e.getMessage())
+                    .build();
+        } catch (NotLoggedInException e){
+            LOG.log(Level.SEVERE, "You are not logged in to add an event", e);
             return Response.serverError()
                     .entity(e.getMessage())
                     .build();

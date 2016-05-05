@@ -1,15 +1,25 @@
 package es.uvigo.esei.daa.letta.rest;
 
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.*;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.events;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.featured;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentCategory;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentEvent;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentId;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentImage;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getNonExistentId;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.popular;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.search;
 import static es.uvigo.esei.daa.letta.matchers.HasHttpStatus.hasBadRequestStatus;
 import static es.uvigo.esei.daa.letta.matchers.HasHttpStatus.hasOkStatus;
 import static es.uvigo.esei.daa.letta.matchers.IsEqualToEvent.containsEventsInAnyOrder;
 import static es.uvigo.esei.daa.letta.matchers.IsEqualToEvent.equalsToEvent;
-import static javax.ws.rs.client.Entity.*;
+import static javax.ws.rs.client.Entity.entity;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,10 +27,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.sql.DataSource;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.Application;
+import javax.ws.rs.core.Form;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import es.uvigo.esei.daa.letta.DAO.EventDAO;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
@@ -168,6 +180,7 @@ public class EventResourceTest extends JerseyTest{
 	@Test
 	@ExpectedDatabase("/datasets/event/add.xml")
 	public void testAddNonExistentEvent() throws ParseException {
+		
 		final Form formEvent = new Form();
 		formEvent.param("title", "Event16");
 		formEvent.param("description", "Foo description 16");
@@ -175,9 +188,15 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("num_assistants", "18");
 		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
 		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
-		formEvent.param("user_id", "user5");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
-
+		
+		final Form loginForm = new Form();
+		loginForm.param("login", "user5");
+		loginForm.param("password", "55555555555555555555555555555555");
+		
+		final Response loginres = target("login").request().post(entity(loginForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(loginres, hasOkStatus());
+		
 		final Response response = target("events")
 			.request()
 		.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
