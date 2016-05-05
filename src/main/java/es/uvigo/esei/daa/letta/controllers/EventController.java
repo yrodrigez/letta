@@ -74,16 +74,6 @@ public class EventController implements Controller<Event>{
 	}
 
 	
-	public Event add(
-			String title,
-			String description,
-			String place,
-			int num_assistants,
-			Date start,
-			Date end,
-			String user_id,
-			Categories category
-	) throws DAOException {
 	public Event add(String title, String description, String place, int num_assistants,
 		Date start, Date end, Categories category, HttpServletRequest request)
 	throws DAOException, NotLoggedInException{
