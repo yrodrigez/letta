@@ -97,7 +97,7 @@ public class UserDAO extends DAO<User> {
 
 	public boolean checkLogin(String login, String password) throws DAOException{
 		try(Connection conn = this.getConnection()){
-			final String query = "SELECT login,password FROM user where login = ? and password = ?";
+			final String query = "SELECT login, password FROM user where login = ? and password = ?";
 			try (PreparedStatement statement = conn.prepareStatement(query)) {
 				statement.setString(1, login);
 				statement.setString(2, password);

@@ -144,5 +144,6 @@ public abstract class DAO<E extends Entity> {
 	protected abstract String getPrimaryKeyFieldName();
 	
 	protected abstract void setPrimaryKeyValue(PreparedStatement statement, String id, int index) throws SQLException;
-	
+
+
 }

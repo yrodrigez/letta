@@ -188,4 +188,26 @@ public class EventDAO extends DAO<Event> {
 		}
 
 }
+
+	public void assist(String id, String user) throws DAOException {
+
+		if (id == null || user == null) {
+			throw new IllegalArgumentException("the arguments are wrong");
+		}
+
+		try (Connection conn = this.getConnection()) {
+			final String query = "INSERT INTO assists VALUES(?, ?)";
+
+			try (PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+				statement.setString(1, user);
+				statement.setInt(2, Integer.parseInt(id));
+
+				if (statement.executeUpdate() != 1) throw new SQLException("Error creating an assist");
+			}
+		} catch (SQLException e) {
+			LOG.log(Level.SEVERE, "Error creating an assist", e);
+			throw new DAOException(e);
+		}
+
+	}
 }

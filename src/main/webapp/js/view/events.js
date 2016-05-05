@@ -24,12 +24,11 @@ function createEventThumbnail(event){
 }
 
 function createButtonVerMas(id) {
-    return '<a onclick="showEventDetails('+id+')" class="btn btn-default" role="button">Ver mas</a>';
+    return '<a onclick="showEventDetails('+ id +')" class="btn btn-default" role="button">Ver mas</a>';
 }
 
 function createButtonAsistir(id) {
-    /*TODO: CREAR ENLACE*/
-    return '<a class="btn btn-primary" role="button">Asistir</a>';
+    return '<a onclick="assist('+ id +')" class="btn btn-primary" role="button">Asistir</a>';
 }
 
 function asistenciaPorcentaje(event){
@@ -54,6 +53,14 @@ function formSearchtoText(){
 
 function vaciarMain() {
     document.getElementById("main").innerHTML="";
+}
+
+function assist( id ) {
+    daoassist(id, function () {
+        alertify.success("Te acabas de registrar en: "+ id +"...")
+    }, function () {
+        alertify.error("Error creando asistencia...")
+    })
 }
 
 function showEventDetails(id) {
@@ -191,13 +198,13 @@ function getCarrouselIndicators(numIndicators){
 	for(var i = 0; i < numIndicators; i++){
 		var active = "";
 		if(i == 0) active = " class='active'";
-		ret += "<li data-target='#bs-carousel' data-slide-to='" + i + "'" + active + "></li>";
+		ret += "<li data-target='#bs-carousel' data-slide-to='" + i + "' " + active + "></li>";
 	}
 	return ret;
 }
 
 function getCarrouselElements(events){
-	var ret = ""
+	var ret = "";
     $.each(events, function (key, event) {
     	var active = "";
     	if(key == 0) active = " active";
@@ -216,9 +223,9 @@ function getCarrouselElements(events){
     	</div>";
     });
 	active = "";
-	if(ret == "") artive == " active";
+	if(ret == "") active = "active";
 	ret += "<div class='item slides" + active + "'>\
-		<div class='slide'style='background-image: url(img/logo.png);'></div>\
+		<div class='slide' style='background-image: url(img/logo.png);'></div>\
 		<div class='hero'>\
 			<hgroup>\
 				<h1>¿Tienes cinco minutos?</h1>\

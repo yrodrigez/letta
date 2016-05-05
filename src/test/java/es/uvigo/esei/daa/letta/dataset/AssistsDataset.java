@@ -1,11 +1,13 @@
 package es.uvigo.esei.daa.letta.dataset;
 
-import es.uvigo.esei.daa.letta.entities.Assist;
+//import es.uvigo.esei.daa.letta.entities.Assist;
 
 
 
 public class AssistsDataset {
-
+/**
+ *  TODO: ARREGLAR ESTO
+ *
     public static Assist[] assists() {
         return new Assist[]{
                 new Assist(
@@ -61,6 +63,6 @@ public class AssistsDataset {
         return new Assist(getExistentUser_id(),
                 getExistentEvent_id());
     }
-
+*/
 }
 
