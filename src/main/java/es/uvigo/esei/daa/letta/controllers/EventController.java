@@ -10,6 +10,7 @@ import es.uvigo.esei.daa.letta.entities.Event.Categories;
 import es.uvigo.esei.daa.letta.entities.Image;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 public class EventController implements Controller<Event>{
 
@@ -74,16 +75,6 @@ public class EventController implements Controller<Event>{
 	}
 
 	
-	public Event add(
-			String title,
-			String description,
-			String place,
-			int num_assistants,
-			Date start,
-			Date end,
-			String user_id,
-			Categories category
-	) throws DAOException {
 	public Event add(String title, String description, String place, int num_assistants,
 		Date start, Date end, Categories category, HttpServletRequest request)
 	throws DAOException, NotLoggedInException{
@@ -98,5 +89,10 @@ public class EventController implements Controller<Event>{
 		if(user == null) throw new NotLoggedInException ();
 
 		this.dao.assist(id, user);
+	}
+	public List<Event> getAssistEvents(HttpServletRequest request) throws DAOException, NotLoggedInException {
+		String assist = (String)(request.getSession().getAttribute("login"));
+		if(assist == null) throw new NotLoggedInException();
+		return this.dao.getAssistEvents(assist);
 	}
 }
