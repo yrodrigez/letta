@@ -1,0 +1,37 @@
+.letta-view-event-imgcover {
+    background-size: cover;
+    height: 65vh;
+}
+
+div.view-event-title {
+    margin-top: 150px;
+    color: white;
+    padding: 5px;
+    background: #5e6e60;
+    font-size: 50px;
+    border-radius: 3px;
+}
+
+
+.letta-view-event-description {
+    margin-bottom: 30px;
+    margin-top: 10px;
+    border: 1px solid #232b23;
+    padding-top: 10px;
+    font-size: 17px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 4px;
+    background: whitesmoke;
+    -webkit-box-shadow: 10px 10px 38px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 38px 0 rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 38px 0 rgba(0,0,0,0.75);
+}
+
+.letta-view-event-assist-button {
+    padding-bottom: 5px;
+}
+
+.letta-view-event-container {
+    background: #1a221a;
+}

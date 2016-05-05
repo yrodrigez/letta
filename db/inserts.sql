@@ -6,7 +6,7 @@ INSERT INTO `user` VALUES
 ('user5', 'd35f6fa9a79434bcd17f8049714ebfcb');
 
 INSERT INTO `event` VALUES
-(null, 'Event 1', 'Description of this event 1', 'Foo street number 1', 20, '2016-10-1 14:00:00', '2016-10-1 14:30:00', 'user1', FROM_BASE64("/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkI
+(null, 'Cafe con rubias', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt imperdiet urna, eu rhoncus velit egestas consequat. Nulla non est non arcu consequat bibendum. Etiam lobortis ex sapien, quis lobortis ante aliquam ac. Nulla lacinia ex eget ex hendrerit vestibulum. Vestibulum venenatis felis a elit porta efficitur. Nam commodo ornare suscipit. Ut dui arcu, interdum et sapien vitae, sollicitudin scelerisque leo. Donec tempor, elit vel laoreet faucibus, lorem ligula cursus leo, a rhoncus elit justo vel tellus. Integer scelerisque est ante, id varius dui maximus in. Suspendisse potenti.', 'Lorem ipsum dolor sit amet.', 20, '2016-10-1 14:00:00', '2016-10-1 14:30:00', 'user1', FROM_BASE64("/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkI
 CQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQ
 EBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAdNClIDASIA
 AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
