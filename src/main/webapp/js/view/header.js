@@ -15,7 +15,7 @@ function drawHeader(){
 		id='bs-example-navbar-collapse-1'>\
 		<ul class='nav navbar-nav'>\
 			<li class='letta-descubre-blinker active'><a href='#'>Descubre</a></li>\
-			<li><a href='#'>Crea un evento</a></li>\
+			<li><a href='newEvent.html'>Crea un evento</a></li>\
 		</ul>\
 		<div class='navbar-form navbar-left form-group'>\
 			<input type='text' id='buscar' class='form-control'\
