@@ -145,7 +145,7 @@ public class EventResource {
             return Response.serverError().entity(e.getMessage()).build();
         } catch (NotLoggedInException e) {
             LOG.log(Level.SEVERE, "You must be logged in to access your assistance to future events", e);
-            return Response.serverError().entity(e.getMessage()).build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
         }
     }
 
@@ -188,7 +188,7 @@ public class EventResource {
                     .build();
         } catch (NotLoggedInException e){
             LOG.log(Level.SEVERE, "You are not logged in to add an event", e);
-            return Response.serverError()
+            return Response.status(Response.Status.UNAUTHORIZED)
                     .entity(e.getMessage())
                     .build();
         }

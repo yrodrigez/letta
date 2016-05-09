@@ -10,6 +10,7 @@ import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getNonExistentId;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.popular;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.search;
 import static es.uvigo.esei.daa.letta.matchers.HasHttpStatus.hasBadRequestStatus;
+import static es.uvigo.esei.daa.letta.matchers.HasHttpStatus.hasHttpStatus;
 import static es.uvigo.esei.daa.letta.matchers.HasHttpStatus.hasOkStatus;
 import static es.uvigo.esei.daa.letta.matchers.IsEqualToEvent.containsEventsInAnyOrder;
 import static es.uvigo.esei.daa.letta.matchers.IsEqualToEvent.equalsToEvent;
@@ -24,6 +25,7 @@ import static org.junit.Assert.assertThat;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -34,7 +36,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.servlet.ServletContainer;
+import org.glassfish.jersey.test.DeploymentContext;
 import org.glassfish.jersey.test.JerseyTest;
+import org.glassfish.jersey.test.ServletDeploymentContext;
+import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
+import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -47,6 +55,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 
 import es.uvigo.esei.daa.letta.LettaApplication;
+import es.uvigo.esei.daa.letta.LoginFilter;
 import es.uvigo.esei.daa.letta.entities.Event;
 import es.uvigo.esei.daa.letta.entities.Image;
 import es.uvigo.esei.daa.letta.listeners.ApplicationContextBinding;
@@ -73,6 +82,20 @@ import es.uvigo.esei.daa.letta.listeners.DbManagementTestExecutionListener;
 @ExpectedDatabase("/datasets/dataset.xml")
 public class EventResourceTest extends JerseyTest{
 	
+	@Override
+	protected TestContainerFactory getTestContainerFactory() {
+	   return new GrizzlyWebTestContainerFactory();
+	}
+	
+	@Override
+	protected DeploymentContext configureDeployment() {
+	   return ServletDeploymentContext.forServlet(
+	      new ServletContainer(ResourceConfig.forApplication(configure()))
+	   )
+	      .servletPath("/rest")
+	      .addFilter(LoginFilter.class, "login-filter")
+	   .build();
+	}
 	protected Application configure(){
 		return new LettaApplication();
 	}
@@ -190,15 +213,9 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 		
-		final Form loginForm = new Form();
-		loginForm.param("login", "user5");
-		loginForm.param("password", "55555555555555555555555555555555");
-		
-		final Response loginres = target("login").request().post(entity(loginForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
-		assertThat(loginres, hasOkStatus());
-		
 		final Response response = target("events")
 			.request()
+			.cookie("token", getToken("user5","55555555555555555555555555555555"))
 		.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 		assertThat(response, hasOkStatus());
 
@@ -218,6 +235,10 @@ public class EventResourceTest extends JerseyTest{
 		))));
 	}
 
+	private String getToken(String login, String password) {
+		return Base64.getEncoder().encodeToString((login + ":" + password).getBytes());
+	}
+
 	@Test
 	@ExpectedDatabase("/datasets/dataset.xml")
 	public void testAddNullEvent() throws ParseException {
@@ -228,11 +249,11 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("num_assistants", null);
 		formEvent.param("start", null);
 		formEvent.param("end", null);
-		formEvent.param("user_id", null);
 		formEvent.param("category", null);
 
 		final Response response = target("events")
 				.request()
+				.cookie("token", getToken("user5","55555555555555555555555555555555"))
 				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 
 		assertThat(response, hasBadRequestStatus());
@@ -248,11 +269,11 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("num_assistants", "18");
 		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
 		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
-		formEvent.param("user_id", "user5");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
 		final Response response = target("events")
 				.request()
+				.cookie("token", getToken("user5","55555555555555555555555555555555"))
 				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 		assertThat(response, hasBadRequestStatus());
 	}
@@ -267,11 +288,11 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("num_assistants", "18");
 		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
 		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
-		formEvent.param("user_id", "user5");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
 		final Response response = target("events")
 				.request()
+				.cookie("token", getToken("user5","55555555555555555555555555555555"))
 				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 		assertThat(response, hasBadRequestStatus());
 	}
@@ -286,11 +307,11 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("num_assistants", "18");
 		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
 		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
-		formEvent.param("user_id", "user5");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
 		final Response response = target("events")
 				.request()
+				.cookie("token", getToken("user5","55555555555555555555555555555555"))
 				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 		assertThat(response, hasBadRequestStatus());
 	}
@@ -305,11 +326,11 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("num_assistants", null);
 		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
 		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
-		formEvent.param("user_id", "user5");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
 		final Response response = target("events")
 				.request()
+				.cookie("token", getToken("user5","55555555555555555555555555555555"))
 				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 		assertThat(response, hasBadRequestStatus());
 	}
@@ -324,11 +345,11 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("num_assistants", "18");
 		formEvent.param("start", null);
 		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
-		formEvent.param("user_id", "user5");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
 		final Response response = target("events")
 				.request()
+				.cookie("token", getToken("user5","55555555555555555555555555555555"))
 				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 		assertThat(response, hasBadRequestStatus());
 	}
@@ -343,18 +364,18 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("num_assistants", "18");
 		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
 		formEvent.param("end", null);
-		formEvent.param("user_id", "user5");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
 		final Response response = target("events")
 				.request()
+				.cookie("token", getToken("user5","55555555555555555555555555555555"))
 				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 		assertThat(response, hasBadRequestStatus());
 	}
 
 	@Test
 	@ExpectedDatabase("/datasets/dataset.xml")
-	public void testAddNullUserId() throws ParseException {
+	public void testAddNotLoggedIn() throws ParseException {
 		final Form formEvent = new Form();
 		formEvent.param("title", "Event16");
 		formEvent.param("description", "Foo description 16");
@@ -368,7 +389,7 @@ public class EventResourceTest extends JerseyTest{
 		final Response response = target("events")
 				.request()
 				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
-		assertThat(response, hasBadRequestStatus());
+		assertThat(response, hasHttpStatus(401));
 	}
 
 	@Test
@@ -381,7 +402,6 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("num_assistants", "18");
 		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
 		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
-		formEvent.param("user_id", "user5");
 		formEvent.param("category", null);
 
 		final Response response = target("events")

@@ -10,7 +10,6 @@ import es.uvigo.esei.daa.letta.entities.Event.Categories;
 import es.uvigo.esei.daa.letta.entities.Image;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 public class EventController implements Controller<Event>{
 
@@ -78,21 +77,24 @@ public class EventController implements Controller<Event>{
 	public Event add(String title, String description, String place, int num_assistants,
 		Date start, Date end, Categories category, HttpServletRequest request)
 	throws DAOException, NotLoggedInException{
-		String user_id = (String)(request.getSession().getAttribute("login"));
-		if(user_id == null) throw new NotLoggedInException();
+		String user_id = getUser(request);
 		return this.dao.add(title, description, place, num_assistants, start, end, user_id, category);
 	}
 
 
 	public void assist(String id, HttpServletRequest request) throws DAOException, NotLoggedInException {
-		String user = (String) request.getSession().getAttribute("login");
-		if(user == null) throw new NotLoggedInException ();
+		String user = getUser(request);
 
 		this.dao.assist(id, user);
 	}
 	public List<Event> getAssistEvents(HttpServletRequest request) throws DAOException, NotLoggedInException {
-		String assist = (String)(request.getSession().getAttribute("login"));
-		if(assist == null) throw new NotLoggedInException();
+		String assist = getUser(request);
 		return this.dao.getAssistEvents(assist);
+	}
+	
+	private String getUser(HttpServletRequest request) throws NotLoggedInException{
+		String user = (String) request.getSession().getAttribute("login");
+		if(user == null) throw new NotLoggedInException();
+		return user;
 	}
 }
