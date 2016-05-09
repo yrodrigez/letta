@@ -47,7 +47,7 @@ function searchEvents(text, done, fail, always) {
 
     $.ajax({
             url: 'rest/events?search='+text,
-            type: 'GET',
+            type: 'GET'
 
         })
         .done(done)
