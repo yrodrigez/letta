@@ -1,5 +1,6 @@
 package es.uvigo.esei.daa.letta.controllers;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -76,10 +77,18 @@ public class EventController implements Controller<Event>{
 
 	
 	public Event add(String title, String description, String place, int num_assistants,
-		Date start, Date end, Categories category, byte[] img, ExtensionTypes img_ext, HttpServletRequest request)
+		Date start, Date end, Categories category, String img, String img_ext, HttpServletRequest request)
 	throws DAOException, NotLoggedInException{
 		String user_id = getUser(request);
-		return this.dao.add(title, description, place, num_assistants, start, end, user_id, category,img,img_ext);
+		byte[] img2 = null;
+		ExtensionTypes img_ext2 = null;
+		if(img != null){
+			img2 = decodeBase64(img);
+		}
+		if(img_ext != null){
+			img_ext2 = ExtensionTypes.valueOf(img_ext);
+		}
+		return this.dao.add(title, description, place, num_assistants, start, end, user_id, category, img2, img_ext2);
 	}
 
 
@@ -97,5 +106,9 @@ public class EventController implements Controller<Event>{
 		String user = (String) request.getSession().getAttribute("login");
 		if(user == null) throw new NotLoggedInException();
 		return user;
+	}
+	
+	private final byte[] decodeBase64(String text) {
+		return Base64.getDecoder().decode(text.getBytes());
 	}
 }

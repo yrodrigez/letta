@@ -44,6 +44,16 @@ public class DbManagementTestExecutionListener extends AbstractTestExecutionList
 	}
 	
 	@Override
+	public void afterTestMethod(TestContext testContext) throws Exception {
+		this.executeAfterTests();
+	}
+	
+	@Override
+	public void beforeTestMethod(TestContext testContext) throws Exception {
+		this.executeBeforeTests();
+	}
+	
+	@Override
 	public void afterTestClass(TestContext testContext) throws Exception {
 		try {
 			switch (this.configuration.action()) {
@@ -68,16 +78,26 @@ public class DbManagementTestExecutionListener extends AbstractTestExecutionList
 		this.executeQueries(configuration.drop());
 	}
 	
+	private void executeBeforeTests() throws SQLException, IOException {
+		this.executeQueries(configuration.beforeTest());
+	}
+	
+	private void executeAfterTests() throws SQLException, IOException {
+		this.executeQueries(configuration.afterTest());
+	}
+	
 	private void executeQueries(String ... queriesPaths)
 	throws SQLException, IOException {
 		try (Connection connection = this.datasource.getConnection()) {
 			try (Statement statement = connection.createStatement()) {
 				for (String queryPath : queriesPaths) {
-					final String queries = readFile(queryPath);
-					for (String query : queries.split(";")) {
-						query = query.trim();
-						if (!query.trim().isEmpty()) {
-							statement.addBatch(query);
+					if (queryPath != null && !queryPath.isEmpty()) {
+						final String queries = readFile(queryPath);
+						for (String query : queries.split(";")) {
+							query = query.trim();
+							if (!query.trim().isEmpty()) {
+								statement.addBatch(query);
+							}
 						}
 					}
 				}

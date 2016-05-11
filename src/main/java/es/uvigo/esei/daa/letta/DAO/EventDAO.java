@@ -16,14 +16,34 @@ public class EventDAO extends DAO<Event> {
 	
 	public Event add(String title, String description, String place, int num_assistants, Date start, Date end, String user_id, Categories category, byte[] img, ExtensionTypes img_ext)
 	throws DAOException, IllegalArgumentException {
-		if (title == null || description == null ||
-				place == null || num_assistants < 1 ||
-				start == null || end == null || user_id == null ||
-				title.length() > 100 || description.length() > 1000 ||
-				place.length() > 500 || start.getTime() < System.currentTimeMillis() ||
-				end.getTime() < start.getTime() || user_id.length() > 20 || category == null) {
-			throw new IllegalArgumentException("the arguments are wrong");
-		}
+		if(title == null)
+			throw new IllegalArgumentException("title is null");
+		if(description == null)
+			throw new IllegalArgumentException("description is null");
+		if(place == null)
+			throw new IllegalArgumentException("place is null");
+		if(num_assistants < 1)
+			throw new IllegalArgumentException("num_assistants < 1");
+		if(start == null)
+			throw new IllegalArgumentException("start is null");
+		if(end == null)
+			throw new IllegalArgumentException("end is null");
+		if(user_id == null)
+			throw new IllegalArgumentException("user_id is null");
+		if(title.length() > 100)
+			throw new IllegalArgumentException("title length > 100");
+		if(description.length() > 1000)
+			throw new IllegalArgumentException("description length > 1000");
+		if(place.length() > 500)
+			throw new IllegalArgumentException("place length > 500");
+		if(start.getTime() < System.currentTimeMillis())
+			throw new IllegalArgumentException("start date is wrong");
+		if(end.getTime() < start.getTime())
+			throw new IllegalArgumentException("end date is wrong");
+		if(user_id.length() > 20)
+			throw new IllegalArgumentException("user_id length > 20");
+		if(category == null)
+			throw new IllegalArgumentException("category is null");
 		
 		try (Connection conn = this.getConnection()) {
 			conn.setAutoCommit(false);
@@ -42,6 +62,8 @@ public class EventDAO extends DAO<Event> {
 				if (statement.executeUpdate() == 1) {
 					try (ResultSet resultKeys = statement.getGeneratedKeys()) {
 						if (resultKeys.next()) {
+							int id = resultKeys.getInt(1);
+							boolean hasImg = false;
 							if(img != null && img_ext != null) {
 
 								final String imgQuery = "UPDATE event SET img = ?, img_ext=? WHERE id=?";
@@ -51,15 +73,25 @@ public class EventDAO extends DAO<Event> {
 									imgBlob.setBytes(1,img);
 									imgStatement.setBlob(1,imgBlob);
 									imgStatement.setString(2,img_ext.toString());
-									imgStatement.setInt(3, resultKeys.getInt(1));
-									if(statement.executeUpdate()!=1){
+									imgStatement.setInt(3, id);
+									if(imgStatement.executeUpdate()!=1){
 										conn.rollback();
+										throw new SQLException("Error adding a event");
 									}
+									hasImg = true;
 								}
 
 							}
+							if(img == null && img_ext != null){
+								conn.rollback();
+								throw new DAOException("Error adding a event");
+							}
+							if(img != null && img_ext == null){
+								conn.rollback();
+								throw new DAOException("Error adding a event");
+							}
 							conn.commit();
-							return new Event(resultKeys.getInt(1), title, description, place, start, end, num_assistants, user_id, category, false);
+							return new Event(id, title, description, place, start, end, num_assistants, user_id, category, hasImg);
 						} else {
 							throw new SQLException("Error adding a event");
 						}
