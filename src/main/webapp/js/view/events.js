@@ -48,11 +48,11 @@ function addPopularEvent(event){
     $('#proximos-eventos').append(createEventThumbnail(event));
 }
 
-function addSearch(event,cont){
+function addEventToList(event,cont){
 	if(cont%2==0){
-		$('#main').append(createSearchResultRigth(event));
+		$('#view-container').append(createSearchResultRigth(event));
 	}else{
-		$('#main').append(createSearchResultLeft(event));
+		$('#view-container').append(createSearchResultLeft(event));
 	}
 }
 
@@ -115,18 +115,18 @@ function showSearch(){
     $.getScript('js/dao/events.js', function(){
         searchEvents(text,function (events) {
             vaciarMain();
-            $("#main").append("<div class='row'><div class='col-md-12'>")
+            $("#main").append("<div class='letta-view-event-container'><div class='row'><div id='view-container' class='col-md-12'></div></div></div>")
         	if(events.length<1){
 	            $("#main").append("<h2 class='busqueda-no-encontrada'>No se han encontrado coincidencias con: " + text +"</h2>");
         	}else{
 	            $("#main").append("<h2>Resultados para: " + text +"</h2><br/>");
 	        	var cont=0;
 	            $.each(events, function (key, event) {
-	                addSearch(event,cont);
+	            	addEventToList(event,cont);
 	                cont=cont+1;
 	            });
+	            changeAttendButton()
         	}
-            $("#main").append("</div></div>")
         }, function(){
             alertify.error('Error listando eventos');
         });
@@ -198,13 +198,6 @@ function createSearchResultLeft(event){
 	</div>';
 }
 
-$('#buscar').keypress(function(e) {
-    if (e.keyCode == '13') {
-       e.preventDefault();
-       showSearch();
-     }
-  });
-
 function getCarrouselIndicators(numIndicators){
 	var ret = "";
 	for(var i = 0; i < numIndicators; i++){
@@ -250,4 +243,20 @@ function getCarrouselElements(events){
 		</div>\
 	</div>";
 	return ret;
+}
+
+function initAttendanceEvents(){
+    $.getScript('js/dao/events.js', function(){
+        listAttendanceEvents( function (events) {
+        	var cont=0;
+            $.each(events, function (key, event) {
+                addEventToList(event,cont);
+                cont=cont+1;
+            });
+            changeAttendButton()
+        }, function(){
+            alertify.error('Error listando eventos a los que se asistira');
+        });
+    });
+    
 }

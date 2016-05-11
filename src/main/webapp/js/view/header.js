@@ -8,7 +8,7 @@ function drawHeader(){
 				class='icon-bar'></span> <span class='icon-bar'></span> <span\
 				class='icon-bar'></span>\
 		</button>\
-		<a class='navbar-brand' href='#'>Le<i style='color: green;'>t</i>ta\
+		<a class='navbar-brand' href='index.html'>Le<i style='color: green;'>t</i>ta\
 		</a>\
 	</div>\
 	<div class='collapse navbar-collapse'\
@@ -51,7 +51,7 @@ function drawHeader(){
 					</li>\
 				</ul>\
 			</li>";
-		else divs +="<li><a href='#'><i class='glyphicon glyphicon-user'></i>&nbsp;&nbsp;" + user + "</a></li>\
+		else divs +="<li><a href='futureAttendEvents.html'><i class='glyphicon glyphicon-user'></i>&nbsp;&nbsp;" + user + "</a></li>\
 				<li><a href='logout'><i class='glyphicon glyphicon-log-out'></i>&nbsp;&nbsp;Cerrar sesión</a></li>";
 		divs+="</ul>\
 	</div>\
@@ -82,4 +82,13 @@ function getCookie(name) {
     var parts = value.split("; " + name + "=");
     if (parts.length == 2) return parts.pop().split(";").shift();
     else return "";
+}
+
+function drawListeners(){
+    $('#buscar').keypress(function(e) {
+        if (e.keyCode == '13') {
+           e.preventDefault();
+           showSearch();
+         }
+      });
 }

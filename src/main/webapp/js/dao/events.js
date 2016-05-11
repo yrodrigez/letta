@@ -143,3 +143,17 @@ function listFeaturedEvents(done, fail, always) {
         .fail(fail)
         .always(always);
 }
+
+function listAttendanceEvents(done,fail,always){
+	done = typeof done !== 'undefined' ? done : function() {};
+    fail = typeof fail !== 'undefined' ? fail : function() {};
+    always = typeof always !== 'undefined' ? always : function() {};
+
+    $.ajax({
+            url: 'rest/events?type=attend',
+            type: 'GET'
+        })
+        .done(done)
+        .fail(fail)
+        .always(always);
+}
