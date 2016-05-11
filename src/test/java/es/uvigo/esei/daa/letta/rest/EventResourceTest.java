@@ -415,16 +415,13 @@ public class EventResourceTest extends JerseyTest{
 	}
 
 	@Test
-	public void testListAssistEventsLoggedIn() throws ParseException{
-		final Response response = target("events").queryParam("type", "assist")
+	public void testListAssistEventsLoggedIn() throws ParseException {
+		final Response response = target("events").queryParam("type", "attend")
 				.request()
-				.cookie("token", getToken("user5","55555555555555555555555555555555"))
+				.cookie("token", getToken("user5", "55555555555555555555555555555555"))
 				.get();
-		assertThat(response, hasOkStatus());
-	@Test
-	@ExpectedDatabase(value = "/datasets/event/attend.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-	public void testEventAttend() throws ParseException {
 
+		assertThat(response, hasOkStatus());
 
 		final List<Event> events = response.readEntity(new GenericType<List<Event>>(){});
 
@@ -432,12 +429,18 @@ public class EventResourceTest extends JerseyTest{
 	}
 
 	@Test
-	public void testListAssistEventsNotLoggedIn() throws ParseException{
-		final Response response = target("events").queryParam("type", "assist")
+	public void testListAssistEventsNotLoggedIn() throws ParseException {
+		final Response response = target("events").queryParam("type", "attend")
 				.request()
 				.get();
+
 		assertThat(response, hasHttpStatus(401));
 	}
+
+	@Test
+	@ExpectedDatabase(value = "/datasets/event/attend.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+	public void testEventAttend() throws ParseException {
+
 		final Form form= new Form();
 		form.param("id", Integer.toString(getExistentId()));
 
