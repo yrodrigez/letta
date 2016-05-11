@@ -19,7 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
 @Path("/events")
 @Produces(MediaType.APPLICATION_JSON)
 public class EventResource {
@@ -166,6 +165,8 @@ public class EventResource {
                     new Date(start),
                     new Date(end),
                     Categories.valueOf(category),
+                    null,
+                    null,
                     request
             );
 
