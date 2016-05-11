@@ -1,11 +1,26 @@
-function daoassist(id, done, fail, always) {
+function daoAttend(id, done, fail, always) {
     done = typeof done !== 'undefined' ? done : function() {};
     fail = typeof fail !== 'undefined' ? fail : function() {};
     always = typeof always !== 'undefined' ? always : function() {};
 
     $.ajax({
-            url: 'rest/events/assist/' + id,
-            type: 'POST'
+            url: 'rest/events/attend',
+            type: 'POST',
+            data: {'id': id}
+        })
+        .done(done)
+        .fail(fail)
+        .always(always);
+}
+
+function getAttendance(done, fail, always) {
+    done = typeof done !== 'undefined' ? done : function() {};
+    fail = typeof fail !== 'undefined' ? fail : function() {};
+    always = typeof always !== 'undefined' ? always : function() {};
+
+    $.ajax({
+            url: 'rest/events/attendance',
+            type: 'GET'
         })
         .done(done)
         .fail(fail)

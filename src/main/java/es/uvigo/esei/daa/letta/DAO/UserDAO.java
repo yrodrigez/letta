@@ -18,7 +18,7 @@ public class UserDAO extends DAO<User> {
 			throw new NullPointerException("Login can't be null");
 		if(password == null)
 			throw new NullPointerException("Password can't be null");
-		if(	login.length() > 20 || login == "")
+		if(	login.length() > 20 || login.equals(""))
 			throw new IllegalArgumentException("Login length must be between 1 and 20 characters");
 		if(password.length() != 32)
 			throw new IllegalArgumentException("Password must be 32 characters long");

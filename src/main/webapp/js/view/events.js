@@ -1,4 +1,3 @@
-
 function createEventThumbnail(event){
     var asistencia = asistenciaPorcentaje(event);
     var img_path = "img/"+event.category+".png";
@@ -30,7 +29,15 @@ function createButtonVerMas(id) {
 }
 
 function createButtonAsistir(id) {
-    return '<a onclick="assist('+ id +')" class="btn btn-primary" role="button">Asistir</a>';
+    return '<a id="event-' +id+ '" onclick="attend('+ id +')" class="btn btn-primary" role="button">Asistir</a>';
+}
+
+function changeAttendButton() {
+    getAttendance(function (events) {
+        $.each(events, function (key, event) {
+            $("#event-"+event.id).text("Asistiendo").removeClass("btn-primary").addClass("btn-info");
+        });
+    });
 }
 
 function asistenciaPorcentaje(event){
@@ -57,12 +64,13 @@ function vaciarMain() {
     document.getElementById("main").innerHTML="";
 }
 
-function assist( id ) {
-    daoassist(id, function () {
-        alertify.success("Te acabas de registrar en: "+ id +"...")
+function attend(id ) {
+    daoAttend(id, function () {
+        alertify.success("Te acabas de registrar en: "+ id +"...");
+        changeAttendButton();
     }, function () {
-        alertify.error("Error creando asistencia...")
-    })
+        alertify.error("Error creando asistencia...");
+    });
 }
 
 function showEventDetails(id) {
@@ -91,7 +99,7 @@ function showEventDetails(id) {
                                 "</div>"+
                             "</div>"+
                         "</p>"+
-                        "<div class='text-right letta-view-event-assist-button'>"+createButtonAsistir(event.id)+"</div>"+
+                        "<div class='text-right letta-view-event-attend-button'>"+createButtonAsistir(event.id)+"</div>"+
                     "</div>"+
                 "</div>"+
             "</div>"
@@ -131,12 +139,12 @@ function initEvents(){
             $.each(events, function (key, event) {
                 addPopularEvent(event);
             });
+            changeAttendButton();
         }, function(){
             alertify.error('Error listando eventos populares');
         });
     });
     fillCarrousel();
-    
 }
 
 function fillCarrousel(){
