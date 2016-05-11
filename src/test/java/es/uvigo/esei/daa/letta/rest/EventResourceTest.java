@@ -1,6 +1,7 @@
 package es.uvigo.esei.daa.letta.rest;
 
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.events;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.assist;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.featured;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentCategory;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentEvent;
@@ -410,6 +411,26 @@ public class EventResourceTest extends JerseyTest{
 		assertThat(response, hasBadRequestStatus());
 	}
 
+	@Test
+	public void testListAssistEventsLoggedIn() throws ParseException{
+		final Response response = target("events").queryParam("type", "assist")
+				.request()
+				.cookie("token", getToken("user5","55555555555555555555555555555555"))
+				.get();
+		assertThat(response, hasOkStatus());
 
+		
+		final List<Event> events = response.readEntity(new GenericType<List<Event>>(){});
+		
+		assertThat(events, containsEventsInAnyOrder(assist()));
+	}
+	
+	@Test
+	public void testListAssistEventsNotLoggedIn() throws ParseException{
+		final Response response = target("events").queryParam("type", "assist")
+				.request()
+				.get();
+		assertThat(response, hasHttpStatus(401));
+	}
 
 }
