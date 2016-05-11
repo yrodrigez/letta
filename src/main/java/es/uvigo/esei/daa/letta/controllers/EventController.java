@@ -8,6 +8,7 @@ import es.uvigo.esei.daa.letta.DAO.EventDAO;
 import es.uvigo.esei.daa.letta.entities.Event;
 import es.uvigo.esei.daa.letta.entities.Event.Categories;
 import es.uvigo.esei.daa.letta.entities.Image;
+import es.uvigo.esei.daa.letta.entities.Image.ExtensionTypes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -75,10 +76,10 @@ public class EventController implements Controller<Event>{
 
 	
 	public Event add(String title, String description, String place, int num_assistants,
-		Date start, Date end, Categories category, HttpServletRequest request)
+		Date start, Date end, Categories category, byte[] img, ExtensionTypes img_ext, HttpServletRequest request)
 	throws DAOException, NotLoggedInException{
 		String user_id = getUser(request);
-		return this.dao.add(title, description, place, num_assistants, start, end, user_id, category);
+		return this.dao.add(title, description, place, num_assistants, start, end, user_id, category,img,img_ext);
 	}
 
 

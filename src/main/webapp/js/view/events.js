@@ -3,7 +3,9 @@ function createEventThumbnail(event){
     var img_path = "img/"+event.category+".png";
     if(event.image)
     	img_path = 'rest/events/'+event.id+'/image';
-    return '<div class="col-sm-6 col-md-4">\
+        
+
+    return'<div class="col-sm-6 col-md-4">\
         <div class="letta-event-thumbnail thumbnail">\
            <div class="letta-thumbnail-buttons-container">\
            <div class="overlay">\

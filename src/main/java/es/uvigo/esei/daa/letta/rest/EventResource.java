@@ -28,6 +28,17 @@ import es.uvigo.esei.daa.letta.entities.Event;
 import es.uvigo.esei.daa.letta.entities.Event.Categories;
 import es.uvigo.esei.daa.letta.entities.Image;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 @Path("/events")
 @Produces(MediaType.APPLICATION_JSON)
@@ -182,6 +193,7 @@ public class EventResource {
 
 
     @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response add(
             @FormParam("title") String title,
             @FormParam("description") String description,
@@ -190,6 +202,7 @@ public class EventResource {
             @FormParam("start") long start,
             @FormParam("end") long end,
             @FormParam("category") String category,
+            @FormParam("img") File img,
             @Context HttpServletRequest request
 
     ) {
@@ -202,8 +215,9 @@ public class EventResource {
                     new Date(start),
                     new Date(end),
                     Categories.valueOf(category),
+                    null,
+                    null,
                     request
-                    
             );
 
             return Response.ok(event).build();
