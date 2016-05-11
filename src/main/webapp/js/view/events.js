@@ -117,9 +117,9 @@ function showSearch(){
             vaciarMain();
             $("#main").append("<div class='letta-view-event-container'><div class='row'><div id='view-container' class='col-md-12'></div></div></div>")
         	if(events.length<1){
-	            $("#main").append("<h2 class='busqueda-no-encontrada'>No se han encontrado coincidencias con: " + text +"</h2>");
+	            $("#main").append("<h2 class='busqueda'>No se han encontrado coincidencias con: " + text +"</h2>");
         	}else{
-	            $("#main").append("<h2>Resultados para: " + text +"</h2><br/>");
+	            $("#main").append("<h2 class='busqueda'>Resultados para: " + text +"</h2><br/>");
 	        	var cont=0;
 	            $.each(events, function (key, event) {
 	            	addEventToList(event,cont);
