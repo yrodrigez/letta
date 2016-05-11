@@ -1,23 +1,20 @@
 package es.uvigo.esei.daa.letta.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import es.uvigo.esei.daa.letta.entities.Image.ExtensionTypes;
 import es.uvigo.esei.daa.letta.entities.Event;
 import es.uvigo.esei.daa.letta.entities.Event.Categories;
+
 
 public class EventDAO extends DAO<Event> {
 	private final static Logger LOG = Logger.getLogger(EventDAO.class.getName());
 	
-	public Event add(String title, String description, String place, int num_assistants, Date start, Date end, String user_id, Categories category)
+	public Event add(String title, String description, String place, int num_assistants, Date start, Date end, String user_id, Categories category, byte[] img, ExtensionTypes img_ext)
 	throws DAOException, IllegalArgumentException {
 		if (title == null || description == null ||
 				place == null || num_assistants < 1 ||
@@ -29,6 +26,7 @@ public class EventDAO extends DAO<Event> {
 		}
 		
 		try (Connection conn = this.getConnection()) {
+			conn.setAutoCommit(false);
 			final String query = "INSERT INTO event VALUES(null, ?, ?, ?, ?, ?, ?, ?, null, null, ?)";
 			
 			try (PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -44,14 +42,33 @@ public class EventDAO extends DAO<Event> {
 				if (statement.executeUpdate() == 1) {
 					try (ResultSet resultKeys = statement.getGeneratedKeys()) {
 						if (resultKeys.next()) {
+							if(img != null && img_ext != null) {
+
+								final String imgQuery = "UPDATE event SET img = ?, img_ext=? WHERE id=?";
+
+								try(PreparedStatement imgStatement = conn.prepareStatement(imgQuery)){
+									Blob imgBlob = conn.createBlob();
+									imgBlob.setBytes(1,img);
+									imgStatement.setBlob(1,imgBlob);
+									imgStatement.setString(2,img_ext.toString());
+									imgStatement.setInt(3, resultKeys.getInt(1));
+									if(statement.executeUpdate()!=1){
+										conn.rollback();
+									}
+								}
+
+							}
+							conn.commit();
 							return new Event(resultKeys.getInt(1), title, description, place, start, end, num_assistants, user_id, category, false);
 						} else {
 							throw new SQLException("Error adding a event");
 						}
 					}
+
 				} else {
 					throw new SQLException("Error inserting value");
 				}
+
 			}
 		} catch (SQLException e) {
 			LOG.log(Level.SEVERE, "Error adding an entity", e);
