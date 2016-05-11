@@ -82,10 +82,10 @@ public class EventController implements Controller<Event>{
 	}
 
 
-	public void assist(String id, HttpServletRequest request) throws DAOException, NotLoggedInException {
+	public void assist(int id, HttpServletRequest request) throws DAOException, NotLoggedInException {
 		String user = getUser(request);
 
-		this.dao.assist(id, user);
+		this.dao.attend(id, user);
 	}
 	public List<Event> getAssistEvents(HttpServletRequest request) throws DAOException, NotLoggedInException {
 		String assist = getUser(request);

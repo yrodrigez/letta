@@ -2,9 +2,11 @@ package es.uvigo.esei.daa.letta.rest;
 
 import java.io.ByteArrayInputStream;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -43,11 +45,40 @@ public class EventResource {
         this.eventsController = controller;
     }
 
+
+    @GET
+    @Path("/attendance/")
+    public Response getAttendance(
+            @Context HttpServletRequest request
+    ) {
+        try {
+            final List<Event> events = this.eventsController.getAssistEvents(request);
+
+            return Response.ok(events).build();
+        } catch (IllegalArgumentException | NullPointerException ex){
+            LOG.log(Level.FINE, "Invalid user login in get method", ex);
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(ex.getMessage())
+                    .build();
+        } catch (DAOException e) {
+            LOG.log(Level.SEVERE, "Error getting a person", e);
+            return Response.serverError()
+                    .entity(e.getMessage())
+                    .build();
+        } catch (NotLoggedInException nle) {
+            LOG.log(Level.WARNING, "NOT LOGGED IN!", nle);
+            return Response.serverError()
+                    .entity(nle.getMessage())
+                    .build();
+        }
+
+    }
+
     @POST
-    @Path("/assist/{eventId}")
-    public Response assist(
+    @Path("/attend/")
+    public Response attend(
             @Context HttpServletRequest request,
-            @PathParam("eventId") String eventId
+            @FormParam ("id") int eventId
     ) {
         try {
             this.eventsController.assist(eventId, request);
@@ -59,13 +90,13 @@ public class EventResource {
                     .entity(ex.getMessage())
                     .build();
         } catch (DAOException e) {
-            LOG.log(Level.SEVERE, "Error creating an assist", e);
-            return Response.serverError()
+            LOG.log(Level.SEVERE, "Not found that event", e);
+            return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage())
                     .build();
         } catch (NotLoggedInException nle){
             LOG.log(Level.WARNING, "NOT LOGGED IN!", nle);
-            return Response.serverError()
+            return Response.status(Response.Status.UNAUTHORIZED)
                     .entity(nle.getMessage())
                     .build();
         }
@@ -131,7 +162,7 @@ public class EventResource {
                     return Response.ok(this.eventsController.getFeatured()).build();
                 else if(type.equals("popular"))
                     return Response.ok(this.eventsController.getPopular()).build();
-                else if(type.equals("assist"))
+                else if(type.equals("attend"))
                     return Response.ok(this.eventsController.getAssistEvents(request)).build();
                 else
                     return Response.status(400).build();

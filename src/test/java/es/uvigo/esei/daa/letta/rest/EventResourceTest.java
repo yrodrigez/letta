@@ -35,6 +35,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
@@ -389,6 +390,7 @@ public class EventResourceTest extends JerseyTest{
 		final Response response = target("events")
 				.request()
 				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+
 		assertThat(response, hasHttpStatus(401));
 	}
 
@@ -407,9 +409,67 @@ public class EventResourceTest extends JerseyTest{
 		final Response response = target("events")
 				.request()
 				.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+
 		assertThat(response, hasBadRequestStatus());
 	}
 
+	@Test
+	@ExpectedDatabase(value = "/datasets/event/attend.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+	public void testEventAttend() throws ParseException {
 
+		final Form form= new Form();
+		form.param("id", Integer.toString(getExistentId()));
+
+		final Response response = target("events/attend")
+				.request()
+				.cookie("token", getToken("user5","55555555555555555555555555555555"))
+				.post(entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+
+		assertThat(response, hasOkStatus());
+	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAttendNotLogedInAndUnauthorizedStatus() throws ParseException {
+
+		final Form form= new Form();
+		form.param("id", Integer.toString(getExistentId()));
+
+		final Response response = target("events/attend")
+				.request()
+				.post(entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+
+		assertThat(response, hasHttpStatus(401));
+	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAttendAndNotFoundStatus() throws ParseException {
+
+		final Form form= new Form();
+		form.param("id", Integer.toString(getNonExistentId()));
+
+		final Response response = target("events/attend")
+				.request()
+				.cookie("token", getToken("user5","55555555555555555555555555555555"))
+				.post(entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+
+		assertThat(response, hasHttpStatus(404));
+	}
+
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAttendNotAValidUserAndUnathorizedStatus() throws ParseException {
+
+		final Form form= new Form();
+		form.param("id", Integer.toString(getNonExistentId()));
+
+		final Response response = target("events/attend")
+				.request()
+				.cookie("token", getToken("NotAvalidUserId","NotAValidPasswurd"))
+				.post(entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+
+		assertThat(response, hasHttpStatus(401));
+	}
 
 }

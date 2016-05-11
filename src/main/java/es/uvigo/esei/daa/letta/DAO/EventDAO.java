@@ -189,9 +189,9 @@ public class EventDAO extends DAO<Event> {
 
 }
 
-	public void assist(String id, String user) throws DAOException {
+	public void attend(int eventId, String userId) throws DAOException {
 
-		if (id == null || user == null) {
+		if (eventId < 0 || userId == null) {
 			throw new IllegalArgumentException("the arguments are wrong");
 		}
 
@@ -199,13 +199,13 @@ public class EventDAO extends DAO<Event> {
 			final String query = "INSERT INTO assists VALUES(?, ?)";
 
 			try (PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-				statement.setString(1, user);
-				statement.setInt(2, Integer.parseInt(id));
+				statement.setString(1, userId);
+				statement.setInt(2, eventId);
 
-				if (statement.executeUpdate() != 1) throw new SQLException("Error creating an assist");
+				if (statement.executeUpdate() != 1) throw new SQLException("Error creating an attend");
 			}
 		} catch (SQLException e) {
-			LOG.log(Level.SEVERE, "Error creating an assist", e);
+			LOG.log(Level.SEVERE, "Error creating an attend", e);
 			throw new DAOException(e);
 		}
 
