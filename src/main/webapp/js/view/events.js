@@ -260,3 +260,28 @@ function initAttendanceEvents(){
     });
     
 }
+function createEvent (){
+
+    document.getElementById('file').addEventListener('change', handleFileSelect, false);
+
+
+
+    $.getScript('js/dao/events.js', function(){
+        addEvent(eventtext,function () {
+
+        }, function(){
+            alertify.error('Error creando evento');
+        });
+    });
+
+
+}
+
+function formToEvent() {
+    var form = $(ne);
+    return {
+        'id': form.find('input[name="id"]').val(),
+        'name': form.find('input[name="name"]').val(),
+        'surname': form.find('input[name="surname"]').val()
+    };
+}

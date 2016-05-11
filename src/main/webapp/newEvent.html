@@ -63,86 +63,89 @@
     <link href="css/listarbusqueda.css" rel="stylesheet">
 
 </head>
-<body>
+<form>
     <nav id="header" class="navbar navbar-inverse letta-navbar">
     </nav>
 
-    <div class="eventForm">
-        <div class="form-horizontal">
-            <div class="row  form-group">
-                <label  class="control-label col-xs-4">Título:</label>
-                <div class="col-xs-6">
-                    <input type="title" class="form-control" placeholder="Título">
-                    <span class="help-block">Título del evento.</span>
+    <form id="newevent" action="rest/events" method="post">
+        <div class="eventForm">
+            <div class="form-horizontal">
+                <div class="row  form-group">
+                    <label  class="control-label col-xs-4">Título:</label>
+                    <div class="col-xs-6">
+                        <input id="title" type="title" class="form-control" placeholder="Título">
+                        <span class="help-block">Título del evento.</span>
+                    </div>
                 </div>
-            </div>
-            <div class="row form-group">
-                <label   class="control-label col-xs-4">Lugar:</label>
-                <div class="col-xs-6">
-                    <input id="place" type="text" class="form-control" placeholder="Lugar">
-                    <span class="help-block">Lugar y dirección en la que se celebrará.</span>
+                <div class="row form-group">
+                    <label   class="control-label col-xs-4">Lugar:</label>
+                    <div class="col-xs-6">
+                        <input id="place" type="text" class="form-control" placeholder="Lugar">
+                        <span class="help-block">Lugar y dirección en la que se celebrará.</span>
+                    </div>
                 </div>
-            </div>
-            <div class="row form-group">
-                <label   class="control-label col-xs-4">Número máximo de asistentes:</label>
-                <div class="col-xs-6">
-                    <input id="num_assistants" type="number" class="form-control" placeholder="Número máximo de asistentes">
-                    <span class="help-block">Número máximo de peersonas que e pueden asistir.</span>
+                <div class="row form-group">
+                    <label   class="control-label col-xs-4">Número máximo de asistentes:</label>
+                    <div class="col-xs-6">
+                        <input id="num_assistants" type="number" class="form-control" placeholder="Número máximo de asistentes">
+                        <span class="help-block">Número máximo de peersonas que e pueden asistir.</span>
+                    </div>
                 </div>
-            </div>
-            <div class="row form-group">
-                <label   class="control-label col-xs-4">Inicio del evento:</label>
-                <div class="col-xs-6">
-                    <input id="start" type="datetime-local" class="form-control" placeholder="Inicio del evento">
+                <div class="row form-group">
+                    <label   class="control-label col-xs-4">Inicio del evento:</label>
+                    <div class="col-xs-6">
+                        <input id="start" type="datetime-local" class="form-control" placeholder="Inicio del evento">
 
-                    <span class="help-block">Fecha y hora de la celebración del evento.</span>
+                        <span class="help-block">Fecha y hora de la celebración del evento.</span>
+                    </div>
                 </div>
-            </div>
-            <div class="row form-group">
-                <label   class="control-label col-xs-4">Final del evento:</label>
-                <div class="col-xs-6">
-                    <input id="end" type="datetime-local" class="form-control" placeholder="Final del evento">
+                <div class="row form-group">
+                    <label   class="control-label col-xs-4">Final del evento:</label>
+                    <div class="col-xs-6">
+                        <input id="end" type="datetime-local" class="form-control" placeholder="Final del evento">
 
-                    <span class="help-block">Fecha y hora hasta la que se celebrará el evento.</span>
+                        <span class="help-block">Fecha y hora hasta la que se celebrará el evento.</span>
+                    </div>
                 </div>
-            </div>
-            <div class="row form-group">
-                <label   class="control-label col-xs-4">Imagen del evento:</label>
-                <div class="col-xs-6">
-                    <input  id="file" type="file"  >
+                <div class="row form-group">
+                    <label   class="control-label col-xs-4">Imagen del evento:</label>
+                    <div class="col-xs-6">
+                        <input  id="file" type="file"  >
+
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label  class="control-label col-xs-4">Inicio del evento:</label>
+                    <select  id="category" class="  col-xs-5 form-group">
+                        <option value="" disabled selected>Categoría:</option>
+                        <option value="literature" >Literatura</option>
+                        <option value="films" >Películas</option>
+                        <option value="sports" >Deportes</option>
+                        <option value="videogames" >Juegos</option>
+                        <option value="programming" >Programación</option>
+                        <option value="others" >Otros...</option>
+                    </select>
 
                 </div>
-            </div>
-            <div class="row form-group">
-                <label  class="control-label col-xs-4">Inicio del evento:</label>
-                <select  id="category" class="  col-xs-5 form-group">
-                    <option value="" disabled selected>Categoría:</option>
-                    <option value="literature" >Literatura</option>
-                    <option value="films" >Películas</option>
-                    <option value="sports" >Deportes</option>
-                    <option value="videogames" >Juegos</option>
-                    <option value="programming" >Programación</option>
-                    <option value="others" >Otros...</option>
-                </select>
+                <div class="row form-group">
+                    <label  class="control-label col-xs-4">Descripción del evento:</label>
+                    <div class="col-xs-6">
 
-            </div>
-            <div class="row form-group">
-                <label  class="control-label col-xs-4">Descripción del evento:</label>
-                <div class="col-xs-6">
+                        <textarea  id="description" rows="5" class="form-control" placeholder="Descripción del evento"></textarea>
 
-                    <textarea  id="description" rows="5" class="form-control" placeholder="Descripción del evento"></textarea>
-
-                    <span class="help-block">Un bloque de texto de ayuda.</span>
+                        <span class="help-block">Un bloque de texto de ayuda.</span>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col-xs-offset-4 col-xs-4">
-                    <button type="button" onclick="" class="btn btn-primary">Enviar</button>
+                <input type="hidden" id="img">
+                <input type="hidden" id="img_ext">
+                <div class="row form-group">
+                    <div class="col-xs-offset-4 col-xs-4">
+                        <button type="button" onclick="createEvent()" class="btn btn-primary">Enviar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
 </body>
 

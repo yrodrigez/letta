@@ -23,13 +23,15 @@ function handleFileSelect(evt) {
         reader.onload = function(e) {
             alert(arrayBufferToBase64(reader.result));
 
-            document.getElementById('base64').innerHTML = arrayBufferToBase64(reader.result);
+            document.getElementById('img').innerHTML = arrayBufferToBase64(reader.result);
+            var arr = f.split(".");
+            document.getElementById('img_ext').innerHTML = arr[arr.length-1] ;
         };
 
         reader.readAsArrayBuffer(f);
     }
 }
 
-document.getElementById('file').addEventListener('change', handleFileSelect, false); 
+
 
   
