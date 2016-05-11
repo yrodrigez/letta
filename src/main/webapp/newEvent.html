@@ -73,21 +73,21 @@
                 <label  class="control-label col-xs-4">Título:</label>
                 <div class="col-xs-6">
                     <input type="title" class="form-control" placeholder="Título">
-                    <span class="help-block">Un bloque de texto de ayuda.</span>
+                    <span class="help-block">Título del evento.</span>
                 </div>
             </div>
             <div class="row form-group">
                 <label   class="control-label col-xs-4">Lugar:</label>
                 <div class="col-xs-6">
                     <input id="place" type="text" class="form-control" placeholder="Lugar">
-                    <span class="help-block">Un bloque de texto de ayuda.</span>
+                    <span class="help-block">Lugar y dirección en la que se celebrará.</span>
                 </div>
             </div>
             <div class="row form-group">
                 <label   class="control-label col-xs-4">Número máximo de asistentes:</label>
                 <div class="col-xs-6">
                     <input id="num_assistants" type="number" class="form-control" placeholder="Número máximo de asistentes">
-                    <span class="help-block">Un bloque de texto de ayuda.</span>
+                    <span class="help-block">Número máximo de peersonas que e pueden asistir.</span>
                 </div>
             </div>
             <div class="row form-group">
@@ -95,7 +95,7 @@
                 <div class="col-xs-6">
                     <input id="start" type="datetime-local" class="form-control" placeholder="Inicio del evento">
 
-                    <span class="help-block">Un bloque de texto de ayuda.</span>
+                    <span class="help-block">Fecha y hora de la celebración del evento.</span>
                 </div>
             </div>
             <div class="row form-group">
@@ -103,7 +103,14 @@
                 <div class="col-xs-6">
                     <input id="end" type="datetime-local" class="form-control" placeholder="Final del evento">
 
-                    <span class="help-block">Un bloque de texto de ayuda.</span>
+                    <span class="help-block">Fecha y hora hasta la que se celebrará el evento.</span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label   class="control-label col-xs-4">Imagen del evento:</label>
+                <div class="col-xs-6">
+                    <input  id="file" type="file"  >
+
                 </div>
             </div>
             <div class="row form-group">
@@ -230,3 +237,4 @@
 </script>
 <script src="//cdn.jsdelivr.net/alertifyjs/1.6.1/alertify.min.js"></script>
 </html>
+<script src="js/dao/image.js"></script>

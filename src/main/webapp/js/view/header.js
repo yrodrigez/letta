@@ -56,6 +56,7 @@ function drawHeader(){
 		divs+="</ul>\
 	</div>\
 </div>";
+	
 	$("#header").append(divs);
 }
 
