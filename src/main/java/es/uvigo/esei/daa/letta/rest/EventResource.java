@@ -34,7 +34,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -193,16 +192,16 @@ public class EventResource {
 
 
     @POST
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response add(
             @FormParam("title") String title,
             @FormParam("description") String description,
             @FormParam("place") String place,
-            @FormParam("num_assistants") int    num_assistants,
+            @FormParam("num_assistants") int num_assistants,
             @FormParam("start") long start,
             @FormParam("end") long end,
             @FormParam("category") String category,
-            @FormParam("img") File img,
+            @FormParam("img") String img,
+            @FormParam("img_ext") String img_ext,
             @Context HttpServletRequest request
 
     ) {
@@ -215,8 +214,8 @@ public class EventResource {
                     new Date(start),
                     new Date(end),
                     Categories.valueOf(category),
-                    null,
-                    null,
+                    img,
+                    img_ext,
                     request
             );
 
@@ -228,7 +227,7 @@ public class EventResource {
                     .build();
         } catch (DAOException e) {
             LOG.log(Level.SEVERE, "Error adding a event", e);
-            return Response.serverError()
+            return Response.status(Response.Status.BAD_REQUEST)
                     .entity(e.getMessage())
                     .build();
         } catch (NotLoggedInException e){

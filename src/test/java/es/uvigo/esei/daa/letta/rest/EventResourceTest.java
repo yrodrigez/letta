@@ -1,12 +1,13 @@
 package es.uvigo.esei.daa.letta.rest;
 
-import static es.uvigo.esei.daa.letta.dataset.EventsDataset.events;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.assist;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.events;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.featured;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentCategory;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentEvent;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentId;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentImage;
+import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getExistentImgBase64;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.getNonExistentId;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.popular;
 import static es.uvigo.esei.daa.letta.dataset.EventsDataset.search;
@@ -78,7 +79,8 @@ import es.uvigo.esei.daa.letta.listeners.DbManagementTestExecutionListener;
 )
 @DbManagement(
 	create = "classpath:db/hsqldb.sql",
-	drop = "classpath:db/hsqldb-drop.sql"
+	drop = "classpath:db/hsqldb-drop.sql",
+	afterTest = "classpath:db/hsqldb-after-test.sql"
 )
 @DatabaseSetup("/datasets/dataset.xml")
 @ExpectedDatabase("/datasets/dataset.xml")
@@ -214,6 +216,46 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
 		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
 		formEvent.param("category", String.valueOf(getExistentCategory()));
+		formEvent.param("img", getExistentImgBase64());
+		formEvent.param("img_ext", "png");
+		
+		final Response response = target("events")
+			.request()
+			.cookie("token", getToken("user5","55555555555555555555555555555555"))
+		.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasOkStatus());
+
+		final Event event = response.readEntity(Event.class);
+		System.out.println(event.getId());
+
+		assertThat(event, is(equalsToEvent(new Event(
+				16,
+				"Event16",
+				"Foo description 16",
+				"Ons",
+				formatter.parse("2050-10-08 20:00:00"),
+				formatter.parse("2050-10-08 23:00:00"),
+				18,
+				"user5",
+				getExistentCategory(),
+				true
+		))));
+	}
+	
+	@Test
+	@ExpectedDatabase("/datasets/event/add2.xml")
+	public void testAddNonExistentEventWithoutImage() throws ParseException {
+		
+		final Form formEvent = new Form();
+		formEvent.param("title", "Event16");
+		formEvent.param("description", "Foo description 16");
+		formEvent.param("place", "Ons");
+		formEvent.param("num_assistants", "18");
+		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("category", String.valueOf(getExistentCategory()));
+		formEvent.param("img", null);
+		formEvent.param("img_ext", null);
 		
 		final Response response = target("events")
 			.request()
@@ -236,7 +278,51 @@ public class EventResourceTest extends JerseyTest{
 				false
 		))));
 	}
-
+	
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAddNonExistentEventWithImgWithoutImg_ext() throws ParseException {
+		
+		final Form formEvent = new Form();
+		formEvent.param("title", "Event16");
+		formEvent.param("description", "Foo description 16");
+		formEvent.param("place", "Ons");
+		formEvent.param("num_assistants", "18");
+		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("category", String.valueOf(getExistentCategory()));
+		formEvent.param("img", getExistentImgBase64());
+		formEvent.param("img_ext", null);
+		
+		final Response response = target("events")
+			.request()
+			.cookie("token", getToken("user5","55555555555555555555555555555555"))
+		.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasBadRequestStatus());
+	}
+	
+	@Test
+	@ExpectedDatabase("/datasets/dataset.xml")
+	public void testAddNonExistentEventWithImg_extWithoutImg() throws ParseException {
+		
+		final Form formEvent = new Form();
+		formEvent.param("title", "Event16");
+		formEvent.param("description", "Foo description 16");
+		formEvent.param("place", "Ons");
+		formEvent.param("num_assistants", "18");
+		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("category", String.valueOf(getExistentCategory()));
+		formEvent.param("img", null);
+		formEvent.param("img_ext", "png");
+		
+		final Response response = target("events")
+			.request()
+			.cookie("token", getToken("user5","55555555555555555555555555555555"))
+		.post(entity(formEvent, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+		assertThat(response, hasBadRequestStatus());
+	}
+	
 	private String getToken(String login, String password) {
 		return Base64.getEncoder().encodeToString((login + ":" + password).getBytes());
 	}

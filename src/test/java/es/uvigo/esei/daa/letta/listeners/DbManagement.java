@@ -10,5 +10,7 @@ import java.lang.annotation.Target;
 public @interface DbManagement {
 	public String[] create() default "";
 	public String[] drop() default "";
+	public String[] beforeTest() default "";
+	public String[] afterTest() default "";
 	public DbManagementAction action() default DbManagementAction.CREATE_DROP; 
 }

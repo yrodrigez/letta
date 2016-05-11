@@ -63,43 +63,14 @@
 <body>
 	<nav id="header" class="navbar navbar-inverse letta-navbar">
 	</nav>
-	<div id="main">
-		<div class="letta-main-container container-fluid letta-container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<!-- carousel -->
-					<div class="carousel fade-carousel slide letta-carousel"
-						data-ride="carousel" data-interval="4000" id="bs-carousel">
-						<!-- Overlay -->
-						<div class="overlay"></div>
-
-						<!-- Indicators -->
-						<ol class="carousel-indicators" id="carrouselIndicators">
-						</ol>
-
-						<!-- Wrapper for slides -->
-						<div class="carousel-inner" id="carrouselElements">
-						</div>
+	<div id="main" style="background: #1a221a;">
+			<div class='letta-view-event-container'>
+				<div class='row'>
+					<div id='view-container' class='col-md-12'>
+					
 					</div>
-					<!-- /. carousel -->
 				</div>
 			</div>
-			<div class="col-md-12">
-				<hr class="letta-hr">
-			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h2>Próximos eventos...</h2>
-				</div>
-			</div>
-
-			<!-- thumbnails -->
-			<div id="proximos-eventos" class="row"></div>
-			<!-- /.thumbnails -->
-
-		</div>
 		</div>
 		
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -201,7 +172,7 @@
 	$(document).ready(function() {
 		drawHeader();
 		drawListeners();
-		initEvents();
+		initAttendanceEvents();
 	});
 </script>
 <script src="//cdn.jsdelivr.net/alertifyjs/1.6.1/alertify.min.js"></script>
