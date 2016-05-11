@@ -429,6 +429,23 @@ public class EventsDataset {
 			)
 		};
 	}
+	
+	public static Event[] assist() throws ParseException {
+		return new Event[]{
+			new Event(
+					3,
+					"Event3",
+					"Foo description 3",
+					"Marín",
+					formatter.parse("2050-10-03 20:00:00"),
+					formatter.parse("2050-10-03 23:00:00"),
+					100,
+					"user2",
+					Categories.sports,
+					true
+			)
+		};
+	}
 		
 	
 	public static Image getExistentImage(){
