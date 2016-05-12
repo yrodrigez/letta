@@ -262,13 +262,9 @@ function initAttendanceEvents(){
 }
 function createEvent (){
 
-    document.getElementById('file').addEventListener('change', handleFileSelect, false);
-
-
-
     $.getScript('js/dao/events.js', function(){
-        addEvent(eventtext,function () {
-
+        addEvent(formToEvent(),function () {
+            window.location("/");
         }, function(){
             alertify.error('Error creando evento');
         });
@@ -278,10 +274,55 @@ function createEvent (){
 }
 
 function formToEvent() {
-    var form = $(ne);
     return {
-        'id': form.find('input[name="id"]').val(),
-        'name': form.find('input[name="name"]').val(),
-        'surname': form.find('input[name="surname"]').val()
+        'title': $("#title").val(),
+        'description': $("#description").val(),
+        'place': $("#place").val(),
+        'num_assistants': $("#num_assistants").val(),
+        'start': $("#start").val(),
+        'end': $("#end").val(),
+        'category': $("#category").val(),
+        'img': $("#img").val(),
+        'img_ext': $("#img_ext").val()
+    
     };
+
 }
+
+function getImagedata(){
+
+
+}
+function arrayBufferToBase64( buffer ) {
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
+}
+
+function handleFileSelect(evt) {
+    var f = evt.target.files[0]; // FileList object
+
+    // Only process image files.
+    if (f.type.match('image.*')) {
+
+        var reader = new FileReader();
+
+        // Read in the image file as a data URL.
+        reader.onload = function(e) {
+            // alert(arrayBufferToBase64(reader.result));
+
+            document.getElementById('img').value = arrayBufferToBase64(reader.result);
+            document.getElementById('img_ext').value = f.type.split("/")[1];
+        };
+
+        reader.readAsArrayBuffer(f);
+    }
+}
+
+document.getElementById('file').addEventListener('change', handleFileSelect, false);
+
+document.getElementById("submitEvent").addEventListener("click", createEvent, false);

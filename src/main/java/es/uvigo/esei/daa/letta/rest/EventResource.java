@@ -206,6 +206,7 @@ public class EventResource {
 
     ) {
         try {
+            System.out.println(title + " " + category);
             Event event = this.eventsController.add(
                     title,
                     description,

@@ -63,11 +63,11 @@
     <link href="css/listarbusqueda.css" rel="stylesheet">
 
 </head>
-<form>
+
     <nav id="header" class="navbar navbar-inverse letta-navbar">
     </nav>
 
-    <form id="newevent" action="rest/events" method="post">
+    <form id="newevent"  >
         <div class="eventForm">
             <div class="form-horizontal">
                 <div class="row  form-group">
@@ -140,7 +140,7 @@
                 <input type="hidden" id="img_ext">
                 <div class="row form-group">
                     <div class="col-xs-offset-4 col-xs-4">
-                        <button type="button" onclick="createEvent()" class="btn btn-primary">Enviar</button>
+                        <button type="button" id="submitEvent" class="btn btn-primary">Enviar</button>
                     </div>
                 </div>
             </div>
@@ -239,5 +239,5 @@
     drawHeader();
 </script>
 <script src="//cdn.jsdelivr.net/alertifyjs/1.6.1/alertify.min.js"></script>
+<script src="js/view/events.js"></script>
 </html>
-<script src="js/dao/image.js"></script>
