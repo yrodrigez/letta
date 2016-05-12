@@ -213,8 +213,8 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("description", "Foo description 16");
 		formEvent.param("place", "Ons");
 		formEvent.param("num_assistants", "18");
-		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
-		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("start", "2050-10-08 20:00:00");
+		formEvent.param("end", "2050-10-08 23:00:00");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 		formEvent.param("img", getExistentImgBase64());
 		formEvent.param("img_ext", "png");
@@ -251,8 +251,8 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("description", "Foo description 16");
 		formEvent.param("place", "Ons");
 		formEvent.param("num_assistants", "18");
-		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
-		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("start", "2050-10-08 20:00:00");
+		formEvent.param("end", "2050-10-08 23:00:00");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 		formEvent.param("img", null);
 		formEvent.param("img_ext", null);
@@ -288,8 +288,8 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("description", "Foo description 16");
 		formEvent.param("place", "Ons");
 		formEvent.param("num_assistants", "18");
-		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
-		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("start", "2050-10-08 20:00:00");
+		formEvent.param("end", "2050-10-08 23:00:00");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 		formEvent.param("img", getExistentImgBase64());
 		formEvent.param("img_ext", null);
@@ -310,8 +310,8 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("description", "Foo description 16");
 		formEvent.param("place", "Ons");
 		formEvent.param("num_assistants", "18");
-		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
-		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("start", "2050-10-08 20:00:00");
+		formEvent.param("end", "2050-10-08 23:00:00");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 		formEvent.param("img", null);
 		formEvent.param("img_ext", "png");
@@ -355,8 +355,8 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("description", "Foo description 16");
 		formEvent.param("place", "Ons");
 		formEvent.param("num_assistants", "18");
-		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
-		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("start", "2050-10-08 20:00:00");
+		formEvent.param("end", "2050-10-08 23:00:00");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
 		final Response response = target("events")
@@ -374,8 +374,8 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("description", null);
 		formEvent.param("place", "Ons");
 		formEvent.param("num_assistants", "18");
-		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
-		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("start", "2050-10-08 20:00:00");
+		formEvent.param("end", "2050-10-08 23:00:00");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
 		final Response response = target("events")
@@ -393,8 +393,8 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("description", "Foo description 16");
 		formEvent.param("place", null);
 		formEvent.param("num_assistants", "18");
-		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
-		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("start", "2050-10-08 20:00:00");
+		formEvent.param("end", "2050-10-08 23:00:00");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
 		final Response response = target("events")
@@ -412,8 +412,8 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("description", "Foo description 16");
 		formEvent.param("place", "Ons");
 		formEvent.param("num_assistants", null);
-		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
-		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("start", "2050-10-08 20:00:00");
+		formEvent.param("end", "2050-10-08 23:00:00");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
 		final Response response = target("events")
@@ -432,7 +432,7 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("place", "Ons");
 		formEvent.param("num_assistants", "18");
 		formEvent.param("start", null);
-		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("end", "2050-10-08 23:00:00");
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
 		final Response response = target("events")
@@ -450,7 +450,7 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("description", "Foo description 16");
 		formEvent.param("place", "Ons");
 		formEvent.param("num_assistants", "18");
-		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
+		formEvent.param("start", "2050-10-08 20:00:00");
 		formEvent.param("end", null);
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
@@ -469,8 +469,8 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("description", "Foo description 16");
 		formEvent.param("place", "Ons");
 		formEvent.param("num_assistants", "18");
-		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
-		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("start", "2050-10-08 20:00:00");
+		formEvent.param("end", "2050-10-08 23:00:00");
 		formEvent.param("user_id", null);
 		formEvent.param("category", String.valueOf(getExistentCategory()));
 
@@ -489,8 +489,8 @@ public class EventResourceTest extends JerseyTest{
 		formEvent.param("description", "Foo description 16");
 		formEvent.param("place", "Ons");
 		formEvent.param("num_assistants", "18");
-		formEvent.param("start", Long.toString(formatter.parse("2050-10-08 20:00:00").getTime()));
-		formEvent.param("end", Long.toString(formatter.parse("2050-10-08 23:00:00").getTime()));
+		formEvent.param("start", "2050-10-08 20:00:00");
+		formEvent.param("end", "2050-10-08 23:00:00");
 		formEvent.param("category", null);
 
 		final Response response = target("events")

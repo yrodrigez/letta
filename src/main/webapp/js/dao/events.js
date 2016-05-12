@@ -79,7 +79,7 @@ function addEvent(event, done, fail, always) {
     $.ajax({
             url: 'rest/events',
             type: 'POST',
-        data: event
+            data: event
     })
         .done(done)
         .fail(fail)

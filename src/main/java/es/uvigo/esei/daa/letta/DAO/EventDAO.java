@@ -58,6 +58,7 @@ public class EventDAO extends DAO<Event> {
 				statement.setDate(6, new java.sql.Date(end.getTime()));
 				statement.setString(7, user_id);
 				statement.setString(8, category.toString());
+				System.out.println(statement.toString());
 				
 				if (statement.executeUpdate() == 1) {
 					try (ResultSet resultKeys = statement.getGeneratedKeys()) {

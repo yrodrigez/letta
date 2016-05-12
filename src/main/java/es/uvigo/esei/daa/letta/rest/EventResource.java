@@ -1,12 +1,13 @@
 package es.uvigo.esei.daa.letta.rest;
 
 import java.io.ByteArrayInputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -27,16 +28,6 @@ import es.uvigo.esei.daa.letta.controllers.NotLoggedInException;
 import es.uvigo.esei.daa.letta.entities.Event;
 import es.uvigo.esei.daa.letta.entities.Event.Categories;
 import es.uvigo.esei.daa.letta.entities.Image;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.io.ByteArrayInputStream;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 @Path("/events")
@@ -197,8 +188,8 @@ public class EventResource {
             @FormParam("description") String description,
             @FormParam("place") String place,
             @FormParam("num_assistants") int num_assistants,
-            @FormParam("start") long start,
-            @FormParam("end") long end,
+            @FormParam("start") String start,
+            @FormParam("end") String end,
             @FormParam("category") String category,
             @FormParam("img") String img,
             @FormParam("img_ext") String img_ext,
@@ -206,14 +197,15 @@ public class EventResource {
 
     ) {
         try {
-            System.out.println(title + " " + category);
+        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        	
             Event event = this.eventsController.add(
                     title,
                     description,
                     place,
                     num_assistants,
-                    new Date(start),
-                    new Date(end),
+                    formatter.parse(start),
+                    formatter.parse(end),
                     Categories.valueOf(category),
                     img,
                     img_ext,
@@ -221,7 +213,7 @@ public class EventResource {
             );
 
             return Response.ok(event).build();
-        } catch (IllegalArgumentException | NullPointerException ex) {
+        } catch (IllegalArgumentException | NullPointerException | ParseException ex ) {
             LOG.log(Level.SEVERE, "Error adding a event", ex);
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(ex.getMessage())
